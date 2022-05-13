@@ -1,0 +1,8 @@
+(fp_lib_table
+  (lib (name DL_Button_Switch_Horizontal_THT)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Button_Switch_Horizontal_THT.pretty")(options "")(descr ""))
+  (lib (name DL_Button_Switch_Vertical_THT)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Button_Switch_Vertical_THT.pretty")(options "")(descr ""))
+  (lib (name DL_Ina226aidgsr_Power_SMD)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Ina226aidgsr_Power_SMD.pretty")(options "")(descr ""))
+  (lib (name DL_Usb_TypeA_Receptacle_THT)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Usb_TypeA_Receptacle_THT.pretty")(options "")(descr ""))
+  (lib (name DL_Usb_TypeC_Recepatcle_SMD)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Usb_TypeC_Recepatcle_SMD.pretty")(options "")(descr ""))
+  (lib (name Zhbi_Mounting_Holes)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/zhbi98_lib/modules/Zhbi_Mounting_Holes.pretty")(options "")(descr ""))
+)
