@@ -1,60 +1,76 @@
+ï»¿
 #ifndef __INA226_H__
 #define __INA226_H__
 
 #include "ina226_i2c.h"
 
+#define MODE_INA226      0x4327 // 0x4127
+#define CFG_REG          0x00   // é…ç½®å¯„å­˜å™¨
+#define SV_REG           0x01   // åˆ†æµç”µå‹
+#define BV_REG           0x02   // æ€»çº¿ç”µå‹
+#define PWR_REG          0x03   // ç”µæºåŠŸç‡
+#define CUR_REG          0x04   // ç”µæµ
+#define CAL_REG          0x05   // æ ¡å‡†ï¼Œè®¾å®šæ»¡é‡ç¨‹èŒƒå›´ä»¥åŠç”µæµå’ŒåŠŸç‡æµ‹æ•°çš„ 
+#define ONFF_REG         0x06   // å±è”½ ä½¿èƒ½ è­¦æŠ¥é…ç½®å’Œè½¬æ¢å‡†å¤‡å°±ç»ª
+#define AL_REG           0x07   // åŒ…å«ä¸æ‰€é€‰è­¦æŠ¥åŠŸèƒ½ç›¸æ¯”è¾ƒçš„é™å®šå€¼
+#define INA226_GET_ADDR  0xff   // åŒ…å«å”¯ä¸€çš„èŠ¯ç‰‡æ ‡è¯†å· 0x2260
+#define INA226_GET_MID   0xfe   // åŒ…å«å”¯ä¸€çš„å·¥å‚åˆ¶é€ è¯†åˆ«å· 0x5449
+#define INA226_ADDR1     0x80
+#define INA226_GETALADDR 0x14
 
-#define MODE_INA226 0X4327//0x4127
+// å®šä¹‰é…ç½®æ•°æ®
+#define VOLTAGE_LSB      1.25f  // æ€»çº¿ç”µå‹ LSB 1.25mV
+#define INA226_VAL_LSB   2.5f   // åˆ†æµç”µå‹ LSB 2.5uV
+#define CURRENT_LSB      1.0f   // ç”µæµ LSB 1mA
+#define POWER_LSB        (25 * CURRENT_LSB)
+#define CAL              2560   // 0.00512 / (Current_LSB * R_SHUNT) = 512 // ç”µæµåå¤§æ”¹å°
 
-#define 	CFG_REG	 		0X00		//
-#define 	SV_REG 			0X01		//·ÖÁ÷µçÑ¹
-#define 	BV_REG 			0X02		//×ÜÏßµçÑ¹
-#define 	PWR_REG 		0X03		//µçÔ´¹¦ÂÊ
-#define 	CUR_REG 		0X04		//µçÁ÷
-#define 	CAL_REG 		0X05		//Ğ£×¼£¬Éè¶¨ÂúÁ¿³Ì·¶Î§ÒÔ¼°µçÁ÷ºÍ¹¦ÂÊ²âÊıµÄ 
-#define 	ONFF_REG 		0X06		//ÆÁ±Î Ê¹ÄÜ ¾¯±¨ÅäÖÃºÍ×ª»»×¼±¸¾ÍĞ÷
-#define 	AL_REG 			0X07		//°üº¬ÓëËùÑ¡¾¯±¨¹¦ÄÜÏà±È½ÏµÄÏŞ¶¨Öµ
-#define 	INA226_GET_ADDR 0XFF//0x2260		//°üº¬Î¨Ò»µÄĞ¾Æ¬±êÊ¶ºÅ
-#define   	INA226_ADDR1	0x80
-#define     INA226_GETALADDR	0X14
+/**
+ * å› ä¸º Shunt Voltage Register çš„å€¼æœ€å¤§ä¸º 0x7FFF, LSB=2.5uV, FSR = 81.92mVã€‚
+ * åˆå› ä¸ºåˆ†æµç”µé˜»é˜»å€¼ä¸º 0.1 æ¬§ï¼Œæ‰€ä»¥æœ€å¤§ç”µæµä¸º 819.2mAã€‚(æ³¨æ„è¿™ä¸ªé—®é¢˜ï¼Œ
+ * é¿å…åœ¨å®é™…ä½¿ç”¨ä¸­å‡ºç°çš„è¶…é‡ç¨‹æƒ…å†µï¼Œä»¥è‡³å¾—å‡ºé”™è¯¯æµ‹é‡æ•°æ®)
+ * æ‰€ä»¥ Maximum Expected Current çš„å€¼ä¸èƒ½è¶…è¿‡ 819.2mAã€‚
+ */
 
-//¶¨ÒåÅäÖÃÊı¾İ
-#define 	INA226_VAL_LSB	2.5f	//·ÖÁ÷µçÑ¹ LSB 2.5uV
-#define     Voltage_LSB		1.25f   //×ÜÏßµçÑ¹ LSB 1.25mV
-#define     CURRENT_LSB 	1.0f 	//µçÁ÷LSB 1mA
-#define     POWER_LSB       25*CURRENT_LSB
-#define     CAL             1024     //0.00512/(Current_LSB*R_SHUNT) = 512  //µçÁ÷Æ«´ó¸ÄĞ¡
+/**
+ * CAL å€¼è®¡ç®—
+ * å‡è®¾ Current_LSB = 0.02mA, åˆ™ Maximum Expected Current = 655.36mAï¼Œ
+ * æ»¡è¶³ä¸Šè¿°æ¡ä»¶ã€‚
+ * åˆ™ CAL = 0.00512/(0.02*0.1)*1000 = 2560 = 0x0A00
+ * æ‰€ä»¥æœ€åå†™å…¥ Calibration Registerä¸­ çš„æ•°æ®ä¸º 0x0A00
+ */
 
-typedef struct
-{
-    float voltageVal;			//mV
-    float Shunt_voltage;		//uV
-    float Shunt_Current;		//mA
-    float Power_Val;			//¹¦ÂÊ
-    float Power;				//¹¦ÂÊmW
-    uint32_t   ina226_id;
-} INA226;
+typedef struct {
+    float voltageVal;    // mV
+    float Shunt_voltage; // uV
+    float Shunt_Current; // mA
+    float Power_Val;     // åŠŸç‡
+    float Power;         // åŠŸç‡ mW
+    uint32_t ina226_id;
+    uint32_t ina226_mid;
+} INA226_Typedef;
 
-void INA226_SetRegPointer(uint8_t addr,uint8_t reg);
-void INA226_SendData(uint8_t addr,uint8_t reg,uint16_t data);
-uint16_t INA226_ReadData(uint8_t addr);
+extern INA226_Typedef ina226_data;
 
-void     INA226_Get_ID(uint8_t addr);			//»ñÈ¡ id
-uint16_t INA226_GET_CAL_REG(uint8_t addr);		//»ñÈ¡Ğ£×¼Öµ
-uint16_t INA226_GetVoltage( uint8_t addr);		//»ñÈ¡×ÜÏßµçÑ¹×°ÔØÖµ
-int16_t INA226_GetShunt_Current(uint8_t addr);	//»ñÈ¡·ÖÁ÷µçÁ÷×°ÔØÖµ
-int16_t INA226_GetShuntVoltage(uint8_t addr);	//·ÖÁ÷µçÑ¹×°ÔØÖµ
-uint16_t INA226_Get_Power(uint8_t addr);		//»ñÈ¡¹¦ÂÊ×°ÔØÖµ£¬²»Ê¹ÓÃ
+extern void INA226_SetRegPointer(uint8_t addr,uint8_t reg);
+extern void INA226_SendData(uint8_t addr, uint8_t reg, uint16_t data);
+extern uint16_t INA226_ReadData(uint8_t addr);
 
-void INA226_Init(void);
-void GetVoltage(float *Voltage);
-void Get_Shunt_voltage(float *Current);
-void Get_Shunt_Current(float *Current);
-void get_power(void);						////»ñÈ¡¹¦ÂÊ= ×ÜÏßµçÑ¹ * µçÁ÷
+extern void INA226_Get_ID(uint8_t addr);              // è·å– id
+extern void INA226_Get_MID(uint8_t addr);             // è·å– Manufacturer ID
+extern uint16_t INA226_GET_CAL_REG(uint8_t addr);     // è·å–æ ¡å‡†å€¼
+extern uint16_t INA226_GetVoltage( uint8_t addr);     // è·å–æ€»çº¿ç”µå‹è£…è½½å€¼
+extern int16_t INA226_GetShunt_Current(uint8_t addr); // è·å–åˆ†æµç”µæµè£…è½½å€¼
+extern int16_t INA226_GetShuntVoltage(uint8_t addr);  // åˆ†æµç”µå‹è£…è½½å€¼
+extern uint16_t INA226_Get_Power(uint8_t addr);       // è·å–åŠŸç‡è£…è½½å€¼ï¼Œä¸ä½¿ç”¨
 
-uint8_t	INA226_AlertAddr(void);
-void Get_Power(float *Power);
+extern void INA226_Init(void);
+extern void GetVoltage(float * Voltage);
+extern void Get_Shunt_voltage(float * Current);
+extern void Get_Shunt_Current(float * Current);
+extern void get_power(void); // è·å–åŠŸç‡ = æ€»çº¿ç”µå‹ * ç”µæµ
 
-extern INA226 ina226_data;
+extern uint8_t INA226_AlertAddr(void);
+extern void Get_Power(float * Power);
+
 #endif
-

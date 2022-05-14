@@ -190,16 +190,26 @@ int main()
         // sleep_ms(100);
         // usb_fs_send_string("GD32F103 USB FS\n");
 
-        get_power();
-        usb_fs_send_fmt_string("voltageVal:%.2fmV\n", ina226_data.voltageVal);
+        usb_fs_send_fmt_string("Bus Voltage  : %xH", INA226_GetVoltage(INA226_ADDR1));
+        sleep_ms(2000);
+        usb_fs_send_fmt_string("Shunt Voltage: %xH", INA226_GetShuntVoltage(INA226_ADDR1));
+        sleep_ms(2000);
+        usb_fs_send_fmt_string("Current      : %xH", INA226_GetShunt_Current(INA226_ADDR1));
+        sleep_ms(2000);
+        usb_fs_send_fmt_string("Power        : %xH", INA226_Get_Power(INA226_ADDR1));
+        sleep_ms(2000);
+        usb_fs_send_fmt_string("........................");
         sleep_ms(100);
-        usb_fs_send_fmt_string("Shunt_voltage:%.2fuV\n", ina226_data.Shunt_voltage);
-        sleep_ms(100);
-        usb_fs_send_fmt_string("Shunt_Current:%.2fmA\n", ina226_data.Shunt_Current);
-        sleep_ms(100);
-        usb_fs_send_fmt_string("Power1:%.2fmW\n", ina226_data.Power);
-        sleep_ms(100);
-        usb_fs_send_fmt_string("Power2:%.2fmW\n", ina226_data.Power_Val);
+
+        usb_fs_send_fmt_string("Bus Voltage  : %.3f(mV)", INA226_GetVoltage(INA226_ADDR1) * 1.25);
+        sleep_ms(2000);
+        usb_fs_send_fmt_string("Shunt Voltage: %.3f(uV)", INA226_GetShuntVoltage(INA226_ADDR1) * 2.5);
+        sleep_ms(2000);
+        usb_fs_send_fmt_string("Current      : %.3f(mA)", INA226_GetShunt_Current(INA226_ADDR1) * 0.02);
+        sleep_ms(2000);
+        usb_fs_send_fmt_string("Power        : %.3f(mW)", INA226_Get_Power(INA226_ADDR1) * 0.02 * 25.0);
+        sleep_ms(2000);
+        usb_fs_send_fmt_string("========================");
         sleep_ms(100);
     }
 
