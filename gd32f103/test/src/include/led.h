@@ -5,11 +5,11 @@
 #include "gd32f10x.h"
 
 #define LED1_GPIO  GPIOA
-#define LED1_PIN   GPIO_PIN_0
+#define LED1_PIN   GPIO_PIN_1
 #define LED1_CLOCK RCU_GPIOA
 
 #define LED2_GPIO  GPIOA
-#define LED2_PIN   GPIO_PIN_1
+#define LED2_PIN   GPIO_PIN_2
 #define LED2_CLOCK RCU_GPIOA
 
 enum led_status {

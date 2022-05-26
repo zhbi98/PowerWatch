@@ -1,0 +1,24 @@
+
+#ifndef __GD25Q64_SPI_H__
+#define __GD25Q64_SPI_H__
+
+#include "gd32f10x.h"
+#include "time.h"
+
+#define GD25Q64_CS_GPIO    GPIOA
+#define GD25Q64_CS_PIN     GPIO_PIN_5
+#define GD25Q64_CS_CLOCK   RCU_GPIOA
+
+#define GD25Q64_SCLK_GPIO  GPIOC
+#define GD25Q64_SCLK_PIN   GPIO_PIN_5
+#define GD25Q64_SCLK_CLOCK RCU_GPIOC
+
+#define GD25Q64_MOSI_GPIO  GPIOB
+#define GD25Q64_MOSI_PIN   GPIO_PIN_0
+#define GD25Q64_MOSI_CLOCK RCU_GPIOB
+
+#define GD25Q64_MISO_GPIO  GPIOA
+#define GD25Q64_MISO_PIN   GPIO_PIN_6
+#define GD25Q64_MISO_CLOCK RCU_GPIOA
+
+#endif

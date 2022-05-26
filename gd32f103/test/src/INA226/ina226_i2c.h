@@ -5,13 +5,13 @@
 #include "gd32f10x.h"
 #include "time.h"
 
-#define INA226_SDA_GPIO   GPIOB
-#define INA226_SDA_PIN    GPIO_PIN_15
-#define INA226_SDA_CLOCK  RCU_GPIOB
+#define INA226_SDA_GPIO   GPIOC
+#define INA226_SDA_PIN    GPIO_PIN_4
+#define INA226_SDA_CLOCK  RCU_GPIOC
 
-#define INA226_SCL_GPIO   GPIOB
-#define INA226_SCL_PIN    GPIO_PIN_13
-#define INA226_SCL_CLOCK  RCU_GPIOB
+#define INA226_SCL_GPIO   GPIOA
+#define INA226_SCL_PIN    GPIO_PIN_7
+#define INA226_SCL_CLOCK  RCU_GPIOA
 
 #define INA226_SDA_H()    gpio_bit_set(INA226_SDA_GPIO, INA226_SDA_PIN)
 #define INA226_SDA_L()    gpio_bit_reset(INA226_SDA_GPIO, INA226_SDA_PIN)
