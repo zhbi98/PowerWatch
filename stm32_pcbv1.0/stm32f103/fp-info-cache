@@ -1,4 +1,4 @@
-19226003812706789
+19227675636035658
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48768,41 +48768,48 @@ THT ceramic resonator filter DSS6
 0
 3
 3
-DL_Button_Switch_Horizontal_THT
-DL_Button_Switch_Horizontal_THT
-
-
-0
-4
-4
-DL_Button_Switch_Vertical_THT
-DL_Button_Switch_Vertical_THT
-
-
-0
-4
-4
-DL_Ina226aidgsr_Power_SMD
-DL_Ina226aidgsr_Power_SMD
+DL_Ina226_INA226AIDGSR
+DL_Ina226_SOP50P490X110-10N
 
 
 0
 10
 10
-DL_Usb_TypeA_Receptacle_THT
-DL_Usb_TypeA_Receptacle_THT
+DL_Key_Hori_B3F-3100
+DL_Key_Hori_B3F-3100
+
+
+0
+4
+4
+DL_Key_Vertical_B3F-1000
+DL_Key_Vertical_B3F-1000
+
+
+0
+4
+4
+DL_Usb_A_USB1130-15-A_REVA
+DL_Usb_A_USB1130-15-A_REVA
 
 
 0
 6
 6
-DL_Usb_TypeC_Recepatcle_SMD
-DL_Usb_TypeC_Recepatcle_SMD
+DL_Usb_C_USB4105-GF-A
+DL_Usb_C_USB4105-GF-A
 
 
 0
 16
 16
+DL_W25q32_W25Q32JVSSIQ
+DL_W25q32_SOIC127P790X216-8N
+8-Pin SOIC 208-mil (Package Code S)_1
+Integrated Circuit
+0
+8
+8
 Diode_SMD
 D_0201_0603Metric
 Diode SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf), generated with kicad-footprint-generator
