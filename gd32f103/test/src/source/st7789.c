@@ -3,6 +3,7 @@
 
 void st7789_gpio_init()
 {
+    rcu_periph_clock_enable(ST7789_BL_CLOCK);
     rcu_periph_clock_enable(ST7789_RST_CLOCK);
     rcu_periph_clock_enable(ST7789_CS_CLOCK);
     rcu_periph_clock_enable(ST7789_DC_CLOCK);
@@ -18,8 +19,9 @@ void st7789_gpio_init()
     rcu_periph_clock_enable(ST7789_D6_CLOCK);
     rcu_periph_clock_enable(ST7789_D7_CLOCK);
 
-    rcu_periph_clock_enable(RCU_AF);
+    // rcu_periph_clock_enable(RCU_AF);
 
+    gpio_init(ST7789_BL_GPIO, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, ST7789_BL_PIN);
     gpio_init(ST7789_RST_GPIO, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, ST7789_RST_PIN);
     gpio_init(ST7789_CS_GPIO, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, ST7789_CS_PIN);
     gpio_init(ST7789_DC_GPIO, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, ST7789_DC_PIN);
@@ -35,169 +37,205 @@ void st7789_gpio_init()
     gpio_init(ST7789_D6_GPIO, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, ST7789_D6_PIN);
     gpio_init(ST7789_D7_GPIO, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, ST7789_D7_PIN);
 
-    // ST7789_RST_H();
-    // ST7789_CS_H();
-    // ST7789_DC_H();
-    // ST7789_WR_H();
-    // ST7789_RD_H();
-
-    // ST7789_D0_SET(1);
-    // ST7789_D1_SET(1);
-    // ST7789_D2_SET(1);
-    // ST7789_D3_SET(1);
-    // ST7789_D4_SET(1);
-    // ST7789_D5_SET(1);
-    // ST7789_D6_SET(1);
-    // ST7789_D7_SET(1);
+    ST7789_BL_L();
+    ST7789_RST_H();
+    ST7789_CS_H();
+    ST7789_DC_H();
+    ST7789_WR_H();
+    ST7789_RD_H();
+    ST7789_D0_H();
+    ST7789_D1_H();
+    ST7789_D2_H();
+    ST7789_D3_H();
+    ST7789_D4_H();
+    ST7789_D5_H();
+    ST7789_D6_H();
+    ST7789_D7_H();
+    sleep_ms(100);
 }
 
-void st7789_bus(unsigned char data)
+void ST7789_DATA_OUT(unsigned char data)
 {
-    // ST7789_CS_L();
-
     // 8421, 8421
-    ST7789_D0_SET((data & 0x01) >> 0);
-    ST7789_D1_SET((data & 0x02) >> 1);
-    ST7789_D2_SET((data & 0x04) >> 2);
-    ST7789_D3_SET((data & 0x08) >> 3);
-    ST7789_D4_SET((data & 0x10) >> 4);
-    ST7789_D5_SET((data & 0x20) >> 5);
-    ST7789_D6_SET((data & 0x40) >> 6);
-    ST7789_D7_SET((data & 0x80) >> 7);
 
-    // ST7789_WR_L();
-    // ST7789_WR_H();
+    if (data & 0x80) {
+        ST7789_D7_HH();
+    } else {
+        ST7789_D7_LL();
+    }
 
-    // ST7789_CS_H();
+    if (data & 0x40) {
+        ST7789_D6_HH();
+    } else {
+        ST7789_D6_LL();
+    }
+
+    if (data & 0x20) {
+        ST7789_D5_HH();
+    } else {
+        ST7789_D5_LL();
+    }
+
+    if (data & 0x10) {
+        ST7789_D4_HH();
+    } else {
+        ST7789_D4_LL();
+    }
+
+    if(data & 0x08) {
+        ST7789_D3_HH();
+    } else {
+        ST7789_D3_LL();
+    }
+
+    if (data & 0x04) {
+        ST7789_D2_HH();
+    } else {
+        ST7789_D2_LL();
+    }
+
+    if(data & 0x02) {
+        ST7789_D1_HH();
+    } else {
+        ST7789_D1_LL();
+    }
+
+    if(data & 0x01) {
+        ST7789_D0_HH();
+    } else {
+        ST7789_D0_LL();
+    }
+}
+
+void st7789_write_bus(unsigned char data)
+{
+    ST7789_CS_LL();
+    ST7789_WR_LL();
+
+    ST7789_DATA_OUT(data);
+
+    ST7789_WR_HH();
+    ST7789_CS_HH();
 }
 
 void write_command(unsigned char command)
 {
-    ST7789_CS_L();
-    // ------------------------
-    ST7789_DC_L();
-
-    st7789_bus(command);
-    // ------------------------
-    ST7789_WR_L();
-    ST7789_WR_H();
-
-    ST7789_CS_H();
+    ST7789_DC_LL();
+    st7789_write_bus(command);
+    ST7789_DC_HH();
 }
 
 void write_data(unsigned char data)
 {
-    ST7789_CS_L();
-    // ------------------------
-    ST7789_DC_H();
-    
-    st7789_bus(data);
-    // ------------------------
-    ST7789_WR_L();
-    ST7789_WR_H();
-
-    ST7789_CS_H();
+    st7789_write_bus(data);
 }
 
-void write_datas(unsigned int data)
+void write_datas(unsigned short data)
 {
-    ST7789_CS_L();
-    // ------------------------
-    ST7789_DC_H();
-
-    st7789_bus(data >> 8);
-    st7789_bus(data);
-    // ------------------------
-    ST7789_WR_L();
-    ST7789_WR_H();
-
-    ST7789_CS_H();
+    st7789_write_bus(data >> 8);
+    st7789_write_bus(data);
 }
 
 void st7789_reset()
 {
-    ST7789_RST_H();
-    sleep_ms(100);
     ST7789_RST_L();
     sleep_ms(100);
     ST7789_RST_H();
     sleep_ms(100);
 }
 
-void st7789_direction(unsigned char direction)
+void st7789_dir(unsigned char dir)
 {
     write_command(0x36);
 
-    switch (direction) {
-        // +----- x 
+    /**
+     * 屏幕坐标系如下图
+     * +----- x 
+     * |
+     * |
+     * y
+     *
+     * 人为规定以 FPC 排线向下时的竖屏方向作为基准方向，调整屏幕方向值使得屏幕坐标系
+     * 贴合我们的基准方向。此时的屏幕方向值就是基准方向的屏幕方向值。
+     * 修改屏幕方向值，观察坐标系的变化（比如当前坐标轴基准方向是 x 轴，但现在变成了 y 轴）
+     * 即可知道屏幕旋转方向（顺时针或逆时针）。
+     *
+     * 四个方向值对应两个横屏方向和两个竖屏方向。
+     */
+    switch (dir) {
+        // +----- x
         // |
         // |
         // y
-        case 0 : write_data(0xa8); break;
+        case 0 : write_data(0x00); break;
         // y -----+
         //        |
         //        |
         //        x
-        case 1 : write_data(0x08); break;
+        case 1 : write_data(0x70); break;
         //        y
         //        |
         //        |
         // x -----+
-        case 2 : write_data(0x68); break;
+        case 2 : write_data(0xc0); break;
         // x
         // |
         // |
         // +----- y
-        case 3 : write_data(0xc8); break;
+        case 3 : write_data(0xa0); break;
     }
 }
 
 void st7789_init()
 {
+    // LCD MicroController ST7789V3
     st7789_gpio_init();
-
     st7789_reset();
+    ST7789_BL_L();
+    sleep_ms(100);
 
     write_command(0x11);
+    sleep_ms(120);
+    st7789_dir(TFT_DIR);
 
-    write_command(0x3A);
-    write_data(/*0x05*/0x65);
+    write_command(0x3a);
+    write_data(0x05);
 
-    write_command(0xB2);
-    write_data(0x0C);
-    write_data(0x0C);
+    write_command(0xb2);
+    write_data(0x0c);
+    write_data(0x0c);
     write_data(0x00);
     write_data(0x33);
-    write_data(0x33); 
+    write_data(0x33);
 
-    write_command(0xB7); 
-    write_data(0x35);  
+    write_command(0xb7);
+    write_data(0x35);
 
-    write_command(0xBB);
-    write_data(0x1A);
+    write_command(0xbb);
+    write_data(0x1a);
 
-    write_command(0xC0);
-    write_data(0x2C);
+    write_command(0xc0);
+    write_data(0x2c);
 
-    write_command(0xC2);
+    write_command(0xc2);
     write_data(0x01);
 
-    write_command(0xC3);
-    write_data(0x0B);   
+    write_command(0xc3);
+    write_data(0x0b);
 
-    write_command(0xC4);
-    write_data(0x20);  
+    write_command(0xc4);
+    write_data(0x20);
 
-    write_command(0xC6); 
-    write_data(0x0F);    
+    write_command(0xc6);
+    write_data(0x0f);
 
-    write_command(0xD0); 
-    write_data(0xA4);
-    write_data(0xA1);
+    write_command(0xd0);
+    write_data(0xa4);
+    write_data(0xa1);
 
-    write_command(0x21); 
-    write_command(0xE0);
-    write_data(0xF0);
+    write_command(0x21);
+    write_command(0xe0);
+    write_data(0xf0);
     write_data(0x00);
     write_data(0x04);
     write_data(0x04);
@@ -205,90 +243,84 @@ void st7789_init()
     write_data(0x05);
     write_data(0x29);
     write_data(0x33);
-    write_data(0x3E);
+    write_data(0x3e);
     write_data(0x38);
     write_data(0x12);
     write_data(0x12);
     write_data(0x28);
     write_data(0x30);
 
-    write_command(0xE1);
-    write_data(0xF0);
+    write_command(0xe1);
+    write_data(0xf0);
     write_data(0x07);
-    write_data(0x0A);
-    write_data(0x0D);
-    write_data(0x0B);
+    write_data(0x0a);
+    write_data(0x0d);
+    write_data(0x0b);
     write_data(0x07);
     write_data(0x28);
     write_data(0x33);
-    write_data(0x3E);
+    write_data(0x3e);
     write_data(0x36);
     write_data(0x14);
     write_data(0x14);
     write_data(0x29);
     write_data(0x32);
 
-    st7789_direction(2);
-
     write_command(0x11);
-    sleep_ms(200);  
+    sleep_ms(120);
     write_command(0x29);
-
-    tft_clear(0xffff);
+    clear(0x0000);
 }
 
-void display_position(unsigned int y, unsigned int x)
+void display_region(unsigned short y, unsigned short x, unsigned short width, unsigned short height)
 {
-    unsigned char seting_x = 0x2a;
-    unsigned char seting_y = 0x2b;
+    switch (TFT_DIR) {
+    case 0:
+        write_command(0x2a);
+        write_datas(x + 35);
+        write_datas(x + width + 35);
 
-    write_command(seting_x);
-    write_datas(x >> 8);
-    write_datas(0x00ff & x);
-    write_datas((x + 1) >> 8);
-    write_datas((x + 1));
-    
-    write_command(seting_y);
-    write_datas(y >> 8);
-    write_datas(0x00ff & y);
-    write_datas((y + 1) >> 8);
-    write_datas((y + 1));
+        write_command(0x2b);
+        write_datas(y);
+        write_datas(y + height);
+        break;
+    case 1:
+        write_command(0x2a);
+        write_datas(x);
+        write_datas(x + width);
 
-    // display pixel
+        write_command(0x2b);
+        write_datas(y + 35);
+        write_datas(y + height + 35);
+        break;
+    case 2:
+        write_command(0x2a);
+        write_datas(x + 35);
+        write_datas(x + width + 35);
+
+        write_command(0x2b);
+        write_datas(y);
+        write_datas(y + height);
+        break;
+    case 3:
+        write_command(0x2a);
+        write_datas(x);
+        write_datas(x + width);
+
+        write_command(0x2b);
+        write_datas(y + 35);
+        write_datas(y + height + 35);
+        break;
+    }
     write_command(0x2c);
 }
 
-void display_region(unsigned int y, unsigned int x, unsigned int width, unsigned int height)
-{
-    write_command(0x2a);
-    write_datas(x >> 8);
-    write_datas(x & 0xff);
-    write_datas((x + width - 1) >> 8);
-    write_datas((x + width - 1) & 0xff);
+void clear(unsigned short color)
+{          
+    unsigned short pix_num = TFT_WIDTH * TFT_HEIGHT;
 
-    write_command(0x2b);
-    write_datas(y >> 8);
-    write_datas(y & 0xff);
-    write_datas((y + height - 1) >> 8);
-    write_datas((y + height - 1) & 0xff);
-
-    write_command(0x2c);
-}
-
-void display_pixel(unsigned int y, unsigned int x, unsigned int color)
-{
-    display_position(y, x);
-    write_datas(color);
-}
-
-void tft_clear(unsigned int color)
-{
-    unsigned int x;
-    unsigned int y;
-
-    for (y = 1; y < TFT_HEIGHT; y++) {
-        for (x = 1; x < TFT_WIDTH; x++) {
-            display_pixel(y, x, color);
-        }
+    display_region(0, 0, TFT_WIDTH, TFT_HEIGHT);
+    for (; pix_num > 0; pix_num--) {
+        write_datas(color);
     }
 }

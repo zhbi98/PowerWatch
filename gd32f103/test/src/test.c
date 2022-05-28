@@ -214,7 +214,27 @@ int main()
         sleep_ms(2000);
         usb_fs_send_fmt_string("========================");
         sleep_ms(100);
+
+        clear(0xFD49);
+        sleep_ms(100);
+        clear(0xFF95);
+        sleep_ms(100);
     }
 
     return 0;
 }
+
+/**
+ * Power = Bus Voltage x Current
+ * --------------------------------
+ * 1(V) x 1(A) = 1W
+ * 1(mW) = 0.001(W)
+ * 
+ * 0.001(V) x 1(A) = 0.001(W) = 1(mW)
+ * OR
+ * 1(V) x 0.001(A) = 0.001(W) = 1(mW)
+ * 
+ * 1(mV) x 1(A) = 1(mW)
+ * OR
+ * 1(V) x 1(mA) = 1(mW)
+ */
