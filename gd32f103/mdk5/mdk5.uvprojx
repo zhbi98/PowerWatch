@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\INA226</IncludePath>
+              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\INA226;..\test\src\GD25Q64E</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -416,6 +416,16 @@
               <FileName>ina226_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\INA226\ina226_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd25q64.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\GD25Q64E\gd25q64.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd25q64_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\GD25Q64E\gd25q64_spi.c</FilePath>
             </File>
           </Files>
         </Group>

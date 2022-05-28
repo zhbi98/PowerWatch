@@ -10,6 +10,7 @@
 #include "log.h"
 #include "st7789.h"
 #include "ina226.h"
+#include "gd25q64.h"
 
 // custom_hid
 // #include "custom_hid_core.h"
@@ -132,6 +133,8 @@ void usb_fs_send_fmt_string(unsigned char * format, ...)
     usb_fs_send_string(value);
 }
 
+unsigned char flash_buf[20];
+
 int main()
 {
     // SystemInit()->system_clock_config()->system_clock_108m_hxtal();
@@ -141,6 +144,13 @@ int main()
     usart_init();
     st7789_init();
     INA226_Init();
+    gd25q64_spi_gpio_init();
+    sleep_ms(100);
+    // gd25q64_page_write(0x0000, 13, "Hello, World!");
+    // gd25q64_sector_erase(0x0000);
+    // sleep_ms(100);
+    memset(flash_buf, '\0', 20);
+    gd2564_read_data(0x0000, 13, flash_buf);
 
     /* system clocks configuration */
     rcu_config();
@@ -219,6 +229,8 @@ int main()
         sleep_ms(100);
         clear(0xFF95);
         sleep_ms(100);
+
+        usb_fs_send_fmt_string("FLASH ID: %x\n", gd25q64_read_id());
     }
 
     return 0;
