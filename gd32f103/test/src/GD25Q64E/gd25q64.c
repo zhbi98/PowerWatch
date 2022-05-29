@@ -55,6 +55,19 @@ void gd25q64_sector_erase(uint32_t sector_address)
     tesing_gd25q64_busy();
 }
 
+void gd25q64_bulk_erase()
+{
+    gd25q64_write_enable();
+
+    GD25Q64_CS_L();
+
+    gd25q64_spi_write_read_byte(BE);
+
+    GD25Q64_CS_H();
+
+    tesing_gd25q64_busy();
+}
+
 void gd25q64_page_write(uint32_t address, unsigned int lenth, unsigned char * data_buf)
 {
     unsigned int i = 0;
@@ -81,6 +94,11 @@ void gd25q64_page_write(uint32_t address, unsigned int lenth, unsigned char * da
 
     GD25Q64_CS_H();
     tesing_gd25q64_busy();
+}
+
+unsigned char gd25q64_read_byte()
+{
+    return (gd25q64_spi_write_read_byte(DUMMY_BYTE));
 }
 
 void gd25q64_buffer_write(uint32_t address, unsigned int lenth, unsigned char * data_buf)
@@ -141,7 +159,7 @@ void gd25q64_buffer_write(uint32_t address, unsigned int lenth, unsigned char * 
     }
 }
 
-void gd2564_read_data(uint32_t address, unsigned int lenth, unsigned char * data_buf)
+void gd2564_buffer_read(uint32_t address, unsigned int lenth, unsigned char * data_buf)
 {
     unsigned int read;
 

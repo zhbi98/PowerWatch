@@ -20,15 +20,17 @@
 #define DUMMY_BYTE 0xA5
 
 #define SFLASH_ID  0xc84017
-
+#define PAGE_SIZE  0x100 /* 256 */
 // GDW25Q64 SPI 高位先发送
 
 extern unsigned int gd25q64_read_id();
 static void gd25q64_write_enable();
 static void tesing_gd25q64_busy();
 extern void gd25q64_sector_erase(uint32_t sector_address);
+extern void gd25q64_bulk_erase();
 extern void gd25q64_page_write(uint32_t address, unsigned int lenth, unsigned char * data_buf);
+extern unsigned char gd25q64_read_byte();
 extern void gd25q64_buffer_write(uint32_t address, unsigned int lenth, unsigned char * data_buf);
-extern void gd2564_read_data(uint32_t address, unsigned int lenth, unsigned char * data_buf);
+extern void gd2564_buffer_read(uint32_t address, unsigned int lenth, unsigned char * data_buf);
 
 #endif

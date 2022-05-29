@@ -150,7 +150,7 @@ int main()
     // gd25q64_sector_erase(0x0000);
     // sleep_ms(100);
     memset(flash_buf, '\0', 20);
-    gd2564_read_data(0x0000, 13, flash_buf);
+    gd2564_buffer_read(0x0000, 13, flash_buf);
 
     /* system clocks configuration */
     rcu_config();
@@ -231,6 +231,9 @@ int main()
         sleep_ms(100);
 
         usb_fs_send_fmt_string("FLASH ID: %x\n", gd25q64_read_id());
+        sleep_ms(100);
+        usb_fs_send_fmt_string("FLASH DATA: %s\n", flash_buf);
+        sleep_ms(100);
     }
 
     return 0;
