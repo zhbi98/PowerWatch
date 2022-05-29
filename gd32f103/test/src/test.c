@@ -11,6 +11,12 @@
 #include "st7789.h"
 #include "ina226.h"
 #include "gd25q64.h"
+#include "lvgl.h"
+
+lv_obj_t * container;
+lv_obj_t * button;
+lv_obj_t * sswitch;
+lv_obj_t * slider;
 
 // custom_hid
 // #include "custom_hid_core.h"
@@ -133,12 +139,100 @@ void usb_fs_send_fmt_string(unsigned char * format, ...)
     usb_fs_send_string(value);
 }
 
+#define LVGL_TIMER         TIMER1
+#define LVGL_TIMER_CLOCK   RCU_TIMER1
+#define LVGL_TIMER_CH      TIMER_CH_3
+#define LVGL_TIMER_IRQN    TIMER1_IRQn
+#define LVGL_TIMER_HANDLER TIMER1_IRQHandler
+
+/*
+This gd32 or stm32 mcu timer parm settings 
+    TIM_Period    -->     times
+    TIM_Prescaler --> prescaler
+-----------------------------------------
+    Timing 0.5s
+
+    0.5(s) = 500000(us)
+    500000 / 5000(times) = 100(us/times)
+
+    T = 1000000(us) / f = 100(us)
+    f = 10000(hz)
+
+    84000000(Hz) / prescaler = 10000(hz)
+    prescaler = 84000000(hz) / 10000(hz)
+              = 8400
+
+    T = 1/f=1000000us/1000Hz = 1000us
+    溢出次数 = 计时时间 / T
+    48000000(Hz)/1000
+-----------------------------------------
+*/
+
+extern void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t);
+extern void LVGL_TIMER_HANDLER();
+
+void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t)
+{
+    /**
+     * TIMER configuration: generate PWM signals
+     * with different duty cycles:
+     * TIMERCLK = SystemCoreClock / 120 = 1MHz
+     */
+    timer_oc_parameter_struct timer_out_init;
+    timer_parameter_struct time_init;
+
+    rcu_periph_clock_enable(LVGL_TIMER_CLOCK);
+    timer_deinit(LVGL_TIMER);
+
+    time_init.prescaler         = prescaler_t - 1;
+    time_init.alignedmode       = TIMER_COUNTER_EDGE;
+    time_init.counterdirection  = TIMER_COUNTER_UP;
+    time_init.period            = period_t;
+    time_init.clockdivision     = TIMER_CKDIV_DIV1;
+    time_init.repetitioncounter = 0;
+    timer_init(LVGL_TIMER, &time_init);
+
+    // CH0 config in pwm mode
+    // timer_out_init.outputstate  = TIMER_CCX_ENABLE;
+    // timer_out_init.outputnstate = TIMER_CCXN_DISABLE;
+    // timer_out_init.ocpolarity   = TIMER_OC_POLARITY_HIGH;
+    // timer_out_init.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
+    // timer_out_init.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
+    // timer_out_init.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
+    // timer_channel_output_config(LVGL_TIMER,
+    //     SUART_TIMER_CH, &timer_out_init);
+
+    // timer_channel_output_pulse_value_config(
+    //     LVGL_TIMER, SUART_TIMER_CH, 250);
+    // timer_channel_output_mode_config(
+    //     LVGL_TIMER, SUART_TIMER_CH, TIMER_OC_MODE_PWM0);
+    // timer_channel_output_shadow_config(
+    //     LVGL_TIMER, SUART_TIMER_CH, TIMER_OC_SHADOW_DISABLE);
+    // timer_primary_output_config(LVGL_TIMER, ENABLE);
+    // timer_auto_reload_shadow_enable(LVGL_TIMER);
+
+    nvic_irq_enable(LVGL_TIMER_IRQN, 1, 1);
+    timer_interrupt_enable(LVGL_TIMER, TIMER_INT_UP);
+    timer_enable(LVGL_TIMER);
+}
+
+void LVGL_TIMER_HANDLER()
+{
+    if (timer_interrupt_flag_get(LVGL_TIMER, TIMER_INT_FLAG_UP) == SET) {
+        timer_interrupt_flag_clear(LVGL_TIMER, TIMER_INT_FLAG_UP);
+        // 1ms tick
+        // usb_fs_send_fmt_string("%s\n", "LVGL TICK");
+        lv_tick_inc(1);
+    }
+}
+
 unsigned char flash_buf[20];
 
 int main()
 {
     // SystemInit()->system_clock_config()->system_clock_108m_hxtal();
     sys_clock_config();
+    lvgl_timer_init(48000, 1);
     led1_gpio_init();
     led2_gpio_init();
     usart_init();
@@ -151,6 +245,29 @@ int main()
     // sleep_ms(100);
     memset(flash_buf, '\0', 20);
     gd2564_buffer_read(0x0000, 13, flash_buf);
+
+    lv_init();
+    lv_port_disp_init();
+    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
+// ---------------- LVGL --------------------------
+    container = lv_obj_create(lv_scr_act());
+    // lv_obj_remove_style_all(container);
+    lv_obj_set_size(container, 320, 170);
+    lv_obj_center(container);
+
+    button = lv_btn_create(container);
+    lv_obj_set_size(button, 80, 40);
+    lv_obj_set_pos(button, 60, 20);
+
+    sswitch = lv_switch_create(container);
+    lv_obj_set_size(sswitch, 80, 40);
+    lv_obj_set_pos(sswitch, 160, 20);
+
+    slider = lv_slider_create(container);
+    lv_obj_set_size(slider, 105, 15);
+    // lv_obj_center(slider);
+    lv_obj_set_pos(slider, 60, 100);
+// -------------------------------------------------
 
     /* system clocks configuration */
     rcu_config();
@@ -172,7 +289,8 @@ int main()
 
     for (;;) {
         led_controller_handler(&led2);
-
+        lv_task_handler();
+        sleep_ms(50);
         // info("Helo, World!");
         // sleep_ms(25);
 
@@ -225,10 +343,10 @@ int main()
         usb_fs_send_fmt_string("========================");
         sleep_ms(100);
 
-        clear(0xFD49);
-        sleep_ms(100);
-        clear(0xFF95);
-        sleep_ms(100);
+        // clear(0xFD49);
+        // sleep_ms(100);
+        // clear(0xFF95);
+        // sleep_ms(100);
 
         usb_fs_send_fmt_string("FLASH ID: %x\n", gd25q64_read_id());
         sleep_ms(100);
