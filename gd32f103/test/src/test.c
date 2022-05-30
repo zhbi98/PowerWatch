@@ -15,8 +15,11 @@
 
 lv_obj_t * container;
 lv_obj_t * button;
+lv_obj_t * button2;
+lv_obj_t * label;
 lv_obj_t * sswitch;
 lv_obj_t * slider;
+lv_obj_t * bar;
 
 // custom_hid
 // #include "custom_hid_core.h"
@@ -162,6 +165,7 @@ This gd32 or stm32 mcu timer parm settings
     prescaler = 84000000(hz) / 10000(hz)
               = 8400
 
+    计时 1ms 即 T = 1ms
     T = 1/f=1000000us/1000Hz = 1000us
     溢出次数 = 计时时间 / T
     48000000(Hz)/1000
@@ -223,6 +227,7 @@ void LVGL_TIMER_HANDLER()
         // 1ms tick
         // usb_fs_send_fmt_string("%s\n", "LVGL TICK");
         lv_tick_inc(1);
+        led_controller_handler(&led2);
     }
 }
 
@@ -230,6 +235,8 @@ unsigned char flash_buf[20];
 
 int main()
 {
+    unsigned int i = 0;
+    unsigned int percent = 0;
     // SystemInit()->system_clock_config()->system_clock_108m_hxtal();
     sys_clock_config();
     lvgl_timer_init(48000, 1);
@@ -257,7 +264,15 @@ int main()
 
     button = lv_btn_create(container);
     lv_obj_set_size(button, 80, 40);
-    lv_obj_set_pos(button, 60, 20);
+    lv_obj_set_pos(button, 20, 20);
+
+    button2 = lv_btn_create(container);
+    lv_obj_set_size(button2, 80, 40);
+    lv_obj_set_pos(button2, 200, 105);
+
+    label = lv_label_create(button);
+    lv_label_set_text_fmt(label, "Click:%d", 0);
+    lv_obj_center(label);
 
     sswitch = lv_switch_create(container);
     lv_obj_set_size(sswitch, 80, 40);
@@ -266,7 +281,12 @@ int main()
     slider = lv_slider_create(container);
     lv_obj_set_size(slider, 105, 15);
     // lv_obj_center(slider);
-    lv_obj_set_pos(slider, 60, 100);
+    lv_obj_set_pos(slider, 145, 70);
+
+    bar = lv_bar_create(container);
+    lv_obj_set_size(bar, 105, 15);
+    // lv_obj_center(bar);
+    lv_obj_set_pos(bar, 60, 100);
 // -------------------------------------------------
 
     /* system clocks configuration */
@@ -288,9 +308,7 @@ int main()
     usb_device_dev.status = USBD_CONNECTED;
 
     for (;;) {
-        led_controller_handler(&led2);
         lv_task_handler();
-        sleep_ms(50);
         // info("Helo, World!");
         // sleep_ms(25);
 
@@ -351,6 +369,24 @@ int main()
         usb_fs_send_fmt_string("FLASH ID: %x\n", gd25q64_read_id());
         sleep_ms(100);
         usb_fs_send_fmt_string("FLASH DATA: %s\n", flash_buf);
+        sleep_ms(100);
+
+        lv_label_set_text_fmt(label, "Click:%d", i);
+        sleep_ms(100);
+        i++;
+        lv_obj_set_pos(button, 10, 20);
+        lv_obj_set_pos(button2, 195, 105);
+        lv_obj_set_pos(slider, 140, 70);
+        lv_obj_set_pos(bar, 55, 100);
+        lv_obj_set_pos(sswitch, 165, 20);
+        sleep_ms(100);
+        lv_bar_set_value(slider, percent, LV_ANIM_ON);
+        lv_bar_set_value(bar, percent, LV_ANIM_ON);
+
+        if (percent > 100) {
+            percent = 1;
+        }
+        percent++;
         sleep_ms(100);
     }
 

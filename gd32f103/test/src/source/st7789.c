@@ -281,38 +281,38 @@ void display_region(unsigned short y, unsigned short x, unsigned short width, un
     case 0:
         write_command(0x2a);
         write_datas(x + 35);
-        write_datas(x + width + 35);
+        write_datas(x + (width - 1) + 35);
 
         write_command(0x2b);
         write_datas(y);
-        write_datas(y + height);
+        write_datas(y + (height - 1));
         break;
     case 1:
         write_command(0x2a);
         write_datas(x);
-        write_datas(x + width);
+        write_datas(x + (width - 1));
 
         write_command(0x2b);
         write_datas(y + 35);
-        write_datas(y + height + 35);
+        write_datas(y + (height - 1) + 35);
         break;
     case 2:
         write_command(0x2a);
         write_datas(x + 35);
-        write_datas(x + width + 35);
+        write_datas(x + (width - 1) + 35);
 
         write_command(0x2b);
         write_datas(y);
-        write_datas(y + height);
+        write_datas(y + (height - 1));
         break;
     case 3:
         write_command(0x2a);
         write_datas(x);
-        write_datas(x + width);
+        write_datas(x + (width - 1));
 
         write_command(0x2b);
         write_datas(y + 35);
-        write_datas(y + height + 35);
+        write_datas(y + (height - 1) + 35);
         break;
     }
     write_command(0x2c);

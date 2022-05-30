@@ -154,10 +154,11 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     //     }
     // }
 
-    unsigned int w = (area->x2 - area->x1 + 1);
-    unsigned int h = (area->y2 - area->y1 + 1);
+    unsigned int w = (area->x2 - area->x1) + 1;
+    unsigned int h = (area->y2 - area->y1) + 1;
     unsigned int pixel_count = w * h;
-    display_region(area->y1, area->x1, (area->x2 - area->x1) + 1, (area->y2 - area->y1) + 1);
+
+    display_region(area->y1, area->x1, w, h);
 
     for (unsigned int i = 0; i < pixel_count; i++) {
         write_datas(color_p->full);
