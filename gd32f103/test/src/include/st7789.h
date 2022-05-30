@@ -169,4 +169,19 @@ extern void st7789_init();
 extern void display_region(unsigned short y, unsigned short x, unsigned short width, unsigned short height);
 extern void clear(unsigned short color);
 
+#define ST7789_WRITE_DATA(data)     \
+    do {                            \
+        ST7789_CS_LL();             \
+        ST7789_WR_LL();             \
+        ST7789_DATA_OUT(data >> 8); \
+        ST7789_WR_HH();             \
+        ST7789_CS_HH();             \
+                                    \
+        ST7789_CS_LL();             \
+        ST7789_WR_LL();             \
+        ST7789_DATA_OUT(data);      \
+        ST7789_WR_HH();             \
+        ST7789_CS_HH();             \
+    } while (0)
+
 #endif

@@ -161,7 +161,8 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     display_region(area->y1, area->x1, w, h);
 
     for (unsigned int i = 0; i < pixel_count; i++) {
-        write_datas(color_p->full);
+        // write_datas(color_p->full);
+        ST7789_WRITE_DATA(color_p->full);
         color_p++;
     }
 // ------------------------------------------------------------------

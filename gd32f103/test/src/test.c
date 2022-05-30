@@ -17,6 +17,7 @@ lv_obj_t * container;
 lv_obj_t * button;
 lv_obj_t * button2;
 lv_obj_t * label;
+lv_obj_t * label2;
 lv_obj_t * sswitch;
 lv_obj_t * slider;
 lv_obj_t * bar;
@@ -233,6 +234,20 @@ void LVGL_TIMER_HANDLER()
 
 unsigned char flash_buf[20];
 
+void botton_anim(lv_obj_t * bluetooth)
+{
+    lv_anim_t a;
+
+    lv_anim_init(&a);
+    lv_anim_set_var(&a, bluetooth);
+    lv_anim_set_values(&a, -30, 30);
+    lv_anim_set_early_apply(&a, true);
+    lv_anim_set_exec_cb(&a, (lv_anim_exec_xcb_t)lv_obj_set_x);
+    lv_anim_set_time(&a, 500);
+    lv_anim_set_path_cb(&a, lv_anim_path_overshoot);
+    lv_anim_start(&a);
+}
+
 int main()
 {
     unsigned int i = 0;
@@ -264,29 +279,34 @@ int main()
 
     button = lv_btn_create(container);
     lv_obj_set_size(button, 80, 40);
-    lv_obj_set_pos(button, 20, 20);
-
-    button2 = lv_btn_create(container);
-    lv_obj_set_size(button2, 80, 40);
-    lv_obj_set_pos(button2, 200, 105);
+    lv_obj_set_pos(button, 10, 20);
+    botton_anim(button);
 
     label = lv_label_create(button);
     lv_label_set_text_fmt(label, "Click:%d", 0);
     lv_obj_center(label);
 
+    button2 = lv_btn_create(container);
+    lv_obj_set_size(button2, 80, 40);
+    lv_obj_set_pos(button2, 195, 105);
+
+    label2 = lv_label_create(button2);
+    lv_label_set_text_fmt(label2, "Click:%d", 0);
+    lv_obj_center(label2);
+
     sswitch = lv_switch_create(container);
     lv_obj_set_size(sswitch, 80, 40);
-    lv_obj_set_pos(sswitch, 160, 20);
+    lv_obj_set_pos(sswitch, 165, 20);
 
     slider = lv_slider_create(container);
     lv_obj_set_size(slider, 105, 15);
     // lv_obj_center(slider);
-    lv_obj_set_pos(slider, 145, 70);
+    lv_obj_set_pos(slider, 140, 70);
 
     bar = lv_bar_create(container);
     lv_obj_set_size(bar, 105, 15);
     // lv_obj_center(bar);
-    lv_obj_set_pos(bar, 60, 100);
+    lv_obj_set_pos(bar, 55, 100);
 // -------------------------------------------------
 
     /* system clocks configuration */
@@ -309,9 +329,13 @@ int main()
 
     for (;;) {
         lv_task_handler();
-        // info("Helo, World!");
-        // sleep_ms(25);
 
+#if 0 // USART TEST
+        info("Helo, World!");
+        sleep_ms(25);
+#endif
+
+#if 0 // USB CDC ACM TEST
         // if (USBD_CONFIGURED == usb_device_dev.status) {
         //     if (1 == packet_receive && 1 == packet_sent) {
         //         packet_sent = 0;
@@ -335,7 +359,9 @@ int main()
         // cdc_acm_data_send(&usb_device_dev, 26);
         // sleep_ms(100);
         // usb_fs_send_string("GD32F103 USB FS\n");
+#endif
 
+#if 0 // INA226 TEST
         usb_fs_send_fmt_string("Bus Voltage  : 0x%04x", INA226_GetVoltage(INA226_ADDR1));
         sleep_ms(2000);
         usb_fs_send_fmt_string("Shunt Voltage: 0x%04x", INA226_GetShuntVoltage(INA226_ADDR1));
@@ -360,34 +386,33 @@ int main()
         sleep_ms(2000);
         usb_fs_send_fmt_string("========================");
         sleep_ms(100);
+#endif
 
-        // clear(0xFD49);
-        // sleep_ms(100);
-        // clear(0xFF95);
-        // sleep_ms(100);
+#if 0 // IPS SCREEN DISPLAY TEST
+        clear(0xFD49);
+        sleep_ms(100);
+        clear(0xFF95);
+        sleep_ms(100);
+#endif
 
+#if 0 // GD25Q64 FLASH TEST
         usb_fs_send_fmt_string("FLASH ID: %x\n", gd25q64_read_id());
         sleep_ms(100);
         usb_fs_send_fmt_string("FLASH DATA: %s\n", flash_buf);
         sleep_ms(100);
+#endif
 
+#if 1 // LVGL TEST
         lv_label_set_text_fmt(label, "Click:%d", i);
-        sleep_ms(100);
-        i++;
-        lv_obj_set_pos(button, 10, 20);
-        lv_obj_set_pos(button2, 195, 105);
-        lv_obj_set_pos(slider, 140, 70);
-        lv_obj_set_pos(bar, 55, 100);
-        lv_obj_set_pos(sswitch, 165, 20);
-        sleep_ms(100);
-        lv_bar_set_value(slider, percent, LV_ANIM_ON);
-        lv_bar_set_value(bar, percent, LV_ANIM_ON);
+        lv_label_set_text_fmt(label2, "Click:%d", i);
+        lv_bar_set_value(slider, i, LV_ANIM_ON);
+        lv_bar_set_value(bar, i, LV_ANIM_ON);
 
-        if (percent > 100) {
-            percent = 1;
+        i++;
+        if (i > 100) {
+            i = 1;
         }
-        percent++;
-        sleep_ms(100);
+#endif
     }
 
     return 0;

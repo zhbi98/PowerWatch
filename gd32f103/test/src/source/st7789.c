@@ -149,21 +149,28 @@ void st7789_dir(unsigned char dir)
     write_command(0x36);
 
     /**
-     * 屏幕坐标系如下图
+     * The screen coordinate system is as follows:
      * +----- x 
      * |
      * |
      * y
      *
-     * 我们可以自行规定以 FPC 排线向下时的竖屏方向作为基准方向。 
-     * 调整屏幕方向值使得屏幕坐标系符合我们自行定义的基准方向,
-     * 此时的屏幕方向值就是基准方向的屏幕方向值。
+     * We can specify by ourselves that the vertical screen 
+     * direction when the FPC cable is down is used as the reference direction.
+     * Adjust the screen orientation value so that the screen coordinate system 
+     * conforms to our self-defined reference orientation,
+     * The screen orientation value at this time is the screen orientation 
+     * value of the reference orientation.
      *
-     * 将基准方向的屏幕坐标系进行顺时针或逆时针旋转可以得到屏幕旋转后的
-     * 屏幕坐标系, 由于屏幕显示一定是沿着 X 轴向右刷新, 沿着 Y 轴向下刷新
-     * 所以即可知道旋转后的屏幕刷新方向了。
+     * Rotate the screen coordinate system in the reference direction 
+     * clockwise or counterclockwise to get the rotated screen
+     * The screen coordinate system, because the screen display 
+     * must be refreshed to the right along the X axis, and refreshed 
+     * downward along the Y axis
+     * So you can know the refresh direction of the screen after rotation.
      *
-     * 四个方向值对应两个横屏方向和两个竖屏方向。
+     * The four orientation values correspond to two landscape orientations 
+     * and two portrait orientations.
      */
     switch (dir) {
         // +----- x

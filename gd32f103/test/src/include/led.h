@@ -19,8 +19,8 @@ enum led_status {
 
 // Period is running tick
 enum led_period {
-    ON_PERIOD  = 5,
-    OFF_PERIOD = 10,
+    ON_PERIOD  = 500,
+    OFF_PERIOD = 1000,
 };
 
 struct led_obj_t {
