@@ -143,6 +143,53 @@ void usb_fs_send_fmt_string(unsigned char * format, ...)
     usb_fs_send_string(value);
 }
 
+void adc_rcu_config(void)
+{
+    /* enable ADC clock */
+    rcu_periph_clock_enable(RCU_ADC0);
+    /* config ADC clock */
+    rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV12);
+}
+
+/*!
+    \brief      configure the ADC peripheral
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+void adc_config(void)
+{
+    adc_rcu_config();
+
+    /* ADC SCAN function enable */
+    adc_special_function_config(ADC0, ADC_SCAN_MODE,ENABLE);  
+    /* ADC trigger config */
+    adc_external_trigger_source_config(ADC0, ADC_INSERTED_CHANNEL, ADC0_1_2_EXTTRIG_INSERTED_NONE);
+    /* ADC data alignment config */
+    adc_data_alignment_config(ADC0, ADC_DATAALIGN_RIGHT);
+    /* ADC mode config */
+    adc_mode_config(ADC_MODE_FREE);  
+    /* ADC channel length config */
+    adc_channel_length_config(ADC0, ADC_INSERTED_CHANNEL, 2);
+
+    /* ADC temperature sensor channel config */
+    adc_inserted_channel_config(ADC0, 0, ADC_CHANNEL_16, ADC_SAMPLETIME_239POINT5);
+    /* ADC internal reference voltage channel config */
+    adc_inserted_channel_config(ADC0, 1, ADC_CHANNEL_17, ADC_SAMPLETIME_239POINT5);
+
+    /* ADC external trigger enable */
+    adc_external_trigger_config(ADC0, ADC_INSERTED_CHANNEL,ENABLE);
+
+    /* ADC temperature and Vrefint enable */
+    adc_tempsensor_vrefint_enable();
+    
+    /* enable ADC interface */
+    adc_enable(ADC0);
+    sleep_ms(5);    
+    /* ADC calibration and reset calibration */
+    adc_calibration_enable(ADC0);
+}
+
 #define LVGL_TIMER         TIMER1
 #define LVGL_TIMER_CLOCK   RCU_TIMER1
 #define LVGL_TIMER_CH      TIMER_CH_3
@@ -150,26 +197,41 @@ void usb_fs_send_fmt_string(unsigned char * format, ...)
 #define LVGL_TIMER_HANDLER TIMER1_IRQHandler
 
 /*
-This gd32 or stm32 mcu timer parm settings 
-    TIM_Period    -->     times
-    TIM_Prescaler --> prescaler
+-----------------------------------------
+    Timing 0.1s
+
+    Prescaler = AHB Clock / Timing Clock
+              = 84(MHz) / 50(KHz)
+              = 84000000(hz) / 50000(hz)
+              = 1680
+
+    T = 1 / f
+      = 1(s) / f(Hz)
+      = 1000000(us) / 50000(hz)
+      = 20(us/times)
+
+    Period = Timing / T
+           = 0.1(s) / 20(us/times)
+           = 100000(us) / 20(us/times)
+           = 5000(times)
+
 -----------------------------------------
     Timing 0.5s
-
-    0.5(s) = 500000(us)
-    500000 / 5000(times) = 100(us/times)
-
-    T = 1000000(us) / f = 100(us)
-    f = 10000(hz)
-
-    84000000(Hz) / prescaler = 10000(hz)
-    prescaler = 84000000(hz) / 10000(hz)
+    
+    Prescaler = AHB Clock / Timing Clock
+              = 84(MHz) / 10(KHz)
+              = 84000000(hz) / 10000(hz)
               = 8400
 
-    计时 1ms 即 T = 1ms
-    T = 1/f=1000000us/1000Hz = 1000us
-    溢出次数 = 计时时间 / T
-    48000000(Hz)/1000
+    T = 1 / f
+      = 1(s) / f(Hz)
+      = 1000000(us) / 10000(hz)
+      = 100(us/times)
+
+    Period = Timing / T
+           = 0.5(s) / 100(us/times)
+           = 500000(us) / 100(us/times)
+           = 5000(times)
 -----------------------------------------
 */
 
@@ -252,14 +314,17 @@ int main()
 {
     unsigned int i = 0;
     unsigned int percent = 0;
+    float temperature;
+    float vref_value;
     // SystemInit()->system_clock_config()->system_clock_108m_hxtal();
     sys_clock_config();
-    lvgl_timer_init(48000, 1);
+    lvgl_timer_init(960, 100);
     led1_gpio_init();
     led2_gpio_init();
     usart_init();
     st7789_init();
     INA226_Init();
+    adc_config();
     gd25q64_spi_gpio_init();
     sleep_ms(100);
     // gd25q64_page_write(0x0000, 13, "Hello, World!");
@@ -400,6 +465,19 @@ int main()
         sleep_ms(100);
         usb_fs_send_fmt_string("FLASH DATA: %s\n", flash_buf);
         sleep_ms(100);
+#endif
+
+#if 1 // GD32F103 TEMP SENSOR TEST
+        adc_software_trigger_enable(ADC0, ADC_INSERTED_CHANNEL);
+        sleep_ms(2000);
+
+        temperature = (1.43 - ADC_IDATA0(ADC0)*3.3/4096) * 1000 / 4.3 + 25;
+        vref_value = (ADC_IDATA1(ADC0) * 3.3 / 4096);
+
+        usb_fs_send_fmt_string("Temp: %2.0f\n", temperature);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("Vref: %5.3fV\n", vref_value);
+        sleep_ms(500);
 #endif
 
 #if 1 // LVGL TEST
