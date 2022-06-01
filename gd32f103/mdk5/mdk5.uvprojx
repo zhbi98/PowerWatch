@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\INA226;..\test\src\GD25Q64E;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting</IncludePath>
+              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -403,29 +403,34 @@
               <FilePath>..\test\src\source\usart.c</FilePath>
             </File>
             <File>
-              <FileName>st7789.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\source\st7789.c</FilePath>
-            </File>
-            <File>
-              <FileName>ina226.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\INA226\ina226.c</FilePath>
-            </File>
-            <File>
-              <FileName>ina226_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\INA226\ina226_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>gd25q64.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\GD25Q64E\gd25q64.c</FilePath>
+              <FilePath>..\test\src\gd25q64e\gd25q64.c</FilePath>
             </File>
             <File>
               <FileName>gd25q64_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\GD25Q64E\gd25q64_spi.c</FilePath>
+              <FilePath>..\test\src\gd25q64e\gd25q64_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>ina226.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\ina226\ina226.c</FilePath>
+            </File>
+            <File>
+              <FileName>ina226_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\ina226\ina226_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>st7789.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\st7789v3\st7789.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\source\key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -646,6 +651,11 @@
               <FileName>lv_port_disp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\lvgl8.2.0\lvgl\porting\lv_port_disp.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_port_indev.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\lvgl8.2.0\lvgl\porting\lv_port_indev.c</FilePath>
             </File>
           </Files>
         </Group>

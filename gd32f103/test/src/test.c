@@ -6,6 +6,7 @@
 #include <stdbool.h>
 
 #include "led.h"
+#include "key.h"
 #include "time.h"
 #include "log.h"
 #include "st7789.h"
@@ -321,6 +322,7 @@ int main()
     lvgl_timer_init(960, 100);
     led1_gpio_init();
     led2_gpio_init();
+    key_gpio_init();
     usart_init();
     st7789_init();
     INA226_Init();
@@ -467,7 +469,7 @@ int main()
         sleep_ms(100);
 #endif
 
-#if 1 // GD32F103 TEMP SENSOR TEST
+#if 0 // GD32F103 TEMP SENSOR TEST
         adc_software_trigger_enable(ADC0, ADC_INSERTED_CHANNEL);
         sleep_ms(2000);
 
@@ -478,6 +480,28 @@ int main()
         sleep_ms(100);
         usb_fs_send_fmt_string("Vref: %5.3fV\n", vref_value);
         sleep_ms(500);
+#endif
+
+#if 0 // KEY TEST
+        if (KEY1_STATUS() == 0)
+            usb_fs_send_fmt_string("%s\n", "KEY1 ENTER");
+        else if (KEY2_STATUS() == 0)
+            usb_fs_send_fmt_string("%s\n", "KEY2 ENTER");
+        else if (KEY3_STATUS() == 0)
+            usb_fs_send_fmt_string("%s\n", "KEY3 ENTER");
+        else if (KEY4_STATUS() == 0)
+            usb_fs_send_fmt_string("%s\n", "KEY4 ENTER");
+
+        unsigned char k = read_key_event();
+
+        if (k == KEY1_EVT)
+            usb_fs_send_fmt_string("%s\n", "KEY1 EVENT");
+        else if (k == KEY2_EVT)
+            usb_fs_send_fmt_string("%s\n", "KEY2 EVENT");
+        else if (k == KEY3_EVT)
+            usb_fs_send_fmt_string("%s\n", "KEY3 EVENT");
+        else if (k == KEY4_EVT)
+            usb_fs_send_fmt_string("%s\n", "KEY4 EVENT");
 #endif
 
 #if 1 // LVGL TEST
