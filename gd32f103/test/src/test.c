@@ -22,6 +22,7 @@ lv_obj_t * label2;
 lv_obj_t * sswitch;
 lv_obj_t * slider;
 lv_obj_t * bar;
+extern lv_indev_t * indev_keypad;
 
 // custom_hid
 // #include "custom_hid_core.h"
@@ -337,6 +338,11 @@ int main()
 
     lv_init();
     lv_port_disp_init();
+    lv_port_indev_init();
+
+    lv_group_t * group = lv_group_create();
+    lv_indev_set_group(indev_keypad, group);
+
     lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
 // ---------------- LVGL --------------------------
     container = lv_obj_create(lv_scr_act());
@@ -374,6 +380,12 @@ int main()
     lv_obj_set_size(bar, 105, 15);
     // lv_obj_center(bar);
     lv_obj_set_pos(bar, 55, 100);
+
+    lv_group_add_obj(group, button);
+    lv_group_add_obj(group, button2);
+    lv_group_add_obj(group, sswitch);
+    lv_group_add_obj(group, slider);
+    lv_group_add_obj(group, bar);
 // -------------------------------------------------
 
     /* system clocks configuration */
