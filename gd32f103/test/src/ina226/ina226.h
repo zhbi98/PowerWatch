@@ -40,6 +40,13 @@
  * 所以最后写入 Calibration Register中 的数据为 0x0A00
  */
 
+/**
+ * 更换采样电阻为 0.02 欧
+ * Current Max = 81.92mV / 0.02 = 4096mA
+ * Current_LSB = 0.1mA, 0.1mA * 32768(0x7FFF) = 3276.8mA < 4096mA
+ * CAL = 0.00512/(0.1*0.02)*1000 = 2560 = 0x0A00
+ */
+
 typedef struct {
     float voltageVal;    // mV
     float Shunt_voltage; // uV
