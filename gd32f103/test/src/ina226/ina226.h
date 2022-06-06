@@ -21,9 +21,9 @@
 // 定义配置数据
 #define VOLTAGE_LSB      1.25f  // 总线电压 LSB 1.25mV
 #define INA226_VAL_LSB   2.5f   // 分流电压 LSB 2.5uV
-#define CURRENT_LSB      1.0f   // 电流 LSB 1mA
-#define POWER_LSB        (25 * CURRENT_LSB)
-#define CAL              2560   // 0.00512 / (Current_LSB * R_SHUNT) = 512 // 电流偏大改小
+#define CURRENT_LSB      0.1f   // 电流 LSB 0.1mA
+#define POWER_LSB        (25.0f * CURRENT_LSB)
+#define CAL              2560   // 0.00512 / (Current_LSB * R_SHUNT)
 
 /**
  * 因为 Shunt Voltage Register 的值最大为 0x7FFF, LSB=2.5uV, FSR = 81.92mV。
@@ -51,7 +51,7 @@ typedef struct {
     float voltageVal;    // mV
     float Shunt_voltage; // uV
     float Shunt_Current; // mA
-    float Power_Val;     // 功率
+    float Power_Val;     // 功率，用户通过总线电压和电流计算得到
     float Power;         // 功率 mW
     uint32_t ina226_id;
     uint32_t ina226_mid;

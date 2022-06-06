@@ -12,6 +12,7 @@
 #include "st7789.h"
 #include "ina226.h"
 #include "gd25q64.h"
+#include "UIStack.h"
 #include "lvgl.h"
 
 lv_obj_t * container;
@@ -526,6 +527,47 @@ int main()
         if (i > 100) {
             i = 1;
         }
+#endif
+
+#if 0 // UI STACK TEST
+        UIStackDef uiStack;
+
+        UIKitType uiKit0 = {.pageNum = 2, .pageName = "uiKit0",};
+        UIKitType uiKit1 = {.pageNum = 5, .pageName = "uiKit1",};
+        UIKitType uiKit2 = {.pageNum = 8, .pageName = "uiKit2",};
+        UIKitType uiKit3 = {.pageNum = 0, .pageName = "uiKit3",};
+        UIKitType uiKit4 = {.pageNum = 6, .pageName = "uiKit4",};
+        stackPush(&uiStack, uiKit0);
+        stackPush(&uiStack, uiKit1);
+        stackPush(&uiStack, uiKit2);
+        stackPush(&uiStack, uiKit3);
+        stackPush(&uiStack, uiKit4);
+
+        stackPop(&uiStack, &uiKit0);
+        usb_fs_send_fmt_string("NUM: %d\n", uiKit0.pageNum);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("NAME: %s\n", uiKit0.pageName);
+        sleep_ms(100);
+        stackPop(&uiStack, &uiKit0);
+        usb_fs_send_fmt_string("NUM: %d\n", uiKit0.pageNum);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("NAME: %s\n", uiKit0.pageName);
+        sleep_ms(100);
+        stackPop(&uiStack, &uiKit0);
+        usb_fs_send_fmt_string("NUM: %d\n", uiKit0.pageNum);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("NAME: %s\n", uiKit0.pageName);
+        sleep_ms(100);
+        stackPop(&uiStack, &uiKit0);
+        usb_fs_send_fmt_string("NUM: %d\n", uiKit0.pageNum);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("NAME: %s\n", uiKit0.pageName);
+        sleep_ms(100);
+        stackPop(&uiStack, &uiKit0);
+        usb_fs_send_fmt_string("NUM: %d\n", uiKit0.pageNum);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("NAME: %s\n", uiKit0.pageName);
+        sleep_ms(100);
 #endif
     }
 

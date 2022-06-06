@@ -95,7 +95,7 @@ uint16_t INA226_GET_CAL_REG(uint8_t addr)
     return (uint16_t)temp;
 }
 
-// 总线电压寄存器02H----------->1.25mV/bit
+// 总线电压寄存器02H----------->1.25mV/bit (LSB 1.25mV)
 uint16_t INA226_GetVoltage(uint8_t addr)
 {
     uint32_t temp = 0;
@@ -104,7 +104,7 @@ uint16_t INA226_GetVoltage(uint8_t addr)
     return (uint16_t)temp;
 }
 
-// 分流电压寄存器01H----------->2.5uV/bit
+// 分流电压寄存器01H----------->2.5uV/bit (LSB 2.5uV)
 int16_t INA226_GetShuntVoltage(uint8_t addr)
 {
     int16_t temp = 0;
@@ -114,7 +114,7 @@ int16_t INA226_GetShuntVoltage(uint8_t addr)
     return (int16_t)temp;
 }
 
-// 电流寄存器04H----------->1mA/bit
+// 电流寄存器04H----------->0.1mA/bit（这需要根据电流采样电阻的阻值来确定）
 int16_t INA226_GetShunt_Current(uint8_t addr)
 {
     int16_t temp=0;
@@ -124,7 +124,7 @@ int16_t INA226_GetShunt_Current(uint8_t addr)
     return temp;
 }
 
-// 功率寄存器03H----------->25mW/bit
+// 功率寄存器03H----------->25.0*CURRENT_LSB mW/bit (LSB 25.0*CURRENT_LSBmW)
 uint16_t INA226_Get_Power(uint8_t addr)
 {
     int16_t temp=0;
@@ -143,30 +143,32 @@ void GetVoltage(float * Voltage) // mV
 // 获取分流电压----------->2.5uV/bit
 void Get_Shunt_voltage(float * Voltage) // uV
 {
-    // LSB 为 2.5 uV 
+    // LSB 为 2.5 uV
     *Voltage = (INA226_GetShuntVoltage(INA226_ADDR1) * INA226_VAL_LSB);//如需矫正电流分流参数请将这里改为2.5
 }
 
-// 获取电流----------->1mA/bit
+// 获取电流----------->0.1mA/bit
 void Get_Shunt_Current(float * Current) // mA
 {
+    // LSB 为 0.1 mA
     *Current = (INA226_GetShunt_Current(INA226_ADDR1) * CURRENT_LSB);
 }
 
-// 获取功率----------->25mW/bit
-void Get_Power(float * Power)//mW
+// 获取功率----------->25.0*CURRENT_LSBmW/bit
+void Get_Power(float * Power) // mW
 {
+    // LSB 为 25.0*CURRENT_LSB mW
     *Power = (INA226_Get_Power(INA226_ADDR1) * POWER_LSB);
 }
 
 // 获取功率 = 总线电压 * 电流
-void get_power() // W
+void get_power() // 总线电压，分压，电流，功率
 {
     GetVoltage(&ina226_data.voltageVal);            // mV
     Get_Shunt_voltage(&ina226_data.Shunt_voltage);  // uV
     Get_Shunt_Current(&ina226_data.Shunt_Current);  // mA
     Get_Power(&ina226_data.Power);                  // mW
-    ina226_data.Power_Val = ina226_data.voltageVal * 0.001f * ina226_data.Shunt_Current * 0.001f; // mV * mA
+    ina226_data.Power_Val = ina226_data.voltageVal * 0.001f * ina226_data.Shunt_Current * 0.001f; // V * A
 }
 
 //不设置报警，舍弃

@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting</IncludePath>
+              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting;..\test\src\UIKit;..\test\src\UIView</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1328,6 +1328,19 @@
               <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_textarea.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>UIKit</GroupName>
+          <Files>
+            <File>
+              <FileName>UIStack.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIKit\UIStack.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>UIView</GroupName>
         </Group>
       </Groups>
     </Target>
