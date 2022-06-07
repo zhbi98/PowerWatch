@@ -1333,14 +1333,36 @@
           <GroupName>UIKit</GroupName>
           <Files>
             <File>
+              <FileName>UIKit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIKit\UIKit.c</FilePath>
+            </File>
+            <File>
+              <FileName>Utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIKit\Utils.c</FilePath>
+            </File>
+            <File>
               <FileName>UIStack.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\UIKit\UIStack.c</FilePath>
+            </File>
+            <File>
+              <FileName>UIVector.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIKit\UIVector.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>UIView</GroupName>
+          <Files>
+            <File>
+              <FileName>NormalModeView.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\NormalModeView.c</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>

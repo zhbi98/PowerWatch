@@ -3,13 +3,10 @@
 #define __UISTACK_H__
 
 #include <stdbool.h>
+#include <string.h>
+#include "UIKit.h"
 
 #define STACK_SIZE_MAX 10
-
-typedef struct {
-	unsigned char pageNum;
-	unsigned char * pageName;
-} UIKitType;
 
 typedef struct {
     UIKitType buff[STACK_SIZE_MAX];
