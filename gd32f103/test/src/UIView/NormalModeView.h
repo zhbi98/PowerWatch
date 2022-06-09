@@ -22,13 +22,14 @@ typedef struct {
 } UISocketLabel;
 
 typedef struct {
-	UIOutputLabel uiOutputLabel;
-	UIMeasureGroup uiMeasureGroup;
-	UISocketLabel uiSocketLabel;
+    UIOutputLabel uiOutputLabel;
+    UIMeasureGroup uiMeasureGroup;
+    UISocketLabel uiSocketLabel;
 } UINormalMode;
 
 extern UINormalMode uiNormalModeView;
 
 extern void normalModeViewCreate(lv_obj_t * root);
+extern void normalModeLoadView(lv_obj_t * root);
 
 #endif

@@ -13,7 +13,11 @@
 #include "ina226.h"
 #include "gd25q64.h"
 #include "UIStack.h"
+#include "UIViewController.h"
 #include "lvgl.h"
+
+#include "NormalModeView.h"
+#include "EnergyModeView.h"
 
 lv_obj_t * container;
 lv_obj_t * button;
@@ -344,8 +348,8 @@ int main()
     lv_group_t * group = lv_group_create();
     lv_indev_set_group(indev_keypad, group);
 
-    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
-// ---------------- LVGL --------------------------
+    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_white());
+#if 0 // LVGL COMPONENTS TEST
     container = lv_obj_create(lv_scr_act());
     // lv_obj_remove_style_all(container);
     lv_obj_set_size(container, 320, 170);
@@ -387,7 +391,13 @@ int main()
     lv_group_add_obj(group, sswitch);
     lv_group_add_obj(group, slider);
     lv_group_add_obj(group, bar);
-// -------------------------------------------------
+#endif
+
+#if 1 // LVGL UIKit
+    viewInit("APP1", normalModeLoadView);
+    viewInit("APP2", energyModeLoadView);
+    viewStackPush("APP1");
+#endif
 
     /* system clocks configuration */
     rcu_config();
@@ -408,7 +418,7 @@ int main()
     usb_device_dev.status = USBD_CONNECTED;
 
     for (;;) {
-        lv_task_handler();
+        // lv_task_handler();
 
 #if 0 // USART TEST
         info("Helo, World!");
@@ -517,7 +527,7 @@ int main()
             usb_fs_send_fmt_string("%s\n", "KEY4 EVENT");
 #endif
 
-#if 1 // LVGL TEST
+#if 0 // LVGL COMPONENTS TEST
         lv_label_set_text_fmt(label, "Click:%d", i);
         lv_label_set_text_fmt(label2, "Click:%d", i);
         lv_bar_set_value(slider, i, LV_ANIM_ON);
@@ -569,6 +579,37 @@ int main()
         usb_fs_send_fmt_string("NAME: %s\n", uiKit0.pageName);
         sleep_ms(100);
 #endif
+
+#if 0 // UI VECTOR TEST
+        usb_fs_send_fmt_string("NAME: %s\n", vectorGet(&uiVector, 0).pageName);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("NUM: %d\n", vectorGet(&uiVector, 0).pageNum);
+        sleep_ms(100);
+
+        usb_fs_send_fmt_string("NAME: %s\n", vectorGet(&uiVector, 1).pageName);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("NUM: %d\n", vectorGet(&uiVector, 1).pageNum);
+        sleep_ms(100);
+
+        usb_fs_send_fmt_string("NAME: %s\n", vectorGet(&uiVector, 2).pageName);
+        sleep_ms(100);
+        usb_fs_send_fmt_string("NUM: %d\n", vectorGet(&uiVector, 2).pageNum);
+        sleep_ms(100);
+
+        usb_fs_send_fmt_string("FIND1: %d\n", vectorFind(uiVector, "APP1"));
+        sleep_ms(100);
+        usb_fs_send_fmt_string("FIND2: %d\n", vectorFind(uiVector, "APP2"));
+        sleep_ms(100);
+        usb_fs_send_fmt_string("FIND3: %d\n", vectorFind(uiVector, "APP4"));
+        sleep_ms(100);
+#endif
+        viewStackPush("APP2");
+        lv_task_handler();
+        sleep_ms(50);
+
+        viewStackPop();
+        lv_task_handler();
+        sleep_ms(50);
     }
 
     return 0;

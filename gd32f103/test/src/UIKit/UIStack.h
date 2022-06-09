@@ -20,4 +20,19 @@ extern unsigned char stackEmpty(UIStackDef * s);
 extern unsigned char stackSize(UIStackDef * s);
 extern unsigned char stackClear(UIStackDef * s);
 
+/*****************************************
+ *          ADDRESS STACK
+ ****************************************/
+typedef struct {
+    UIKitType * buff[STACK_SIZE_MAX];
+    int top;
+} UIStackAddrDef;
+
+extern unsigned char stackPushAddress(UIStackAddrDef * s, UIKitType * data);
+extern unsigned char stackPopAddress(UIStackAddrDef * s, UIKitType ** data);
+extern unsigned char stackTopAddress(UIStackAddrDef * s, UIKitType ** data);
+extern unsigned char stackEmptyAddress(UIStackAddrDef * s);
+extern unsigned char stackSizeAddress(UIStackAddrDef * s);
+extern unsigned char stackClearAddress(UIStackAddrDef * s);
+
 #endif

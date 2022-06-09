@@ -1352,6 +1352,11 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIKit\UIVector.c</FilePath>
             </File>
+            <File>
+              <FileName>UIViewController.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIKit\UIViewController.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1361,6 +1366,11 @@
               <FileName>NormalModeView.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\NormalModeView.c</FilePath>
+            </File>
+            <File>
+              <FileName>EnergyModeView.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\EnergyModeView.c</FilePath>
             </File>
           </Files>
         </Group>

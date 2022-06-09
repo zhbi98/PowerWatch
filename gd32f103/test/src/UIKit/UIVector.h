@@ -14,5 +14,8 @@ typedef struct {
 } UIVectorDef;
 
 extern unsigned char vectorPush(UIVectorDef * v, UIKitType data);
+extern UIKitType vectorGet(UIVectorDef * v, int index);
+extern UIKitType * vectorGetAddress(UIVectorDef * v, int index);
+extern int vectorSize(UIVectorDef * v);
 
 #endif

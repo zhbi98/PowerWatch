@@ -1,28 +1,66 @@
 
 #include "Utils.h"
 
-unsigned char stackFind(UIStackDef stack, UIKitType data)
+unsigned char stackFind(UIStackDef stack, unsigned char * name)
 {
     UIKitType top;
-    size_t size;
-
-    char buff1[64];
-    char buff2[64];
 
     while (!stackEmpty(&stack)) {
         stackTop(&stack, &top);
 
-        memcpy(buff1, &data, sizeof(UIKitType));
-        memcpy(buff2, &top, sizeof(UIKitType));
-
-        if (sizeof(UIKitType) > sizeof(UIKitType))
-            size = sizeof(UIKitType);
-        else
-            size = sizeof(UIKitType);
-
-        if (memcmp(buff1, buff2, size) == 0)
+        if (strcmp(name, top.pageName) == 0)
             return true;
         stackPop(&stack, &top);
     }
     return false;
+}
+
+unsigned char stackFindAddress(UIStackAddrDef stack, unsigned char * name)
+{
+    UIKitType * top;
+
+    while (!stackEmptyAddress(&stack)) {
+        stackTopAddress(&stack, &top);
+
+        if (strcmp(name, top->pageName) == 0)
+            return true;
+        stackPopAddress(&stack, &top);
+    }
+    return false;
+}
+
+unsigned char vectorFind(UIVectorDef vec, unsigned char * name)
+{
+    unsigned char i = 0;
+
+    while (i < vectorSize(&vec)) {
+        if (strcmp(name, vectorGet(&vec, i).pageName) == 0)
+            return true;
+        i++;
+    }
+    return false;
+}
+
+UIKitType vectorNameGet(UIVectorDef vec, unsigned char * name)
+{
+    unsigned char i = 0;
+
+    while (i < vectorSize(&vec)) {
+        if (strcmp(name, vectorGet(&vec, i).pageName) == 0)
+            return vectorGet(&vec, i);
+        i++;
+    }
+    return vectorGet(&vec, 0);
+}
+
+UIKitType * vectorNameGetAddress(UIVectorDef * vec, unsigned char * name)
+{
+    unsigned char i = 0;
+
+    while (i < vectorSize(vec)) {
+        if (strcmp(name, vectorGetAddress(vec, i)->pageName) == 0)
+            return vectorGetAddress(vec, i);
+        i++;
+    }
+    return vectorGetAddress(vec, 0);
 }
