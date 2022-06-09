@@ -603,13 +603,15 @@ int main()
         usb_fs_send_fmt_string("FIND3: %d\n", vectorFind(uiVector, "APP4"));
         sleep_ms(100);
 #endif
-        viewStackPush("APP2");
-        lv_task_handler();
-        sleep_ms(50);
+        // viewStackPush("APP2");
+        // lv_task_handler();
+        // sleep_ms(50);
 
-        viewStackPop();
+        // viewStackPop();
+        // lv_task_handler();
+        // sleep_ms(50);
+        
         lv_task_handler();
-        sleep_ms(50);
     }
 
     return 0;

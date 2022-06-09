@@ -7,6 +7,7 @@
 typedef struct {
     lv_obj_t * cont;
     lv_obj_t * outputLabel;
+    lv_style_t styleOutputLabel;
 } UIOutputLabel;
 
 typedef struct {

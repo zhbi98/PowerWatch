@@ -19,7 +19,7 @@ void viewStackPush(unsigned char * name)
 {
     if (stackFindAddress(uiStack, name) == true)
         return;
-    if (vectorFind(uiVector, name) == false)
+    if (vectorFindAddress(&uiVector, name) == false)
         return;
 
     UIKitType * uiView = vectorNameGetAddress(&uiVector, name);

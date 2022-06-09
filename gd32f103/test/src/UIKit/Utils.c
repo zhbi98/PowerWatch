@@ -41,6 +41,18 @@ unsigned char vectorFind(UIVectorDef vec, unsigned char * name)
     return false;
 }
 
+unsigned char vectorFindAddress(UIVectorDef * vec, unsigned char * name)
+{
+    unsigned char i = 0;
+
+    while (i < vectorSize(vec)) {
+        if (strcmp(name, vectorGetAddress(vec, i)->pageName) == 0)
+            return true;
+        i++;
+    }
+    return false;
+}
+
 UIKitType vectorNameGet(UIVectorDef vec, unsigned char * name)
 {
     unsigned char i = 0;
