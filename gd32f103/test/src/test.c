@@ -622,6 +622,20 @@ int main()
         lv_task_handler();
         sleep_ms(200);
         // lv_task_handler();
+
+        switch (read_key_event()) {
+            case KEY1_EVT:
+                viewStackPush("About");
+                break;
+            case KEY2_EVT:
+                if (stackSizeAddress(&uiStack) > 1)
+                viewStackPop();
+                break;
+            case KEY3_EVT:
+                break;
+            case KEY4_EVT:
+                break;
+        }
     }
 
     return 0;

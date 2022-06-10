@@ -14,9 +14,10 @@ typedef struct {
 typedef struct {
     lv_obj_t * cont;
     lv_obj_t * labelValue1;
-	lv_obj_t * labelValue2;
-	lv_obj_t * labelValue3;
-	lv_obj_t * labelValue4;
+    lv_obj_t * labelValue2;
+    lv_obj_t * labelValue3;
+    lv_obj_t * labelValue4;
+    lv_style_t labelStyle;
 } Sidebar;
 
 typedef struct {

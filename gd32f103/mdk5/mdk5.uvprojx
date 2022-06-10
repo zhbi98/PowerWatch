@@ -1387,11 +1387,6 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\Resource\Font\font_bahnschrift_32.c</FilePath>
             </File>
-            <File>
-              <FileName>font_bahnschrift_17.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIView\Resource\Font\font_bahnschrift_17.c</FilePath>
-            </File>
           </Files>
         </Group>
       </Groups>

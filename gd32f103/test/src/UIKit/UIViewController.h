@@ -7,7 +7,6 @@
 #include "UIStack.h"
 #include "UIVector.h"
 
-extern UIKitType UI_NormalMode;
 extern UIStackAddrDef uiStack;
 extern UIVectorDef uiVector;
 
