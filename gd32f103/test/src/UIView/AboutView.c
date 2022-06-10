@@ -1,7 +1,7 @@
 ﻿
-#include "EnergyModeView.h"
+#include "AboutView.h"
 
-void energyModeViewStyle(lv_obj_t * obj)
+void aboutViewStyle(lv_obj_t * obj)
 {
     static lv_style_t style;
 
@@ -19,24 +19,24 @@ void energyModeViewStyle(lv_obj_t * obj)
     lv_obj_add_style(obj, &style, 0);
 }
 
-void energyModeViewCreate(lv_obj_t * root)
+void aboutViewCreate(lv_obj_t * root)
 {
     lv_obj_remove_style_all(root);
     lv_obj_set_size(root, 320, 170);
     lv_obj_set_y(root, 0);
     lv_obj_set_x(root, 0);
 
-    energyModeViewStyle(root);
+    aboutViewStyle(root);
 
     lv_obj_t * button = lv_btn_create(root);
     lv_obj_set_size(button, 60, 35);
     lv_obj_set_pos(button, 5, 102);
     lv_obj_t * label = lv_label_create(button);
-    lv_label_set_text_fmt(label, "%s", "Energy");
+    lv_label_set_text_fmt(label, "%s", "About");
     lv_obj_center(label);
 }
 
-void energyModeLoadView(lv_obj_t * root)
+void aboutLoadView(lv_obj_t * root)
 {
-    energyModeViewCreate(root);
+    aboutViewCreate(root);
 }

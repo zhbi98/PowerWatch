@@ -16,8 +16,8 @@
 #include "UIViewController.h"
 #include "lvgl.h"
 
-#include "NormalModeView.h"
-#include "EnergyModeView.h"
+#include "MeasCenterView.h"
+#include "AboutView.h"
 
 lv_obj_t * container;
 lv_obj_t * button;
@@ -348,7 +348,12 @@ int main()
     lv_group_t * group = lv_group_create();
     lv_indev_set_group(indev_keypad, group);
 
-    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_white());
+    /** 定义一个活动屏幕, 否则 `lv_disp_set_bg_color` 屏幕背景颜色设置无效 */
+    lv_obj_t * scr = lv_scr_act();
+    lv_obj_remove_style_all(scr);
+    lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
+
+    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
 #if 0 // LVGL COMPONENTS TEST
     container = lv_obj_create(lv_scr_act());
     // lv_obj_remove_style_all(container);
@@ -394,9 +399,9 @@ int main()
 #endif
 
 #if 1 // LVGL UIKit
-    viewInit("APP1", normalModeLoadView);
-    viewInit("APP2", energyModeLoadView);
-    viewStackPush("APP1");
+    viewInit("MeasCenter", measCenterLoadView);
+    viewInit("About", aboutLoadView);
+    viewStackPush("MeasCenter");
 #endif
 
     /* system clocks configuration */
@@ -610,8 +615,13 @@ int main()
         // viewStackPop();
         // lv_task_handler();
         // sleep_ms(50);
-        
+        unsigned char buf[10];
+        memset(buf, '\0', 10);
+        sprintf(buf, "%5.3f", INA226_GetVoltage(INA226_ADDR1) * 1.25 / 1000);
+        lv_label_set_text_fmt(MeasSence.mainShow.lableValue, "%s", buf);
         lv_task_handler();
+        sleep_ms(200);
+        // lv_task_handler();
     }
 
     return 0;

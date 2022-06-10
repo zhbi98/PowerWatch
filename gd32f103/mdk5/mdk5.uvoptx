@@ -2523,8 +2523,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\NormalModeView.c</PathWithFileName>
-      <FilenameWithoutPath>NormalModeView.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIView\AboutView.c</PathWithFileName>
+      <FilenameWithoutPath>AboutView.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2535,8 +2535,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\EnergyModeView.c</PathWithFileName>
-      <FilenameWithoutPath>EnergyModeView.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIView\MeasCenterView.c</PathWithFileName>
+      <FilenameWithoutPath>MeasCenterView.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2551,6 +2551,30 @@
     <File>
       <GroupNumber>11</GroupNumber>
       <FileNumber>190</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIView\Resource\Font\font_bahnschrift_65.c</PathWithFileName>
+      <FilenameWithoutPath>font_bahnschrift_65.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>191</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIView\Resource\Font\font_bahnschrift_32.c</PathWithFileName>
+      <FilenameWithoutPath>font_bahnschrift_32.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>192</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

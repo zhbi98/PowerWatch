@@ -1363,20 +1363,30 @@
           <GroupName>UIView</GroupName>
           <Files>
             <File>
-              <FileName>NormalModeView.c</FileName>
+              <FileName>AboutView.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIView\NormalModeView.c</FilePath>
+              <FilePath>..\test\src\UIView\AboutView.c</FilePath>
             </File>
             <File>
-              <FileName>EnergyModeView.c</FileName>
+              <FileName>MeasCenterView.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIView\EnergyModeView.c</FilePath>
+              <FilePath>..\test\src\UIView\MeasCenterView.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Resource</GroupName>
           <Files>
+            <File>
+              <FileName>font_bahnschrift_65.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\Resource\Font\font_bahnschrift_65.c</FilePath>
+            </File>
+            <File>
+              <FileName>font_bahnschrift_32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\Resource\Font\font_bahnschrift_32.c</FilePath>
+            </File>
             <File>
               <FileName>font_bahnschrift_17.c</FileName>
               <FileType>1</FileType>
