@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting;..\test\src\UIKit;..\test\src\UIView</IncludePath>
+              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting;..\test\src\UIKit;..\test\src\UIView;..\test\src\UIView\Resource\Symbol</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1378,14 +1378,24 @@
           <GroupName>Resource</GroupName>
           <Files>
             <File>
-              <FileName>font_bahnschrift_65.c</FileName>
+              <FileName>font_bahnschrift_17.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIView\Resource\Font\font_bahnschrift_65.c</FilePath>
+              <FilePath>..\test\src\UIView\Resource\Font\font_bahnschrift_17.c</FilePath>
             </File>
             <File>
               <FileName>font_bahnschrift_32.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\Resource\Font\font_bahnschrift_32.c</FilePath>
+            </File>
+            <File>
+              <FileName>font_bahnschrift_56.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\Resource\Font\font_bahnschrift_56.c</FilePath>
+            </File>
+            <File>
+              <FileName>symbol_chip_20.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\Resource\Symbol\symbol_chip_20.c</FilePath>
             </File>
           </Files>
         </Group>

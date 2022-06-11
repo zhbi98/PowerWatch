@@ -1,6 +1,12 @@
 
 #include "UIStack.h"
 
+void stackInit(UIStackDef * s)
+{
+    s->top = -1;
+    memset(s->buff, 0, STACK_SIZE_MAX);
+}
+
 unsigned char stackPush(UIStackDef * s, UIKitType data)
 {
     if (s->top >= STACK_SIZE_MAX - 1)
@@ -48,6 +54,12 @@ unsigned char stackClear(UIStackDef * s)
 /*****************************************
  *          ADDRESS STACK
  ****************************************/
+void stackInitAddress(UIStackAddrDef * s)
+{
+    s->top = -1;
+    memset(s->buff, 0, STACK_SIZE_MAX);
+}
+
 unsigned char stackPushAddress(UIStackAddrDef * s, UIKitType * data)
 {
     if (s->top >= STACK_SIZE_MAX - 1)

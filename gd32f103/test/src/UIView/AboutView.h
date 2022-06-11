@@ -5,8 +5,14 @@
 #include "lvgl.h"
 
 typedef struct {
+    lv_obj_t * label;
+    lv_style_t style;
+} Title;
+
+typedef struct {
     lv_obj_t * cont;
     lv_style_t style;
+    Title title;
 } AboutSence;
 
 extern AboutSence aboutSence;

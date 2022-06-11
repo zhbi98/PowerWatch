@@ -616,9 +616,27 @@ int main()
         // lv_task_handler();
         // sleep_ms(50);
         unsigned char buf[10];
+
         memset(buf, '\0', 10);
-        sprintf(buf, "%5.3f", INA226_GetVoltage(INA226_ADDR1) * 1.25 / 1000);
+        sprintf(buf, "%05.2f", INA226_GetVoltage(INA226_ADDR1) * 1.25 / 1000);
         lv_label_set_text_fmt(MeasSence.mainShow.lableValue, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", INA226_GetShunt_Current(INA226_ADDR1) * /*0.02*/0.1);
+        lv_label_set_text_fmt(MeasSence.sidebar.labelValue1, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", INA226_Get_Power(INA226_ADDR1) * /*0.02*/0.1 * 25.0);
+        lv_label_set_text_fmt(MeasSence.sidebar.labelValue2, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", INA226_Get_Power(INA226_ADDR1) * /*0.02*/0.1 * 25.0);
+        lv_label_set_text_fmt(MeasSence.sidebar.labelValue3, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", INA226_Get_Power(INA226_ADDR1) * /*0.02*/0.1 * 25.0);
+        lv_label_set_text_fmt(MeasSence.sidebar.labelValue4, "%s", buf);
+
         lv_task_handler();
         sleep_ms(200);
         // lv_task_handler();
@@ -629,7 +647,7 @@ int main()
                 break;
             case KEY2_EVT:
                 if (stackSizeAddress(&uiStack) > 1)
-                viewStackPop();
+                    viewStackPop();
                 break;
             case KEY3_EVT:
                 break;

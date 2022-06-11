@@ -13,6 +13,7 @@ typedef struct {
     int top;
 } UIStackDef;
 
+extern void stackInit(UIStackDef * s);
 extern unsigned char stackPush(UIStackDef * s, UIKitType data);
 extern unsigned char stackPop(UIStackDef * s, UIKitType * data);
 extern unsigned char stackTop(UIStackDef * s, UIKitType * data);
@@ -28,6 +29,7 @@ typedef struct {
     int top;
 } UIStackAddrDef;
 
+extern void stackInitAddress(UIStackAddrDef * s);
 extern unsigned char stackPushAddress(UIStackAddrDef * s, UIKitType * data);
 extern unsigned char stackPopAddress(UIStackAddrDef * s, UIKitType ** data);
 extern unsigned char stackTopAddress(UIStackAddrDef * s, UIKitType ** data);

@@ -3,6 +3,7 @@
 #define __MEAS_CENTER_VIEW_H__
 
 #include "lvgl.h"
+#include "usr_symbol_def.h"
 
 typedef struct {
     lv_obj_t * cont;
@@ -17,6 +18,10 @@ typedef struct {
     lv_obj_t * labelValue2;
     lv_obj_t * labelValue3;
     lv_obj_t * labelValue4;
+    lv_obj_t * labelUnit1;
+    lv_obj_t * labelUnit2;
+    lv_obj_t * labelUnit3;
+    lv_obj_t * labelUnit4;
     lv_style_t labelStyle;
 } Sidebar;
 

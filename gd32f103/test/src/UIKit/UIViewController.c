@@ -3,6 +3,7 @@
 
 UIStackAddrDef uiStack;
 UIVectorDef uiVector;
+UIViewController viewController;
 
 void viewInit(unsigned char * name, UIView * loadView)
 {
@@ -12,6 +13,7 @@ void viewInit(unsigned char * name, UIView * loadView)
     UIView.root = NULL,
     UIView.loadView = loadView,
 
+    stackInitAddress(&uiStack);
     vectorPush(&uiVector, UIView);
 }
 
