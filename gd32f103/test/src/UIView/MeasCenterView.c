@@ -34,6 +34,13 @@ void mainShowStyleCreate(lv_obj_t * obj)
     // lv_palette_main(LV_PALETTE_BLUE)
     lv_style_set_text_color(&MeasSence.mainShow.style, lv_color_hex(0x000000));
 
+#if 1
+    lv_style_set_shadow_width(&MeasSence.mainShow.style, 3);
+    lv_style_set_shadow_color(&MeasSence.mainShow.style, lv_palette_main(LV_PALETTE_GREY));
+    lv_style_set_shadow_ofs_x(&MeasSence.mainShow.style, 3);
+    lv_style_set_shadow_ofs_y(&MeasSence.mainShow.style, 3);
+#endif
+
     lv_obj_add_style(obj, &MeasSence.mainShow.style, 0);
 }
 

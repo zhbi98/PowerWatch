@@ -29,6 +29,10 @@ lv_obj_t * slider;
 lv_obj_t * bar;
 extern lv_indev_t * indev_keypad;
 
+float mAh = 0.0;
+float mWh = 0.0;
+char  t = 0;
+
 // custom_hid
 // #include "custom_hid_core.h"
 
@@ -298,6 +302,13 @@ void LVGL_TIMER_HANDLER()
         // usb_fs_send_fmt_string("%s\n", "LVGL TICK");
         lv_tick_inc(1);
         led_controller_handler(&led2);
+
+        t++;
+        if (t == 99) {
+            t = 0;
+            mAh = mAh + (float)(ina226_data.Shunt_Current / 36000);
+            mWh = mWh + (float)(ina226_data.Power / 36000);
+        }
     }
 }
 
@@ -617,24 +628,25 @@ int main()
         // sleep_ms(50);
         unsigned char buf[10];
 
+        get_power();
         memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", INA226_GetVoltage(INA226_ADDR1) * 1.25 / 1000);
+        sprintf(buf, "%05.2f", ina226_data.voltageVal / 1000);
         lv_label_set_text_fmt(MeasSence.mainShow.lableValue, "%s", buf);
 
         memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", INA226_GetShunt_Current(INA226_ADDR1) * /*0.02*/0.1);
+        sprintf(buf, "%05.2f", ina226_data.Shunt_Current);
         lv_label_set_text_fmt(MeasSence.sidebar.labelValue1, "%s", buf);
 
         memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", INA226_Get_Power(INA226_ADDR1) * /*0.02*/0.1 * 25.0);
+        sprintf(buf, "%05.2f", ina226_data.Power);
         lv_label_set_text_fmt(MeasSence.sidebar.labelValue2, "%s", buf);
 
         memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", INA226_Get_Power(INA226_ADDR1) * /*0.02*/0.1 * 25.0);
+        sprintf(buf, "%05.2f", mAh);
         lv_label_set_text_fmt(MeasSence.sidebar.labelValue3, "%s", buf);
 
         memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", INA226_Get_Power(INA226_ADDR1) * /*0.02*/0.1 * 25.0);
+        sprintf(buf, "%05.2f", mWh);
         lv_label_set_text_fmt(MeasSence.sidebar.labelValue4, "%s", buf);
 
         lv_task_handler();

@@ -9,11 +9,11 @@
 #include "UIVector.h"
 
 typedef struct {
-	UIKitType prevPage;
-	UIKitType currentPage;
+	UIKitType * prevPage;
+	UIKitType * currentPage;
 } UIViewController;
 
-// uiStack 和 uiVector 可以定义到 UIViewController 中
+// uiStack and uiVector can be defined in UIViewController
 extern UIStackAddrDef uiStack;
 extern UIVectorDef uiVector;
 extern UIViewController viewController;

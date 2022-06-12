@@ -91,6 +91,7 @@ unsigned char read_key_event()
 
     key_event_ticks();
 
+#if 0
     if (key_evt.press_long == true) {
         if (key_evt.active_time <= 0) {
             key_evt.active_time = 800;
@@ -99,18 +100,23 @@ unsigned char read_key_event()
             return RELEASE;
         }
     }
+#endif
 
+#if 0
     // LVGL KEY FORMAT
-    // return k;
+    return k;
+#endif
 
+#if 0
     // Pressed event
-    // if ((k != RELEASE) && (last_event == RELEASE)) {
-    //     last_event = k;
-    //     return k;
-    // } else {
-    //     last_event = k;
-    //     return RELEASE;
-    // }
+    if ((k != RELEASE) && (last_event == RELEASE)) {
+        last_event = k;
+        return k;
+    } else {
+        last_event = k;
+        return RELEASE;
+    }
+#endif
 
     // Released event
     if ((k == RELEASE) && (last_event != RELEASE)) {
