@@ -6,9 +6,12 @@
 #include "usr_symbol_def.h"
 
 typedef struct {
-    lv_obj_t * cont;
-    lv_obj_t * lableValue;
-    lv_obj_t * lableUnit;
+    lv_obj_t * cont1;
+    lv_obj_t * lableValue1;
+    lv_obj_t * lableUnit1;
+    lv_obj_t * cont2;
+    lv_obj_t * lableValue2;
+    lv_obj_t * lableUnit2;
     lv_style_t style;
 } MainShow;
 

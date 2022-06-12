@@ -18,6 +18,7 @@
 
 #include "MeasCenterView.h"
 #include "AboutView.h"
+#include "MeasCenter.h"
 
 lv_obj_t * container;
 lv_obj_t * button;
@@ -28,10 +29,6 @@ lv_obj_t * sswitch;
 lv_obj_t * slider;
 lv_obj_t * bar;
 extern lv_indev_t * indev_keypad;
-
-float mAh = 0.0;
-float mWh = 0.0;
-char  t = 0;
 
 // custom_hid
 // #include "custom_hid_core.h"
@@ -308,6 +305,14 @@ void LVGL_TIMER_HANDLER()
             t = 0;
             mAh = mAh + (float)(ina226_data.Shunt_Current / 36000);
             mWh = mWh + (float)(ina226_data.Power / 36000);
+
+            avgsum = avgsum + (ina226_data.Power / 1000);
+            avgv = avgsum / avgt;
+            avgt++;
+        }
+        if (avgt == 100) {
+            avgt = 1;
+            avgsum = 0;
         }
     }
 }
@@ -619,39 +624,15 @@ int main()
         usb_fs_send_fmt_string("FIND3: %d\n", vectorFind(uiVector, "APP4"));
         sleep_ms(100);
 #endif
-        // viewStackPush("APP2");
-        // lv_task_handler();
-        // sleep_ms(50);
 
-        // viewStackPop();
-        // lv_task_handler();
-        // sleep_ms(50);
-        unsigned char buf[10];
-
-        get_power();
-        memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", ina226_data.voltageVal / 1000);
-        lv_label_set_text_fmt(MeasSence.mainShow.lableValue, "%s", buf);
-
-        memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", ina226_data.Shunt_Current);
-        lv_label_set_text_fmt(MeasSence.sidebar.labelValue1, "%s", buf);
-
-        memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", ina226_data.Power);
-        lv_label_set_text_fmt(MeasSence.sidebar.labelValue2, "%s", buf);
-
-        memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", mAh);
-        lv_label_set_text_fmt(MeasSence.sidebar.labelValue3, "%s", buf);
-
-        memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", mWh);
-        lv_label_set_text_fmt(MeasSence.sidebar.labelValue4, "%s", buf);
-
+#if 0 // UI PAGE SWITCH TEST
+        viewStackPush("About");
         lv_task_handler();
-        sleep_ms(200);
-        // lv_task_handler();
+        sleep_ms(50);
+        viewStackPop();
+        lv_task_handler();
+        sleep_ms(50);
+#endif
 
         switch (read_key_event()) {
             case KEY1_EVT:
@@ -662,10 +643,13 @@ int main()
                     viewStackPop();
                 break;
             case KEY3_EVT:
+                timerUpdateCreate();
                 break;
             case KEY4_EVT:
                 break;
         }
+        get_power();
+        lv_task_handler();
     }
 
     return 0;

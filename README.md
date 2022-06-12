@@ -8,6 +8,13 @@
 通过 mAh，Ah，Wh 这些计量单位可以很方便的计量和计算被监测电源所输出的电能。 比如其中的 mAh 所能
 说明的是一颗 3000mAh 的电池可以提供在 300mA 恒流输出状态下持续 10 小时的电能输出能力。
 
-## 模型设计
+## 3D 模型设计
 
 <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal2.png" alt="GitHub" title="GitHub,Social Coding" width="900" height="561"/></div>
+
+## 概览
+
+<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/IMG_20220612_173601.jpg" alt="GitHub" title="GitHub,Social Coding" width="900" height="561"/></div>
+
+<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/IMG_20220612_173525.jpg" alt="GitHub" title="GitHub,Social Coding" width="900" height="561"/></div>
+

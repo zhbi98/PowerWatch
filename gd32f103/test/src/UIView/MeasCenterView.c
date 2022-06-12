@@ -97,31 +97,51 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_size(cont, 160, 60);
     lv_obj_set_pos(cont, 10, 10);
     mainShowStyleCreate(cont);
-    MeasSence.mainShow.cont = cont;
+    MeasSence.mainShow.cont1 = cont;
 
-    lv_obj_t * label = lv_label_create(MeasSence.mainShow.cont);
+    cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_set_size(cont, 160, 60);
+    lv_obj_set_pos(cont, 10, 80);
+    mainShowStyleCreate(cont);
+    MeasSence.mainShow.cont2 = cont;
+
+    lv_obj_t * label = lv_label_create(MeasSence.mainShow.cont1);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 20, 20);
     lv_obj_align(label, LV_ALIGN_CENTER, -10, 0);
     LV_FONT_DECLARE(font_bahnschrift_56);
     lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
     lv_label_set_text_fmt(label, "%s", "00.00");
-    MeasSence.mainShow.lableValue = label;
+    MeasSence.mainShow.lableValue1 = label;
 
-    label = lv_label_create(MeasSence.mainShow.cont);
+    label = lv_label_create(MeasSence.mainShow.cont1);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 136, 20);
     lv_obj_align(label, LV_ALIGN_RIGHT_MID, -8, 5);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "V");
-    MeasSence.mainShow.lableUnit = label;
+    MeasSence.mainShow.lableUnit1 = label;
 
-    // label = lv_label_create(MeasSence.mainShow.cont);
-    // lv_obj_set_pos(label, 20, 120);
-    // LV_FONT_DECLARE(symbol_chip_20);
-    // lv_obj_set_style_text_font(label, &symbol_chip_20, 0);
-    // lv_label_set_text_fmt(label, USR_SYMBOL_CHIP_20);
+    label = lv_label_create(MeasSence.mainShow.cont2);
+    // lv_obj_set_size(label, 160, 80);
+    // lv_obj_set_pos(label, 20, 20);
+    lv_obj_align(label, LV_ALIGN_CENTER, -10, 0);
+    LV_FONT_DECLARE(font_bahnschrift_56);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
+    lv_label_set_text_fmt(label, "%s", "00.00");
+    MeasSence.mainShow.lableValue2 = label;
+
+    label = lv_label_create(MeasSence.mainShow.cont2);
+    // lv_obj_set_size(label, 160, 80);
+    // lv_obj_set_pos(label, 136, 20);
+    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -8, 5);
+    LV_FONT_DECLARE(font_bahnschrift_32);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
+    lv_label_set_text_fmt(label, "%s", "W");
+    MeasSence.mainShow.lableUnit2 = label;
+
     mainShowAnim(cont);
 }
 

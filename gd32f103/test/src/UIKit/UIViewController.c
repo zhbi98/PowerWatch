@@ -8,10 +8,14 @@ UIViewController viewController;
 void viewInit(unsigned char * name, UIView * loadView)
 {
     UIKitType UIView;
-    UIView.pageNum = 0,
-    UIView.pageName = name,
-    UIView.root = NULL,
-    UIView.loadView = loadView,
+    UIView.pageNum = 0;
+    UIView.pageName = name;
+    UIView.root = NULL;
+    UIView.loadView = loadView;
+
+    // The page has been initialized
+    if (vectorFindAddress(&uiVector, name) == true)
+        return;
 
     stackInitAddress(&uiStack);
     vectorPush(&uiVector, UIView);
