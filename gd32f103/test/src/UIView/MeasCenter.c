@@ -41,6 +41,6 @@ void measCenterUpdate()
 void timerUpdateCreate()
 {
 	if (updataTimer == NULL) {
-        updataTimer = lv_timer_create(measCenterUpdate, 1000, NULL);
+        updataTimer = lv_timer_create(measCenterUpdate, 500, NULL);
     }
 }

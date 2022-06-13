@@ -13,6 +13,9 @@ void viewInit(unsigned char * name, UIView * loadView)
     UIView.root = NULL;
     UIView.loadView = loadView;
 
+    viewController.prevPage = NULL;
+    viewController.currentPage = NULL;
+
     // The page has been initialized
     if (vectorFindAddress(&uiVector, name) == true)
         return;
@@ -31,22 +34,7 @@ void viewStackPush(unsigned char * name)
     UIKitType * uiView = vectorNameGetAddress(&uiVector, name);
     stackPushAddress(&uiStack, uiView);
 
-    lv_obj_t * root_obj = lv_obj_create(lv_scr_act());
-    lv_obj_set_size(root_obj, MY_DISP_HOR_RES, MY_DISP_VER_RES);
-    lv_obj_clear_flag(root_obj, LV_OBJ_FLAG_SCROLLABLE);
-
-    if (uiView->root != NULL) {
-        lv_obj_remove_style_all(uiView->root);
-        lv_obj_clean(uiView->root);
-        // Asynchronous deletes are deleted on the next `lv_task_handler()` call.
-        lv_obj_del_async(uiView->root);
-        uiView->root = NULL;
-    }
-
-    uiView->root = root_obj;
-    uiView->loadView(uiView->root);
-
-    lv_obj_move_foreground(uiView->root);
+    viewSwitch(uiView, true);
 }
 
 void viewStackPop()
@@ -59,20 +47,38 @@ void viewStackPop()
     stackPopAddress(&uiStack, &top);
     stackTopAddress(&uiStack, &top);
 
+    viewSwitch(top, false);
+}
+
+void viewSwitch(UIKitType * newView, unsigned char isPushActive)
+{
+    viewController.currentPage = newView;
+    
     lv_obj_t * root_obj = lv_obj_create(lv_scr_act());
     lv_obj_set_size(root_obj, MY_DISP_HOR_RES, MY_DISP_VER_RES);
     lv_obj_clear_flag(root_obj, LV_OBJ_FLAG_SCROLLABLE);
 
-    if (top->root != NULL) {
-        lv_obj_remove_style_all(top->root);
-        lv_obj_clean(top->root);
+    if (viewController.currentPage->root != NULL) {
+        lv_obj_remove_style_all(viewController.currentPage->root);
+        lv_obj_clean(viewController.currentPage->root);
         // Asynchronous deletes are deleted on the next `lv_task_handler()` call.
-        lv_obj_del_async(top->root);
-        top->root = NULL;
+        lv_obj_del_async(viewController.currentPage->root);
+        viewController.currentPage->root = NULL;
     }
 
-    top->root = root_obj;
-    top->loadView(top->root);
+    viewController.currentPage->root = root_obj;
+    viewController.currentPage->loadView(viewController.currentPage->root);
 
-    lv_obj_move_foreground(top->root);
+    /* Move the layer, move the new page to the front */
+    if (isPushActive) {
+        // PM_LOG_INFO("Page PUSH is detect, move Page(%s) to foreground", PageCurrent->Name);
+        if (viewController.prevPage != NULL)
+            lv_obj_move_foreground(viewController.prevPage->root);
+        lv_obj_move_foreground(viewController.currentPage->root);
+    } else {
+        // PM_LOG_INFO("Page POP is detect, move Page(%s) to foreground", GetPagePrevName());
+        lv_obj_move_foreground(viewController.currentPage->root);
+        if (viewController.prevPage != NULL)
+            lv_obj_move_foreground(viewController.prevPage->root);
+    }
 }

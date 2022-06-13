@@ -9,10 +9,10 @@ void aboutSenceStyleCreate(lv_obj_t * obj)
     lv_style_reset(&aboutSence.style);
     lv_style_init(&aboutSence.style);
     lv_style_set_radius(&aboutSence.style, 0);
-    lv_style_set_bg_color(&aboutSence.style, lv_color_hex(0xFFD8BD));
+    lv_style_set_bg_color(&aboutSence.style, lv_color_hex(0xF2F1F6));
     lv_style_set_bg_opa(&aboutSence.style, LV_OPA_50);
     lv_style_set_border_width(&aboutSence.style, 0);
-    lv_style_set_border_color(&aboutSence.style, lv_color_hex(0xFFD8BD));
+    lv_style_set_border_color(&aboutSence.style, lv_color_hex(0xF2F1F6));
     lv_style_set_border_opa(&aboutSence.style, LV_OPA_50);
     // lv_palette_main(LV_PALETTE_BLUE)
     lv_style_set_text_color(&aboutSence.style, lv_color_hex(0x000000));

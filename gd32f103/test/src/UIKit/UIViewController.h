@@ -21,5 +21,6 @@ extern UIViewController viewController;
 extern void viewInit(unsigned char * name, UIView * loadView);
 extern void viewStackPush(unsigned char * name);
 extern void viewStackPop();
+extern void viewSwitch(UIKitType * newView, unsigned char isPushActive);
 
 #endif

@@ -9,10 +9,10 @@ void senceStyleCreate(lv_obj_t * obj)
     lv_style_reset(&MeasSence.style);
     lv_style_init(&MeasSence.style);
     lv_style_set_radius(&MeasSence.style, 0);
-    lv_style_set_bg_color(&MeasSence.style, lv_color_hex(0xFFFFFF));
+    lv_style_set_bg_color(&MeasSence.style, lv_color_hex(0xF2F1F6));
     lv_style_set_bg_opa(&MeasSence.style, LV_OPA_100);
     lv_style_set_border_width(&MeasSence.style, 0);
-    lv_style_set_border_color(&MeasSence.style, lv_color_hex(0xFFFFFF));
+    lv_style_set_border_color(&MeasSence.style, lv_color_hex(0xF2F1F6));
     lv_style_set_border_opa(&MeasSence.style, LV_OPA_100);
     // lv_palette_main(LV_PALETTE_BLUE)
     lv_style_set_text_color(&MeasSence.style, lv_color_hex(0x000000));
@@ -27,18 +27,18 @@ void mainShowStyleCreate(lv_obj_t * obj)
     lv_style_init(&MeasSence.mainShow.style);
     lv_style_set_radius(&MeasSence.mainShow.style, 10);
     lv_style_set_bg_color(&MeasSence.mainShow.style, lv_color_hex(0xFFD8BD));
-    lv_style_set_bg_opa(&MeasSence.mainShow.style, LV_OPA_40);
+    lv_style_set_bg_opa(&MeasSence.mainShow.style, LV_OPA_100);
     lv_style_set_border_width(&MeasSence.mainShow.style, 0);
     lv_style_set_border_color(&MeasSence.mainShow.style, lv_color_hex(0xFFD8BD));
-    lv_style_set_border_opa(&MeasSence.mainShow.style, LV_OPA_40);
+    lv_style_set_border_opa(&MeasSence.mainShow.style, LV_OPA_100);
     // lv_palette_main(LV_PALETTE_BLUE)
     lv_style_set_text_color(&MeasSence.mainShow.style, lv_color_hex(0x000000));
 
 #if 1
-    lv_style_set_shadow_width(&MeasSence.mainShow.style, 3);
+    lv_style_set_shadow_width(&MeasSence.mainShow.style, 2);
     lv_style_set_shadow_color(&MeasSence.mainShow.style, lv_palette_main(LV_PALETTE_GREY));
-    lv_style_set_shadow_ofs_x(&MeasSence.mainShow.style, 3);
-    lv_style_set_shadow_ofs_y(&MeasSence.mainShow.style, 3);
+    lv_style_set_shadow_ofs_x(&MeasSence.mainShow.style, 2);
+    lv_style_set_shadow_ofs_y(&MeasSence.mainShow.style, 2);
 #endif
 
     lv_obj_add_style(obj, &MeasSence.mainShow.style, 0);
@@ -97,16 +97,28 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_size(cont, 160, 60);
     lv_obj_set_pos(cont, 10, 10);
     mainShowStyleCreate(cont);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0xFEFEFE), 0);
+    lv_obj_set_style_text_color(cont, lv_color_hex(0x000000), 0);
     MeasSence.mainShow.cont1 = cont;
 
     cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
     lv_obj_set_size(cont, 160, 60);
-    lv_obj_set_pos(cont, 10, 80);
+    lv_obj_set_pos(cont, 10, 95);
     mainShowStyleCreate(cont);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0xFEFEFE), 0);
+    lv_obj_set_style_text_color(cont, lv_color_hex(0x000000), 0);
     MeasSence.mainShow.cont2 = cont;
 
-    lv_obj_t * label = lv_label_create(MeasSence.mainShow.cont1);
+    lv_obj_t * label = lv_label_create(par);
+    // lv_obj_set_size(label, 160, 80);
+    lv_obj_set_pos(label, 15, 75);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    // lv_obj_set_style_text_color(label, lv_color_hex(0x31D059), 0);
+    lv_label_set_text_fmt(label, "%s", "AVG");
+
+    label = lv_label_create(MeasSence.mainShow.cont1);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 20, 20);
     lv_obj_align(label, LV_ALIGN_CENTER, -10, 0);
@@ -122,6 +134,7 @@ void mainShowViewCreate(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "V");
+    lv_obj_set_style_text_color(label, lv_color_hex(0x0985FF), 0);
     MeasSence.mainShow.lableUnit1 = label;
 
     label = lv_label_create(MeasSence.mainShow.cont2);
@@ -140,6 +153,7 @@ void mainShowViewCreate(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "W");
+    lv_obj_set_style_text_color(label, lv_color_hex(0x31D059), 0);
     MeasSence.mainShow.lableUnit2 = label;
 
     mainShowAnim(cont);
