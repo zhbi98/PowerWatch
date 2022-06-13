@@ -20,9 +20,9 @@ typedef enum {
 } PageState;
 
 typedef struct {
+    lv_obj_t * root;
     unsigned char pageNum;
     unsigned char * pageName;
-    lv_obj_t * root;
     // void (*loadView)(lv_obj_t *);
     UIView * loadView;
     PageState State;

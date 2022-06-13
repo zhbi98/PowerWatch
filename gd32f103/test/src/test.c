@@ -417,6 +417,8 @@ int main()
 #if 1 // LVGL UIKit
     viewInit("MeasCenter", measCenterLoadView);
     viewInit("About", aboutLoadView);
+    viewInit("PageTest1", measCenterLoadView);
+    viewInit("PageTest2", aboutLoadView);
     viewStackPush("MeasCenter");
 #endif
 
@@ -633,7 +635,7 @@ int main()
         lv_task_handler();
         sleep_ms(50);
 #endif
-
+        get_power();
         switch (read_key_event()) {
             case KEY1_EVT:
                 viewStackPush("About");
@@ -643,12 +645,41 @@ int main()
                     viewStackPop();
                 break;
             case KEY3_EVT:
-                timerUpdateCreate();
+                // timerUpdateCreate();
+                viewStackPush("PageTest1");
                 break;
             case KEY4_EVT:
+                viewStackPush("PageTest2");
                 break;
         }
-        get_power();
+
+        unsigned char buf[10];
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", ina226_data.voltageVal / 1000);
+        lv_label_set_text_fmt(MeasSence.mainShow.lableValue1, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", avgv);
+        lv_label_set_text_fmt(MeasSence.mainShow.lableValue2, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", ina226_data.Shunt_Current);
+        lv_label_set_text_fmt(MeasSence.sidebar.labelValue1, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", ina226_data.Power);
+        lv_label_set_text_fmt(MeasSence.sidebar.labelValue2, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", mAh);
+        lv_label_set_text_fmt(MeasSence.sidebar.labelValue3, "%s", buf);
+
+        memset(buf, '\0', 10);
+        sprintf(buf, "%05.2f", mWh);
+        lv_label_set_text_fmt(MeasSence.sidebar.labelValue4, "%s", buf);
+        sleep_ms(200);
+
         lv_task_handler();
     }
 

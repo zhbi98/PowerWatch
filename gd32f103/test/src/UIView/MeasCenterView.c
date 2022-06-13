@@ -156,7 +156,7 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_style_text_color(label, lv_color_hex(0x31D059), 0);
     MeasSence.mainShow.lableUnit2 = label;
 
-    mainShowAnim(cont);
+    // mainShowAnim(cont);
 }
 
 void sidebarViewCreate(lv_obj_t * par)
@@ -267,5 +267,7 @@ void sidebarViewCreate(lv_obj_t * par)
 
 void measCenterLoadView(lv_obj_t * root)
 {
+    lv_obj_set_size(root, MY_DISP_HOR_RES, MY_DISP_VER_RES);
+    lv_obj_clear_flag(root, LV_OBJ_FLAG_SCROLLABLE);
     measCenterViewCreate(root);
 }

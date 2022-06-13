@@ -47,5 +47,7 @@ void aboutViewCreate(lv_obj_t * root)
 
 void aboutLoadView(lv_obj_t * root)
 {
+    lv_obj_set_size(root, MY_DISP_HOR_RES, MY_DISP_VER_RES);
+    lv_obj_clear_flag(root, LV_OBJ_FLAG_SCROLLABLE);
     aboutViewCreate(root);
 }

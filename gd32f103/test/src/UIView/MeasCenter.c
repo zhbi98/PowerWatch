@@ -11,36 +11,36 @@ lv_timer_t * updataTimer = NULL;
 
 void measCenterUpdate()
 {
-    unsigned char buf[10];
+    // unsigned char buf[10];
 
-    memset(buf, '\0', 10);
-    sprintf(buf, "%05.2f", ina226_data.voltageVal / 1000);
-    lv_label_set_text_fmt(MeasSence.mainShow.lableValue1, "%s", buf);
+    // memset(buf, '\0', 10);
+    // sprintf(buf, "%05.2f", ina226_data.voltageVal / 1000);
+    // lv_label_set_text_fmt(MeasSence.mainShow.lableValue1, "%s", buf);
 
-    memset(buf, '\0', 10);
-    sprintf(buf, "%05.2f", avgv);
-    lv_label_set_text_fmt(MeasSence.mainShow.lableValue2, "%s", buf);
+    // memset(buf, '\0', 10);
+    // sprintf(buf, "%05.2f", avgv);
+    // lv_label_set_text_fmt(MeasSence.mainShow.lableValue2, "%s", buf);
 
-    memset(buf, '\0', 10);
-    sprintf(buf, "%05.2f", ina226_data.Shunt_Current);
-    lv_label_set_text_fmt(MeasSence.sidebar.labelValue1, "%s", buf);
+    // memset(buf, '\0', 10);
+    // sprintf(buf, "%05.2f", ina226_data.Shunt_Current);
+    // lv_label_set_text_fmt(MeasSence.sidebar.labelValue1, "%s", buf);
 
-    memset(buf, '\0', 10);
-    sprintf(buf, "%05.2f", ina226_data.Power);
-    lv_label_set_text_fmt(MeasSence.sidebar.labelValue2, "%s", buf);
+    // memset(buf, '\0', 10);
+    // sprintf(buf, "%05.2f", ina226_data.Power);
+    // lv_label_set_text_fmt(MeasSence.sidebar.labelValue2, "%s", buf);
 
-    memset(buf, '\0', 10);
-    sprintf(buf, "%05.2f", mAh);
-    lv_label_set_text_fmt(MeasSence.sidebar.labelValue3, "%s", buf);
+    // memset(buf, '\0', 10);
+    // sprintf(buf, "%05.2f", mAh);
+    // lv_label_set_text_fmt(MeasSence.sidebar.labelValue3, "%s", buf);
 
-    memset(buf, '\0', 10);
-    sprintf(buf, "%05.2f", mWh);
-    lv_label_set_text_fmt(MeasSence.sidebar.labelValue4, "%s", buf);
+    // memset(buf, '\0', 10);
+    // sprintf(buf, "%05.2f", mWh);
+    // lv_label_set_text_fmt(MeasSence.sidebar.labelValue4, "%s", buf);
 }
 
 void timerUpdateCreate()
 {
-	if (updataTimer == NULL) {
-        updataTimer = lv_timer_create(measCenterUpdate, 500, NULL);
-    }
+    // if (updataTimer == NULL) {
+    //     updataTimer = lv_timer_create(measCenterUpdate, 500, NULL);
+    // }
 }
