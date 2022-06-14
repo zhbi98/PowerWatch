@@ -42,6 +42,4 @@ extern void measCenterViewCreate(lv_obj_t * root);
 extern void mainShowViewCreate(lv_obj_t * par);
 extern void sidebarViewCreate(lv_obj_t * par);
 
-extern void measCenterLoadView(lv_obj_t * root);
-
 #endif

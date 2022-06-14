@@ -13,9 +13,10 @@ extern float mAh;
 extern float mWh;
 extern char  t;
 
-extern lv_timer_t * updataTimer;
-
+extern void measCenterLoadView(lv_obj_t * root);
+extern void measCenterLoadGroup();
+extern void measCenterAttachEvent(lv_obj_t * obj);
 extern void measCenterUpdate();
-extern void timerUpdateCreate();
+extern void measCenterOnEvent(lv_event_t * event);
 
 #endif

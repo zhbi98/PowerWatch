@@ -2444,7 +2444,7 @@
 
   <Group>
     <GroupName>UIKit</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2552,6 +2552,18 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>191</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIView\About.c</PathWithFileName>
+      <FilenameWithoutPath>About.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -2562,7 +2574,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>191</FileNumber>
+      <FileNumber>192</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2574,7 +2586,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>192</FileNumber>
+      <FileNumber>193</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2586,7 +2598,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>193</FileNumber>
+      <FileNumber>194</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2598,7 +2610,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>194</FileNumber>
+      <FileNumber>195</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

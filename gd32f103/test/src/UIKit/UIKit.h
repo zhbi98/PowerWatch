@@ -5,19 +5,15 @@
 #include "lvgl.h"
 
 typedef void UIView(lv_obj_t *);
+typedef void UIViewUpdate();
+typedef void UIViewLoadGroup();
 
 /* Page state */
 typedef enum {
-    PAGE_STATE_IDLE,
     PAGE_STATE_LOAD,
-    PAGE_STATE_WILL_APPEAR,
-    PAGE_STATE_DID_APPEAR,
-    PAGE_STATE_ACTIVITY,
-    PAGE_STATE_WILL_DISAPPEAR,
-    PAGE_STATE_DID_DISAPPEAR,
     PAGE_STATE_UNLOAD,
     _PAGE_STATE_LAST
-} PageState;
+} ViewState;
 
 typedef struct {
     lv_obj_t * root;
@@ -25,7 +21,9 @@ typedef struct {
     unsigned char * pageName;
     // void (*loadView)(lv_obj_t *);
     UIView * loadView;
-    PageState State;
+    UIViewUpdate * uiViewUpdate;
+    UIViewLoadGroup * uiViewGroup;
+    ViewState State;
 } UIKitType;
 
 #endif

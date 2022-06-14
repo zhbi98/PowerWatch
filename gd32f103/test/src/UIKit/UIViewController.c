@@ -5,7 +5,7 @@ UIStackAddrDef uiStack;
 UIVectorDef uiVector;
 UIViewController viewController;
 
-void viewInit(unsigned char * name, UIView * loadView)
+void UIViewInit(unsigned char * name, UIView * loadView, UIViewUpdate * update, UIViewLoadGroup * loadGroup)
 {
     // The page has been initialized
     if (vectorFindAddress(&uiVector, name) == true)
@@ -16,45 +16,36 @@ void viewInit(unsigned char * name, UIView * loadView)
     UIView.pageNum  = 0;
     UIView.pageName = name;
     UIView.loadView = loadView;
-    UIView.State    = PAGE_STATE_UNLOAD;
+    UIView.uiViewUpdate = update;
+    UIView.uiViewGroup = loadGroup;
+    UIView.State = PAGE_STATE_UNLOAD;
 
-    viewController.oldPage = NULL;
+    viewController.currentPage = NULL;
 
     stackInitAddress(&uiStack);
     vectorPush(&uiVector, UIView);
 }
 
-void viewStackPush(unsigned char * name)
+void UIViewLoad(unsigned char * name)
 {
-    // // Undefined's page
-    // if (vectorFindAddress(&uiVector, name) == false)
-    //     return;
-    // // The page has been pushed to the stack
-    // if (stackFindAddress(uiStack, name) == true)
-    //     return;
+    /**
+     * // Undefined's page
+     * if (vectorFindAddress(&uiVector, name) == false)
+     *     return;
+     * // The page has been pushed to the stack
+     * if (stackFindAddress(uiStack, name) == true)
+     *     return;
+     *
+     * UIKitType * uiView = vectorNameGetAddress(&uiVector, name);
+     * stackPushAddress(&uiStack, uiView);
+     */
 
     UIKitType * uiView = vectorNameGetAddress(&uiVector, name);
-    stackPushAddress(&uiStack, uiView);
-
-    viewSwitch(uiView, true);
+    UIViewSwitch(uiView, true);
+    viewController.currentPage = uiView;
 }
 
-void viewStackPop()
-{
-    // UIKitType * uiView;
-
-    // // UIView stack empty
-    // if (stackEmptyAddress(&uiStack) == true)
-    //     return;
-
-    // stackPopAddress(&uiStack, &uiView);
-    // viewController.oldPage = uiView;
-    // stackTopAddress(&uiStack, &uiView);
-
-    // viewSwitch(uiView, false);
-}
-
-void viewSwitch(UIKitType * uiView, unsigned char isPushActive)
+void UIViewSwitch(UIKitType * uiView, unsigned char isPushActive)
 {
     lv_obj_t * root_obj = NULL;
 
@@ -62,26 +53,24 @@ void viewSwitch(UIKitType * uiView, unsigned char isPushActive)
         root_obj = lv_obj_create(lv_scr_act());
         // lv_obj_set_size(root_obj, MY_DISP_HOR_RES, MY_DISP_VER_RES);
         // lv_obj_clear_flag(root_obj, LV_OBJ_FLAG_SCROLLABLE);
-        uiView->State = PAGE_STATE_LOAD;
         uiView->root = root_obj;
         uiView->loadView(uiView->root);
         lv_obj_move_foreground(uiView->root);
+        uiView->uiViewGroup();
+        uiView->State = PAGE_STATE_LOAD;
     } else if (uiView->State == PAGE_STATE_LOAD) {
         lv_obj_move_foreground(uiView->root);
-
-        // lv_obj_remove_style_all(viewController.oldPage->root);
-        // lv_obj_clean(viewController.oldPage->root);
-        // lv_obj_del_async(viewController.oldPage->root);
-        // viewController.oldPage->root = NULL;
-        // viewController.oldPage->State = PAGE_STATE_UNLOAD;
+        uiView->uiViewGroup();
     }
 
-    // Free page elements to prevent memory leaks
-    // if (uiView->root != NULL) {
-    //     lv_obj_remove_style_all(uiView->root);
-    //     lv_obj_clean(uiView->root);
-    //     // Asynchronous deletes are deleted on the next `lv_task_handler()` call.
-    //     lv_obj_del_async(uiView->root);
-    //     uiView->root = NULL;
-    // }
+    /**
+     * // Free page elements to prevent memory leaks
+     * if (uiView->root != NULL) {
+     *     lv_obj_remove_style_all(uiView->root);
+     *     lv_obj_clean(uiView->root);
+     *     // Asynchronous deletes are deleted on the next `lv_task_handler()` call.
+     *     lv_obj_del_async(uiView->root);
+     *     uiView->root = NULL;
+     * }
+     */
 }

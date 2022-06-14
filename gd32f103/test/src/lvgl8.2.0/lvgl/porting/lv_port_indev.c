@@ -321,9 +321,9 @@ static uint32_t keypad_get_key(void)
     if (KEY1_STATUS() == 0)
         return LV_KEY_PREV;
     else if (KEY2_STATUS() == 0)
-        return LV_KEY_NEXT;
-    else if (KEY3_STATUS() == 0)
         return LV_KEY_ENTER;
+    else if (KEY3_STATUS() == 0)
+        return LV_KEY_NEXT;
     else if (KEY4_STATUS() == 0)
         return LV_KEY_RIGHT;
 // ----------------------------------------

@@ -34,20 +34,16 @@ void aboutViewCreate(lv_obj_t * root)
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 8);
     LV_FONT_DECLARE(font_bahnschrift_56);
     lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
-    lv_label_set_text_fmt(label, "%s", "2020");
+    lv_label_set_text_fmt(label, "%s", "0000");
     aboutSence.title.label = label;
 
     lv_obj_t * button = lv_btn_create(aboutSence.cont);
     label = lv_label_create(button);
-    lv_label_set_text_fmt(label, "%s", "OK");
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    lv_label_set_text_fmt(label, "%s", "Done");
     lv_obj_center(label);
     lv_obj_set_size(button, 80, 40);
     lv_obj_set_pos(button, 120, 120);
-}
-
-void aboutLoadView(lv_obj_t * root)
-{
-    lv_obj_set_size(root, MY_DISP_HOR_RES, MY_DISP_VER_RES);
-    lv_obj_clear_flag(root, LV_OBJ_FLAG_SCROLLABLE);
-    aboutViewCreate(root);
+    aboutSence.button = button;
 }
