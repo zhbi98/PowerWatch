@@ -26,12 +26,12 @@ void viewInit(unsigned char * name, UIView * loadView)
 
 void viewStackPush(unsigned char * name)
 {
-    // Undefined's page
-    if (vectorFindAddress(&uiVector, name) == false)
-        return;
-    // The page has been pushed to the stack
-    if (stackFindAddress(uiStack, name) == true)
-        return;
+    // // Undefined's page
+    // if (vectorFindAddress(&uiVector, name) == false)
+    //     return;
+    // // The page has been pushed to the stack
+    // if (stackFindAddress(uiStack, name) == true)
+    //     return;
 
     UIKitType * uiView = vectorNameGetAddress(&uiVector, name);
     stackPushAddress(&uiStack, uiView);
@@ -41,17 +41,17 @@ void viewStackPush(unsigned char * name)
 
 void viewStackPop()
 {
-    UIKitType * uiView;
+    // UIKitType * uiView;
 
-    // UIView stack empty
-    if (stackEmptyAddress(&uiStack) == true)
-        return;
+    // // UIView stack empty
+    // if (stackEmptyAddress(&uiStack) == true)
+    //     return;
 
-    stackPopAddress(&uiStack, &uiView);
-    viewController.oldPage = uiView;
-    stackTopAddress(&uiStack, &uiView);
+    // stackPopAddress(&uiStack, &uiView);
+    // viewController.oldPage = uiView;
+    // stackTopAddress(&uiStack, &uiView);
 
-    viewSwitch(uiView, false);
+    // viewSwitch(uiView, false);
 }
 
 void viewSwitch(UIKitType * uiView, unsigned char isPushActive)
@@ -76,6 +76,7 @@ void viewSwitch(UIKitType * uiView, unsigned char isPushActive)
         // viewController.oldPage->State = PAGE_STATE_UNLOAD;
     }
 
+    // Free page elements to prevent memory leaks
     // if (uiView->root != NULL) {
     //     lv_obj_remove_style_all(uiView->root);
     //     lv_obj_clean(uiView->root);

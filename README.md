@@ -14,7 +14,7 @@
 
 ## 概览
 
-<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/IMG_20220612_173601.jpg" alt="GitHub" title="GitHub,Social Coding" width="900" height="561"/></div>
+<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/IMG_20220612_173525.jpg" alt="GitHub" title="GitHub,Social Coding" width="600" height="800"/></div>
 
-<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/IMG_20220612_173525.jpg" alt="GitHub" title="GitHub,Social Coding" width="900" height="561"/></div>
+<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/IMG_20220612_173601.jpg" alt="GitHub" title="GitHub,Social Coding" width="600" height="800"/></div>
 
