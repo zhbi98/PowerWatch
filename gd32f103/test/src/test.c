@@ -12,6 +12,7 @@
 #include "st7789.h"
 #include "ina226.h"
 #include "gd25q64.h"
+#include "temp_sensor.h"
 #include "UIStack.h"
 #include "UIViewController.h"
 #include "lvgl.h"
@@ -152,53 +153,6 @@ void usb_fs_send_fmt_string(unsigned char * format, ...)
     usb_fs_send_string(value);
 }
 
-void adc_rcu_config(void)
-{
-    /* enable ADC clock */
-    rcu_periph_clock_enable(RCU_ADC0);
-    /* config ADC clock */
-    rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV12);
-}
-
-/*!
-    \brief      configure the ADC peripheral
-    \param[in]  none
-    \param[out] none
-    \retval     none
-*/
-void adc_config(void)
-{
-    adc_rcu_config();
-
-    /* ADC SCAN function enable */
-    adc_special_function_config(ADC0, ADC_SCAN_MODE,ENABLE);  
-    /* ADC trigger config */
-    adc_external_trigger_source_config(ADC0, ADC_INSERTED_CHANNEL, ADC0_1_2_EXTTRIG_INSERTED_NONE);
-    /* ADC data alignment config */
-    adc_data_alignment_config(ADC0, ADC_DATAALIGN_RIGHT);
-    /* ADC mode config */
-    adc_mode_config(ADC_MODE_FREE);  
-    /* ADC channel length config */
-    adc_channel_length_config(ADC0, ADC_INSERTED_CHANNEL, 2);
-
-    /* ADC temperature sensor channel config */
-    adc_inserted_channel_config(ADC0, 0, ADC_CHANNEL_16, ADC_SAMPLETIME_239POINT5);
-    /* ADC internal reference voltage channel config */
-    adc_inserted_channel_config(ADC0, 1, ADC_CHANNEL_17, ADC_SAMPLETIME_239POINT5);
-
-    /* ADC external trigger enable */
-    adc_external_trigger_config(ADC0, ADC_INSERTED_CHANNEL,ENABLE);
-
-    /* ADC temperature and Vrefint enable */
-    adc_tempsensor_vrefint_enable();
-    
-    /* enable ADC interface */
-    adc_enable(ADC0);
-    sleep_ms(5);    
-    /* ADC calibration and reset calibration */
-    adc_calibration_enable(ADC0);
-}
-
 #define LVGL_TIMER         TIMER1
 #define LVGL_TIMER_CLOCK   RCU_TIMER1
 #define LVGL_TIMER_CH      TIMER_CH_3
@@ -305,20 +259,7 @@ void LVGL_TIMER_HANDLER()
         if (time == 99) {
             time = 0;
             electricalEnergy();
-
-            if (pool_full(&data_pool) == true) {
-                pool_data_t avg;
-                output_pool(&data_pool, &avg);
-                input_pool(&data_pool, ina226_data.Shunt_Current);
-
-                for (char i = 0; i < 32; i++) {
-                    average.sum = average.sum + data_pool.buf[i];
-                }
-                average.avg = average.sum / 1000 / 32;
-                average.sum = 0;
-            } else {
-                input_pool(&data_pool, ina226_data.Shunt_Current);
-            }
+            electricalAverage();
         }
         time++;
     }
@@ -355,7 +296,7 @@ int main()
     usart_init();
     st7789_init();
     INA226_Init();
-    adc_config();
+    temp_adc_config();
     gd25q64_spi_gpio_init();
     sleep_ms(100);
     // gd25q64_page_write(0x0000, 13, "Hello, World!");
@@ -526,19 +467,6 @@ int main()
         sleep_ms(100);
         usb_fs_send_fmt_string("FLASH DATA: %s\n", flash_buf);
         sleep_ms(100);
-#endif
-
-#if 0 // GD32F103 TEMP SENSOR TEST
-        adc_software_trigger_enable(ADC0, ADC_INSERTED_CHANNEL);
-        sleep_ms(2000);
-
-        temperature = (1.43 - ADC_IDATA0(ADC0)*3.3/4096) * 1000 / 4.3 + 25;
-        vref_value = (ADC_IDATA1(ADC0) * 3.3 / 4096);
-
-        usb_fs_send_fmt_string("Temp: %2.0f\n", temperature);
-        sleep_ms(100);
-        usb_fs_send_fmt_string("Vref: %5.3fV\n", vref_value);
-        sleep_ms(500);
 #endif
 
 #if 0 // KEY TEST

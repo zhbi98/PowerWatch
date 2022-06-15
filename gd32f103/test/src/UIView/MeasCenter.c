@@ -19,6 +19,25 @@ void electricalEnergy()
     energy.mWh = energy.mWh + (float)(ina226_data.Power * ENERGY_TIME);
 }
 
+void electricalAverage()
+{
+    pool_data_t pool_data;
+
+    if (pool_full(&data_pool) == true) {
+        output_pool(&data_pool, &pool_data);
+        input_pool(&data_pool, ina226_data.Shunt_Current);
+
+        for (char i = 0; i < 32; i++) {
+            average.sum = average.sum + data_pool.buf[i];
+        }
+
+        average.avg = average.sum / 1000 / 32;
+        average.sum = 0;
+    } else {
+        input_pool(&data_pool, ina226_data.Shunt_Current);
+    }
+}
+
 void measCenterLoadView(lv_obj_t * root)
 {
     lv_obj_set_size(root, MY_DISP_HOR_RES, MY_DISP_VER_RES);
@@ -48,7 +67,7 @@ void measCenterAttachEvent(lv_obj_t * obj)
 
 void measCenterUpdate()
 {
-    static unsigned int i = 0;
+    static unsigned int i = 20000;
 
     if (i == 20000) {
         i = 0;

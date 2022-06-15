@@ -23,6 +23,7 @@ extern Energy energy;
 extern Average average;
 extern struct data_pool_t data_pool;
 extern void electricalEnergy();
+extern void electricalAverage();
 
 extern void measCenterLoadView(lv_obj_t * root);
 extern void measCenterLoadGroup();

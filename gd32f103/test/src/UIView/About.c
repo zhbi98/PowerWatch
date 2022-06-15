@@ -8,7 +8,7 @@ void aboutLoadView(lv_obj_t * root)
     aboutViewCreate(root);
 
     aboutAttachEvent(aboutSence.cont);
-    aboutAttachEvent(aboutSence.button);
+    // aboutAttachEvent(aboutSence.button);
 }
 
 void aboutLoadGroup()
@@ -18,7 +18,7 @@ void aboutLoadGroup()
     lv_group_remove_all_objs(group);
 
     lv_group_add_obj(group, aboutSence.cont);
-    lv_group_add_obj(group, aboutSence.button);
+    // lv_group_add_obj(group, aboutSence.button);
 }
 
 void aboutAttachEvent(lv_obj_t * obj)
@@ -28,14 +28,14 @@ void aboutAttachEvent(lv_obj_t * obj)
 
 void aboutViewUpdate()
 {
-    static int i = 0, j = 0;
+    static int i = 5000, j = 0;
 
     if (i == 5000) {
         i = 0;
         unsigned char buf[10];
         memset(buf, '\0', 10);
-        sprintf(buf, "%04d", j);
-        lv_label_set_text_fmt(aboutSence.title.label, "%s", buf);
+        sprintf(buf, "%02d", read_temp() - 20);
+        lv_label_set_text_fmt(aboutSence.title.labelTemp, "%s", buf);
         j++;
     }
     i++;
