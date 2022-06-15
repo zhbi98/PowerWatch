@@ -6,12 +6,21 @@
 #include "ina226.h"
 #include "MeasCenterView.h"
 
-extern float avgsum;
-extern float avgv;
-extern char  avgt;
-extern float mAh;
-extern float mWh;
-extern char  t;
+#define ENERGY_TIME (0.1f / 3600)
+
+typedef struct {
+    float mAh;
+    float mWh;
+} Energy;
+
+typedef struct {
+    float sum;
+    float avg;
+} Average;
+
+extern Energy energy;
+extern Average average;
+extern void electricalEnergy();
 
 extern void measCenterLoadView(lv_obj_t * root);
 extern void measCenterLoadGroup();

@@ -1363,4 +1363,155 @@ Symbol: USART0_IRQHandler
    Definitions
       At line 315 in file ..\test\core\startup_gd32f10x_hd.s
    Uses
-      At l
+      At line 126 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 252 in file ..\test\core\startup_gd32f10x_hd.s
+
+USART1_IRQHandler 0000001A
+
+Symbol: USART1_IRQHandler
+   Definitions
+      At line 316 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 127 in file ..\test\core\startup_gd32f10x_hd.s
+
+
+
+ARM Macro Assembler    Page 11 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 253 in file ..\test\core\startup_gd32f10x_hd.s
+
+USART2_IRQHandler 0000001A
+
+Symbol: USART2_IRQHandler
+   Definitions
+      At line 317 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 128 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 254 in file ..\test\core\startup_gd32f10x_hd.s
+
+USBD_HP_CAN0_TX_IRQHandler 0000001A
+
+Symbol: USBD_HP_CAN0_TX_IRQHandler
+   Definitions
+      At line 297 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 108 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 234 in file ..\test\core\startup_gd32f10x_hd.s
+
+USBD_LP_CAN0_RX0_IRQHandler 0000001A
+
+Symbol: USBD_LP_CAN0_RX0_IRQHandler
+   Definitions
+      At line 298 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 109 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 235 in file ..\test\core\startup_gd32f10x_hd.s
+
+USBD_WKUP_IRQHandler 0000001A
+
+Symbol: USBD_WKUP_IRQHandler
+   Definitions
+      At line 320 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 131 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 257 in file ..\test\core\startup_gd32f10x_hd.s
+
+UsageFault_Handler 00000010
+
+Symbol: UsageFault_Handler
+   Definitions
+      At line 188 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 77 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 189 in file ..\test\core\startup_gd32f10x_hd.s
+
+WWDGT_IRQHandler 0000001A
+
+Symbol: WWDGT_IRQHandler
+   Definitions
+      At line 278 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 89 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 215 in file ..\test\core\startup_gd32f10x_hd.s
+
+__user_initial_stackheap 0000001C
+
+Symbol: __user_initial_stackheap
+
+
+
+ARM Macro Assembler    Page 12 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 359 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 357 in file ..\test\core\startup_gd32f10x_hd.s
+Comment: __user_initial_stackheap used once
+73 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+Heap_Size 00002000
+
+Symbol: Heap_Size
+   Definitions
+      At line 54 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 58 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 362 in file ..\test\core\startup_gd32f10x_hd.s
+
+Stack_Size 00002000
+
+Symbol: Stack_Size
+   Definitions
+      At line 43 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 46 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 361 in file ..\test\core\startup_gd32f10x_hd.s
+
+__Vectors_Size 00000130
+
+Symbol: __Vectors_Size
+   Definitions
+      At line 152 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 69 in file ..\test\core\startup_gd32f10x_hd.s
+Comment: __Vectors_Size used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+SystemInit 00000000
+
+Symbol: SystemInit
+   Definitions
+      At line 160 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 161 in file ..\test\core\startup_gd32f10x_hd.s
+Comment: SystemInit used once
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 159 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      At line 163 in file ..\test\core\startup_gd32f10x_hd.s
+Comment: __main used once
+__use_two_region_memory 00000000
+
+Symbol: __use_two_region_memory
+   Definitions
+      At line 356 in file ..\test\core\startup_gd32f10x_hd.s
+   Uses
+      None
+Comment: __use_two_region_memory unused
+3 symbols
+426 symbols in table

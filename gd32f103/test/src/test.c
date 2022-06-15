@@ -294,27 +294,19 @@ void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t)
 
 void LVGL_TIMER_HANDLER()
 {
+    static unsigned char time = 0;
+
     if (timer_interrupt_flag_get(LVGL_TIMER, TIMER_INT_FLAG_UP) == SET) {
         timer_interrupt_flag_clear(LVGL_TIMER, TIMER_INT_FLAG_UP);
         // 1ms tick
         // usb_fs_send_fmt_string("%s\n", "LVGL TICK");
         lv_tick_inc(1);
-        led_controller_handler(&led2);
 
-        t++;
-        if (t == 99) {
-            t = 0;
-            mAh = mAh + (float)(ina226_data.Shunt_Current / 36000);
-            mWh = mWh + (float)(ina226_data.Power / 36000);
-
-            avgsum = avgsum + (ina226_data.Power / 1000);
-            avgv = avgsum / avgt;
-            avgt++;
+        if (time == 99) {
+            time = 0;
+            electricalEnergy();
         }
-        if (avgt == 100) {
-            avgt = 1;
-            avgsum = 0;
-        }
+        time++;
     }
 }
 
@@ -641,6 +633,7 @@ int main()
         lv_task_handler();
         sleep_ms(50);
 #endif
+        led_controller_handler(&led2);
         viewController.currentPage->uiViewUpdate();
         lv_task_handler();
     }

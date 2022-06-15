@@ -1,12 +1,21 @@
 
 #include "MeasCenter.h"
 
-float avgsum = 0.0;
-float avgv = 0.0;
-char  avgt = 1;
-float mAh = 0.0;
-float mWh = 0.0;
-char  t = 0;
+Energy energy = {
+    .mAh  = 0.0,
+    .mWh  = 0.0,
+};
+
+Average average = {
+    .sum = 0.0,
+    .avg = 0.0,
+};
+
+void electricalEnergy()
+{
+    energy.mAh = energy.mAh + (float)(ina226_data.Shunt_Current * ENERGY_TIME);
+    energy.mWh = energy.mWh + (float)(ina226_data.Power * ENERGY_TIME);
+}
 
 void measCenterLoadView(lv_obj_t * root)
 {
@@ -51,7 +60,7 @@ void measCenterUpdate()
         lv_label_set_text_fmt(MeasSence.mainShow.lableValue1, "%s", buf);
 
         memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", avgv);
+        sprintf(buf, "%05.2f", average.avg);
         lv_label_set_text_fmt(MeasSence.mainShow.lableValue2, "%s", buf);
 
         memset(buf, '\0', 10);
@@ -63,11 +72,11 @@ void measCenterUpdate()
         lv_label_set_text_fmt(MeasSence.sidebar.labelValue2, "%s", buf);
 
         memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", mAh);
+        sprintf(buf, "%05.2f", energy.mAh);
         lv_label_set_text_fmt(MeasSence.sidebar.labelValue3, "%s", buf);
 
         memset(buf, '\0', 10);
-        sprintf(buf, "%05.2f", mWh);
+        sprintf(buf, "%05.2f", energy.mWh);
         lv_label_set_text_fmt(MeasSence.sidebar.labelValue4, "%s", buf);
     }
     i++;
