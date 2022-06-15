@@ -11,6 +11,8 @@ Average average = {
     .avg = 0.0,
 };
 
+struct data_pool_t data_pool;
+
 void electricalEnergy()
 {
     energy.mAh = energy.mAh + (float)(ina226_data.Shunt_Current * ENERGY_TIME);
@@ -46,9 +48,9 @@ void measCenterAttachEvent(lv_obj_t * obj)
 
 void measCenterUpdate()
 {
-    static int i = 0;
+    static unsigned int i = 0;
 
-    if (i == 2000) {
+    if (i == 20000) {
         i = 0;
 
         unsigned char buf[10];

@@ -152,7 +152,7 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_align(label, LV_ALIGN_RIGHT_MID, -8, 5);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
-    lv_label_set_text_fmt(label, "%s", "W");
+    lv_label_set_text_fmt(label, "%s", "A");
     lv_obj_set_style_text_color(label, lv_color_hex(0x31D059), 0);
     MeasSence.mainShow.lableUnit2 = label;
 

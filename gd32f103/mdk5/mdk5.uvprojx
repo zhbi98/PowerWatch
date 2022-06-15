@@ -432,6 +432,11 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\source\key.c</FilePath>
             </File>
+            <File>
+              <FileName>data_pool.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\source\data_pool.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

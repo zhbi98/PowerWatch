@@ -5,6 +5,7 @@
 #include "lvgl.h"
 #include "ina226.h"
 #include "MeasCenterView.h"
+#include "data_pool.h"
 
 #define ENERGY_TIME (0.1f / 3600)
 
@@ -20,6 +21,7 @@ typedef struct {
 
 extern Energy energy;
 extern Average average;
+extern struct data_pool_t data_pool;
 extern void electricalEnergy();
 
 extern void measCenterLoadView(lv_obj_t * root);

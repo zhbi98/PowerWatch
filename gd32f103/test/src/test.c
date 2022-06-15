@@ -305,6 +305,20 @@ void LVGL_TIMER_HANDLER()
         if (time == 99) {
             time = 0;
             electricalEnergy();
+
+            if (pool_full(&data_pool) == true) {
+                pool_data_t avg;
+                output_pool(&data_pool, &avg);
+                input_pool(&data_pool, ina226_data.Shunt_Current);
+
+                for (char i = 0; i < 32; i++) {
+                    average.sum = average.sum + data_pool.buf[i];
+                }
+                average.avg = average.sum / 1000 / 32;
+                average.sum = 0;
+            } else {
+                input_pool(&data_pool, ina226_data.Shunt_Current);
+            }
         }
         time++;
     }
@@ -409,6 +423,7 @@ int main()
 #endif
 
 #if 1 // LVGL UIKit
+    pool_init(&data_pool);
     UIViewInit("MeasCenter", 
         measCenterLoadView, 
         measCenterUpdate, 
