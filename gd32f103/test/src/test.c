@@ -12,14 +12,15 @@
 #include "st7789.h"
 #include "ina226.h"
 #include "gd25q64.h"
-#include "temp_sensor.h"
-#include "UIStack.h"
-#include "UIViewController.h"
-#include "lvgl.h"
+#include "temp.h"
 
-#include "MeasCenterView.h"
+#include "lvgl.h"
+#include "UIStack.h"
+#include "UIVector.h"
+#include "UIViewController.h"
+#include "MeasView.h"
+#include "Meas.h"
 #include "AboutView.h"
-#include "MeasCenter.h"
 #include "About.h"
 
 lv_obj_t * container;
@@ -365,15 +366,15 @@ int main()
 
 #if 1 // LVGL UIKit
     pool_init(&data_pool);
-    UIViewInit("MeasCenter", 
+    uiViewInit("Meas", 
         measCenterLoadView, 
         measCenterUpdate, 
         measCenterLoadGroup);
-    UIViewInit("About", 
+    uiViewInit("About", 
         aboutLoadView, 
         aboutViewUpdate, 
         aboutLoadGroup);
-    UIViewLoad("MeasCenter");
+    uiViewLoad("Meas");
 #endif
 
     /* system clocks configuration */

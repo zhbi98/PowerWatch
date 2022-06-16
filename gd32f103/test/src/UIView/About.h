@@ -4,7 +4,7 @@
 
 #include "lvgl.h"
 #include "AboutView.h"
-#include "temp_sensor.h"
+#include "temp.h"
 
 extern void aboutLoadView(lv_obj_t * root);
 extern void aboutLoadGroup();

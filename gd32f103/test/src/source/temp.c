@@ -1,5 +1,5 @@
 
-#include "temp_sensor.h"
+#include "temp.h"
 
 void temp_adc_rcu_config()
 {

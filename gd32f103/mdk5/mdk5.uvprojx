@@ -438,9 +438,9 @@
               <FilePath>..\test\src\source\data_pool.c</FilePath>
             </File>
             <File>
-              <FileName>temp_sensor.c</FileName>
+              <FileName>temp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\source\temp_sensor.c</FilePath>
+              <FilePath>..\test\src\source\temp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1378,19 +1378,19 @@
               <FilePath>..\test\src\UIView\AboutView.c</FilePath>
             </File>
             <File>
-              <FileName>MeasCenterView.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIView\MeasCenterView.c</FilePath>
-            </File>
-            <File>
-              <FileName>MeasCenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIView\MeasCenter.c</FilePath>
-            </File>
-            <File>
               <FileName>About.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\About.c</FilePath>
+            </File>
+            <File>
+              <FileName>Meas.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\Meas.c</FilePath>
+            </File>
+            <File>
+              <FileName>MeasView.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\MeasView.c</FilePath>
             </File>
           </Files>
         </Group>

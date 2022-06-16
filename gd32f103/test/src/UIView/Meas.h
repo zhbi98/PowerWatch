@@ -1,10 +1,10 @@
 
-#ifndef __MEAS_CENTER_H__
-#define __MEAS_CENTER_H__
+#ifndef __MEAS_H__
+#define __MEAS_H__
 
 #include "lvgl.h"
 #include "ina226.h"
-#include "MeasCenterView.h"
+#include "MeasView.h"
 #include "data_pool.h"
 
 #define ENERGY_TIME (0.1f / 3600)

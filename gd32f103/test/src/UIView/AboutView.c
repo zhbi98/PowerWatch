@@ -54,6 +54,7 @@ void aboutViewCreate(lv_obj_t * root)
     aboutSenceStyleCreate(cont);
     
     titleViewCreate(cont);
+    tempViewCreate(cont);
     infoViewCreate(cont);
 
     aboutSence.cont = cont;
@@ -63,8 +64,8 @@ void titleViewCreate(lv_obj_t * par)
 {
     lv_obj_t * cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
-    lv_obj_set_size(cont, 145, 80);
-    lv_obj_set_pos(cont, 10, 80);
+    lv_obj_set_size(cont, 145, 50);
+    lv_obj_set_pos(cont, 10, 50);
     titleStyleCreate(cont);
     // lv_obj_set_style_bg_color(cont, lv_color_hex(0xFEFEFE), 0);
     // lv_obj_set_style_text_color(cont, lv_color_hex(0x000000), 0);
@@ -73,30 +74,58 @@ void titleViewCreate(lv_obj_t * par)
     lv_obj_t * label = lv_label_create(par);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
-    lv_label_set_text_fmt(label, "%s", "ELECAL");
-    lv_obj_set_pos(label, 42, 25);
+    lv_label_set_text_fmt(label, "%s", "About");
+    lv_obj_set_pos(label, 42, 10);
     // lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 0);
     aboutSence.title.labelTitle = label;
 
     label = lv_label_create(aboutSence.title.cont);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    lv_label_set_text_fmt(label, "%s", "Version 1.0.0");
+    // lv_obj_set_pos(label, 42, 10);
+    lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 8);
+    aboutSence.title.labelVersion = label;
+
+    label = lv_label_create(aboutSence.title.cont);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    lv_label_set_text_fmt(label, "%s", "Designed by zhbi");
+    // lv_obj_set_pos(label, 42, 10);
+    lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -8);
+    aboutSence.title.labelDesign = label;
+}
+
+void tempViewCreate(lv_obj_t * par)
+{
+    lv_obj_t * cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_set_size(cont, 145, 50);
+    lv_obj_set_pos(cont, 10, 110);
+    titleStyleCreate(cont);
+    // lv_obj_set_style_bg_color(cont, lv_color_hex(0xFEFEFE), 0);
+    // lv_obj_set_style_text_color(cont, lv_color_hex(0x000000), 0);
+    aboutSence.temp.cont = cont;
+
+    lv_obj_t * label = lv_label_create(aboutSence.temp.cont);
     LV_FONT_DECLARE(symbol_chip_20);
     lv_obj_set_style_text_font(label, &symbol_chip_20, 0);
     lv_label_set_text_fmt(label, "%s", USR_SYMBOL_CHIP_20);
-    lv_obj_align(label, LV_ALIGN_CENTER, -28, 0);
+    lv_obj_align(label, LV_ALIGN_CENTER, -26, 0);
     // lv_obj_center(label);
     // lv_obj_set_size(label, 80, 40);
     // lv_obj_set_pos(label, 120, 120);
-    aboutSence.title.labelLogo = label;
+    aboutSence.temp.labelLogo = label;
 
-    label = lv_label_create(aboutSence.title.cont);
+    label = lv_label_create(aboutSence.temp.cont);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
-    lv_label_set_text_fmt(label, "%s", "25.0");
-    lv_obj_align(label, LV_ALIGN_CENTER, 16, 0);
+    lv_label_set_text_fmt(label, "%s", "25");
+    lv_obj_align(label, LV_ALIGN_CENTER, 14, 0);
     // lv_obj_center(label);
     // lv_obj_set_size(label, 80, 40);
     // lv_obj_set_pos(label, 120, 120);
-    aboutSence.title.labelTemp = label;
+    aboutSence.temp.labelTemp = label;
 }
 
 void infoViewCreate(lv_obj_t * par)
@@ -113,21 +142,45 @@ void infoViewCreate(lv_obj_t * par)
     lv_obj_t * label = lv_label_create(aboutSence.deviceInfo.cont);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
-    lv_label_set_text_fmt(label, "%s", "LVGL8.2.0");
-    lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 10);
+    lv_label_set_text_fmt(label, "%s", "Drawing"/*"LVGL8.2.0"*/);
+    lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 0);
     aboutSence.deviceInfo.labelLvgl = label;
 
     label = lv_label_create(aboutSence.deviceInfo.cont);
-    LV_FONT_DECLARE(font_bahnschrift_32);
-    lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
-    lv_label_set_text_fmt(label, "%s", "GD32F103");
-    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
-    aboutSence.deviceInfo.labelMcu = label;
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    lv_label_set_text_fmt(label, "%s", "LVGL8.2.0");
+    lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 30);
+    aboutSence.deviceInfo.labelLvgl = label;
+// ------------------------------------------------------------------
 
     label = lv_label_create(aboutSence.deviceInfo.cont);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
-    lv_label_set_text_fmt(label, "%s", "GD25Q64");
-    lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -10);
+    lv_label_set_text_fmt(label, "%s", "Controller"/*"GD32F103"*/);
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, -10);
+    aboutSence.deviceInfo.labelMcu = label;
+
+    label = lv_label_create(aboutSence.deviceInfo.cont);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    lv_label_set_text_fmt(label, "%s", "GD32F103RC");
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 13);
+    aboutSence.deviceInfo.labelLvgl = label;
+// ------------------------------------------------------------------
+
+    label = lv_label_create(aboutSence.deviceInfo.cont);
+    LV_FONT_DECLARE(font_bahnschrift_32);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
+    lv_label_set_text_fmt(label, "%s", "Flash"/*"GD25Q64"*/);
+    lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -17);
     aboutSence.deviceInfo.labelFlash = label;
+
+    label = lv_label_create(aboutSence.deviceInfo.cont);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    lv_label_set_text_fmt(label, "%s", "GD25Q64");
+    lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -2);
+    aboutSence.deviceInfo.labelLvgl = label;
+// ------------------------------------------------------------------
 }

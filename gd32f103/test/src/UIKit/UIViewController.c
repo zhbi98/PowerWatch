@@ -5,7 +5,7 @@ UIStackAddrDef uiStack;
 UIVectorDef uiVector;
 UIViewController viewController;
 
-void UIViewInit(unsigned char * name, UIView * loadView, UIViewUpdate * update, UIViewLoadGroup * loadGroup)
+void uiViewInit(unsigned char * name, UIView * loadView, UIViewUpdate * update, UIViewLoadGroup * loadGroup)
 {
     // The page has been initialized
     if (vectorFindAddress(&uiVector, name) == true)
@@ -26,7 +26,7 @@ void UIViewInit(unsigned char * name, UIView * loadView, UIViewUpdate * update, 
     vectorPush(&uiVector, UIView);
 }
 
-void UIViewLoad(unsigned char * name)
+void uiViewLoad(unsigned char * name)
 {
     /**
      * // Undefined's page
@@ -41,11 +41,11 @@ void UIViewLoad(unsigned char * name)
      */
 
     UIKitType * uiView = vectorNameGetAddress(&uiVector, name);
-    UIViewSwitch(uiView, true);
+    uiViewSwitch(uiView, true);
     viewController.currentPage = uiView;
 }
 
-void UIViewSwitch(UIKitType * uiView, unsigned char isPushActive)
+void uiViewSwitch(UIKitType * uiView, unsigned char isPushActive)
 {
     lv_obj_t * root_obj = NULL;
 

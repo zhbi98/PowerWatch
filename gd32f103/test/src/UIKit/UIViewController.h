@@ -17,8 +17,8 @@ extern UIStackAddrDef uiStack;
 extern UIVectorDef uiVector;
 extern UIViewController viewController;
 
-extern void UIViewInit(unsigned char * name, UIView * loadView, UIViewUpdate * update, UIViewLoadGroup * loadGroup);
-extern void UIViewLoad(unsigned char * name);
-extern void UIViewSwitch(UIKitType * uiView, unsigned char isPushActive);
+extern void uiViewInit(unsigned char * name, UIView * loadView, UIViewUpdate * update, UIViewLoadGroup * loadGroup);
+extern void uiViewLoad(unsigned char * name);
+extern void uiViewSwitch(UIKitType * uiView, unsigned char isPushActive);
 
 #endif

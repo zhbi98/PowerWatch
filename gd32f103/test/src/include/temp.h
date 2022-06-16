@@ -1,6 +1,6 @@
 
-#ifndef __TEMP_SONSOR_H__
-#define __TEMP_SONSOR_H__
+#ifndef __TEMP_H__
+#define __TEMP_H__
 
 #include "gd32f10x.h"
 #include "time.h"

@@ -8,7 +8,6 @@ void aboutLoadView(lv_obj_t * root)
     aboutViewCreate(root);
 
     aboutAttachEvent(aboutSence.cont);
-    // aboutAttachEvent(aboutSence.button);
 }
 
 void aboutLoadGroup()
@@ -18,7 +17,6 @@ void aboutLoadGroup()
     lv_group_remove_all_objs(group);
 
     lv_group_add_obj(group, aboutSence.cont);
-    // lv_group_add_obj(group, aboutSence.button);
 }
 
 void aboutAttachEvent(lv_obj_t * obj)
@@ -35,7 +33,7 @@ void aboutViewUpdate()
         unsigned char buf[10];
         memset(buf, '\0', 10);
         sprintf(buf, "%02d", read_temp() - 20);
-        lv_label_set_text_fmt(aboutSence.title.labelTemp, "%s", buf);
+        lv_label_set_text_fmt(aboutSence.temp.labelTemp, "%s", buf);
         j++;
     }
     i++;
@@ -47,6 +45,6 @@ void aboutOnEvent(lv_event_t * event)
     lv_event_code_t code = lv_event_get_code(event);
 
     if (code == LV_EVENT_CLICKED) {
-        UIViewLoad("MeasCenter");
+        uiViewLoad("Meas");
     }
 }

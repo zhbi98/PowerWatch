@@ -1,6 +1,6 @@
 
-#ifndef __MEAS_CENTER_VIEW_H__
-#define __MEAS_CENTER_VIEW_H__
+#ifndef __MEAS_VIEW_H__
+#define __MEAS_VIEW_H__
 
 #include "lvgl.h"
 #include "usr_symbol_def.h"
@@ -34,9 +34,9 @@ typedef struct {
 
     MainShow mainShow;
     Sidebar sidebar;
-} MeasCenterSence;
+} MeasSence;
 
-extern MeasCenterSence MeasSence;
+extern MeasSence measSence;
 
 extern void measCenterViewCreate(lv_obj_t * root);
 extern void mainShowViewCreate(lv_obj_t * par);
