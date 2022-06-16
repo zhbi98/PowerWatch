@@ -121,7 +121,7 @@ void mainShowViewCreate(lv_obj_t * par)
     label = lv_label_create(measSence.mainShow.cont1);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 20, 20);
-    lv_obj_align(label, LV_ALIGN_CENTER, -10, 0);
+    lv_obj_align(label, LV_ALIGN_CENTER, -18, 0);
     LV_FONT_DECLARE(font_bahnschrift_56);
     lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
     lv_label_set_text_fmt(label, "%s", "00.00");
@@ -130,7 +130,7 @@ void mainShowViewCreate(lv_obj_t * par)
     label = lv_label_create(measSence.mainShow.cont1);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 136, 20);
-    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -8, 5);
+    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "V");
@@ -140,7 +140,7 @@ void mainShowViewCreate(lv_obj_t * par)
     label = lv_label_create(measSence.mainShow.cont2);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 20, 20);
-    lv_obj_align(label, LV_ALIGN_CENTER, -10, 0);
+    lv_obj_align(label, LV_ALIGN_CENTER, -18, 0);
     LV_FONT_DECLARE(font_bahnschrift_56);
     lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
     lv_label_set_text_fmt(label, "%s", "00.00");
@@ -149,7 +149,7 @@ void mainShowViewCreate(lv_obj_t * par)
     label = lv_label_create(measSence.mainShow.cont2);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 136, 20);
-    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -8, 5);
+    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "A");
@@ -176,7 +176,7 @@ void sidebarViewCreate(lv_obj_t * par)
 
     label = lv_label_create(measSence.sidebar.cont);
     lv_obj_set_size(label, 120, 38);
-    lv_obj_set_pos(label, 16, 8);
+    lv_obj_set_pos(label, 20, 8);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "0.000");
@@ -185,12 +185,12 @@ void sidebarViewCreate(lv_obj_t * par)
 
     label = lv_label_create(measSence.sidebar.cont);
     // lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 99, 16);
+    lv_obj_set_pos(label, 90, 16);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
     lv_label_set_text_fmt(label, "%s", "mA");
     // labelStyleCreate(label);
-    measSence.sidebar.labelUnit2 = label;
+    measSence.sidebar.labelUnit1 = label;
 // -------------------------------------------------------------------
     label = lv_label_create(measSence.sidebar.cont);
     lv_obj_set_size(label, 4, 30);
@@ -200,7 +200,7 @@ void sidebarViewCreate(lv_obj_t * par)
 
     label = lv_label_create(measSence.sidebar.cont);
     lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 16, 48);
+    lv_obj_set_pos(label, 20, 48);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "0.000");
@@ -209,7 +209,7 @@ void sidebarViewCreate(lv_obj_t * par)
 
     label = lv_label_create(measSence.sidebar.cont);
     // lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 99, 56);
+    lv_obj_set_pos(label, 90, 56);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
     lv_label_set_text_fmt(label, "%s", "mW");
@@ -224,7 +224,7 @@ void sidebarViewCreate(lv_obj_t * par)
 
     label = lv_label_create(measSence.sidebar.cont);
     lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 16, 88);
+    lv_obj_set_pos(label, 20, 88);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "0.000");
@@ -233,7 +233,7 @@ void sidebarViewCreate(lv_obj_t * par)
 
     label = lv_label_create(measSence.sidebar.cont);
     // lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 99, 96);
+    lv_obj_set_pos(label, 90, 96);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
     lv_label_set_text_fmt(label, "%s", "mAh");
@@ -248,7 +248,7 @@ void sidebarViewCreate(lv_obj_t * par)
     
     label = lv_label_create(measSence.sidebar.cont);
     lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 16, 128);
+    lv_obj_set_pos(label, 20, 128);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "0.000");
@@ -257,7 +257,7 @@ void sidebarViewCreate(lv_obj_t * par)
 
     label = lv_label_create(measSence.sidebar.cont);
     // lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 99, 136);
+    lv_obj_set_pos(label, 90, 136);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
     lv_label_set_text_fmt(label, "%s", "mWh");
