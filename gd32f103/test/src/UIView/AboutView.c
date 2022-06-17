@@ -111,7 +111,7 @@ void tempViewCreate(lv_obj_t * par)
     LV_FONT_DECLARE(symbol_chip_20);
     lv_obj_set_style_text_font(label, &symbol_chip_20, 0);
     lv_label_set_text_fmt(label, "%s", USR_SYMBOL_CHIP_20);
-    lv_obj_align(label, LV_ALIGN_CENTER, -26, 0);
+    lv_obj_align(label, LV_ALIGN_CENTER, -32, 0);
     // lv_obj_center(label);
     // lv_obj_set_size(label, 80, 40);
     // lv_obj_set_pos(label, 120, 120);
@@ -121,11 +121,21 @@ void tempViewCreate(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "25");
-    lv_obj_align(label, LV_ALIGN_CENTER, 14, 0);
+    lv_obj_align(label, LV_ALIGN_CENTER, 4, 0);
     // lv_obj_center(label);
     // lv_obj_set_size(label, 80, 40);
     // lv_obj_set_pos(label, 120, 120);
     aboutSence.temp.labelTemp = label;
+
+    label = lv_label_create(aboutSence.temp.cont);
+    LV_FONT_DECLARE(font_celsius_24);
+    lv_obj_set_style_text_font(label, &font_celsius_24, 0);
+    lv_label_set_text(label, "℃");
+    lv_obj_align(label, LV_ALIGN_CENTER, 34, 0);
+    // lv_obj_center(label);
+    // lv_obj_set_size(label, 80, 40);
+    // lv_obj_set_pos(label, 120, 120);
+    aboutSence.temp.labelUnit = label;
 }
 
 void infoViewCreate(lv_obj_t * par)

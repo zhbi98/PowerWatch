@@ -614,11 +614,11 @@ ARM Macro Assembler    Page 10
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\startup_gd32f10x_hd.d -o.\objects\startup_gd32f10x_hd.o 
--I.\RTE\_mdk -I"D:\Program Files\mdk-arm5.26\ARM\PACK\GigaDevice\GD32F10x_DFP\2
-.0.1\Device\Include" -I"D:\Program Files\mdk-arm5.26\ARM\CMSIS\Include" --prede
-fine="__UVISION_VERSION SETA 526" --predefine="GD32F10X_HD SETA 1" --predefine=
-"USE_STDPERIPH_DRIVER SETA 1" --list=.\listings\startup_gd32f10x_hd.lst ..\test
-\core\startup_gd32f10x_hd.s
+-I.\RTE\_mdk -ID:\Others\Keil_v5\ARM\PACK\GigaDevice\GD32F10x_DFP\2.0.1\Device\
+Include -ID:\Others\Keil_v5\ARM\CMSIS\Include --predefine="__UVISION_VERSION SE
+TA 526" --predefine="GD32F10X_HD SETA 1" --predefine="USE_STDPERIPH_DRIVER SETA
+ 1" --list=.\listings\startup_gd32f10x_hd.lst ..\test\core\startup_gd32f10x_hd.
+s
 
 
 

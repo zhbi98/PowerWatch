@@ -26,7 +26,7 @@ void aboutAttachEvent(lv_obj_t * obj)
 
 void aboutViewUpdate()
 {
-    static int i = 5000, j = 0;
+    static int i = 5000;
 
     if (i == 5000) {
         i = 0;
@@ -34,7 +34,6 @@ void aboutViewUpdate()
         memset(buf, '\0', 10);
         sprintf(buf, "%02d", read_temp() - 20);
         lv_label_set_text_fmt(aboutSence.temp.labelTemp, "%s", buf);
-        j++;
     }
     i++;
 }

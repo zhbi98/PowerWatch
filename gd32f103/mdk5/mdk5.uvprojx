@@ -1417,6 +1417,11 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\Resource\Symbol\symbol_chip_20.c</FilePath>
             </File>
+            <File>
+              <FileName>font_celsius_24.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\Resource\Font\font_celsius_24.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

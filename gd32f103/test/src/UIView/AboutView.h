@@ -17,6 +17,7 @@ typedef struct {
     lv_obj_t * cont;
     lv_obj_t * labelLogo;
     lv_obj_t * labelTemp;
+    lv_obj_t * labelUnit;
     lv_style_t style;
 } Temp;
 

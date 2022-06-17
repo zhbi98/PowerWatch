@@ -82,8 +82,11 @@ const unsigned char * unit_str[][2] = {
 float param_fmt(float value)
 {
     if (value >= 1000.0)
-        return (float)(value / 1000.0);
-    return value;
+        return value / 1000.0;
+    else if (value <= 0.0)
+        return 0.0;
+    else
+        return value;
 }
 
 unsigned char get_param_fmt(float value)

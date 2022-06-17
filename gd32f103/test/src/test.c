@@ -247,6 +247,17 @@ void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t)
     timer_enable(LVGL_TIMER);
 }
 
+
+typedef struct {
+    unsigned int time;
+    unsigned char status;
+} Display;
+
+Display display = {
+    .time = 300000,
+    .status = 1,
+};
+
 void LVGL_TIMER_HANDLER()
 {
     static unsigned char time = 0;
@@ -263,6 +274,9 @@ void LVGL_TIMER_HANDLER()
             electricalAverage();
         }
         time++;
+
+        if (display.time > 0)
+            display.time--;
     }
 }
 
@@ -580,6 +594,22 @@ int main()
         led_controller_handler(&led2);
         viewController.currentPage->uiViewUpdate();
         lv_task_handler();
+
+        if (read_key_event() == KEY4_EVT) {
+            if (display.status == 1) {
+                display.time = 0;
+                display.status = 0;
+                ST7789_BL_H();
+            } else {
+                display.time = 300000;
+                display.status = 1;
+                ST7789_BL_L();
+            }
+        }
+        if (display.time <= 0) {
+            display.status = 0;
+            ST7789_BL_H();
+        }
     }
 
     return 0;
