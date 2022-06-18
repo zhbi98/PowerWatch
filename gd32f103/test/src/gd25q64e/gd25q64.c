@@ -159,7 +159,7 @@ void gd25q64_buffer_write(uint32_t address, unsigned int lenth, unsigned char * 
     }
 }
 
-void gd2564_buffer_read(uint32_t address, unsigned int lenth, unsigned char * data_buf)
+void gd25q64_buffer_read(uint32_t address, unsigned int lenth, unsigned char * data_buf)
 {
     unsigned int read;
 

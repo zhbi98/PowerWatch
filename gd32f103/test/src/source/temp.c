@@ -1,10 +1,10 @@
 
 #include "temp.h"
 
-void temp_adc_rcu_config()
+void inside_temp_adc_rcu_init()
 {
     /* enable ADC clock */
-    rcu_periph_clock_enable(ADC_CLOCK);
+    rcu_periph_clock_enable(TEMP_ADC_CLOCK);
     /* config ADC clock */
     rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV12);
 }
@@ -15,50 +15,50 @@ void temp_adc_rcu_config()
     \param[out] none
     \retval     none
 */
-void temp_adc_config()
+void inside_temp_adc_init()
 {
-    temp_adc_rcu_config();
+    inside_temp_adc_rcu_init();
 
     /* ADC SCAN function enable */
-    adc_special_function_config(/*ADC0*/CURRENT_ADC, ADC_SCAN_MODE,ENABLE);  
+    adc_special_function_config(/*ADC0*/TEMP_ADC, ADC_SCAN_MODE,ENABLE);  
     /* ADC trigger config */
-    adc_external_trigger_source_config(/*ADC0*/CURRENT_ADC, ADC_INSERTED_CHANNEL, ADC0_1_2_EXTTRIG_INSERTED_NONE);
+    adc_external_trigger_source_config(/*ADC0*/TEMP_ADC, ADC_INSERTED_CHANNEL, ADC0_1_2_EXTTRIG_INSERTED_NONE);
     /* ADC data alignment config */
-    adc_data_alignment_config(/*ADC0*/CURRENT_ADC, ADC_DATAALIGN_RIGHT);
+    adc_data_alignment_config(/*ADC0*/TEMP_ADC, ADC_DATAALIGN_RIGHT);
     /* ADC mode config */
     adc_mode_config(ADC_MODE_FREE);  
     /* ADC channel length config */
-    adc_channel_length_config(/*ADC0*/CURRENT_ADC, ADC_INSERTED_CHANNEL, 2);
+    adc_channel_length_config(/*ADC0*/TEMP_ADC, ADC_INSERTED_CHANNEL, 2);
 
     /* ADC temperature sensor channel config */
-    adc_inserted_channel_config(/*ADC0*/CURRENT_ADC, 0, ADC_CHANNEL_16, ADC_SAMPLETIME_239POINT5);
+    adc_inserted_channel_config(/*ADC0*/TEMP_ADC, 0, ADC_CHANNEL_16, ADC_SAMPLETIME_239POINT5);
     /* ADC internal reference voltage channel config */
-    adc_inserted_channel_config(/*ADC0*/CURRENT_ADC, 1, ADC_CHANNEL_17, ADC_SAMPLETIME_239POINT5);
+    adc_inserted_channel_config(/*ADC0*/TEMP_ADC, 1, ADC_CHANNEL_17, ADC_SAMPLETIME_239POINT5);
 
     /* ADC external trigger enable */
-    adc_external_trigger_config(/*ADC0*/CURRENT_ADC, ADC_INSERTED_CHANNEL,ENABLE);
+    adc_external_trigger_config(/*ADC0*/TEMP_ADC, ADC_INSERTED_CHANNEL,ENABLE);
 
     /* ADC temperature and Vrefint enable */
     adc_tempsensor_vrefint_enable();
     
     /* enable ADC interface */
-    adc_enable(/*ADC0*/CURRENT_ADC);
+    adc_enable(/*ADC0*/TEMP_ADC);
     sleep_ms(5);    
     /* ADC calibration and reset calibration */
-    adc_calibration_enable(/*ADC0*/CURRENT_ADC);
+    adc_calibration_enable(/*ADC0*/TEMP_ADC);
 }
 
-int read_temp()
+unsigned int read_inside_temp()
 {
 #if 1 // GD32F103 TEMP SENSOR TEST
 		float temperature = 0.0;
 		float vref_value = 0.0;
 
-        adc_software_trigger_enable(CURRENT_ADC, ADC_INSERTED_CHANNEL);
+        adc_software_trigger_enable(TEMP_ADC, ADC_INSERTED_CHANNEL);
         sleep_ms(100);
 
-        temperature = (1.43 - ADC_IDATA0(CURRENT_ADC)*3.3/4096) * 1000 / 4.3 + 25;
-        vref_value = (ADC_IDATA1(CURRENT_ADC) * 3.3 / 4096);
+        temperature = (1.43 - ADC_IDATA0(TEMP_ADC)*3.3/4096) * 1000 / 4.3 + 25;
+        vref_value = (ADC_IDATA1(TEMP_ADC) * 3.3 / 4096);
 
         // usb_fs_send_fmt_string("Temp: %2.0f\n", temperature);
         // sleep_ms(100);

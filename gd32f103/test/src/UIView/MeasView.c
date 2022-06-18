@@ -9,13 +9,13 @@ void senceStyleCreate(lv_obj_t * obj)
     lv_style_reset(&measSence.style);
     lv_style_init(&measSence.style);
     lv_style_set_radius(&measSence.style, 0);
-    lv_style_set_bg_color(&measSence.style, lv_color_hex(0xF2F1F6));
+    lv_style_set_bg_color(&measSence.style, lv_color_hex(0xFFFFFF/*0xF2F1F6*/));
     lv_style_set_bg_opa(&measSence.style, LV_OPA_100);
     lv_style_set_border_width(&measSence.style, 0);
-    lv_style_set_border_color(&measSence.style, lv_color_hex(0xF2F1F6));
+    lv_style_set_border_color(&measSence.style, lv_color_hex(0xFFFFFF/*0xF2F1F6*/));
     lv_style_set_border_opa(&measSence.style, LV_OPA_100);
     // lv_palette_main(LV_PALETTE_BLUE)
-    lv_style_set_text_color(&measSence.style, lv_color_hex(0x000000));
+    lv_style_set_text_color(&measSence.style, lv_color_hex(0x000000/*0x000000*/));
 
     lv_obj_add_style(obj, &measSence.style, 0);
 }
@@ -26,15 +26,15 @@ void mainShowStyleCreate(lv_obj_t * obj)
     lv_style_reset(&measSence.mainShow.style);
     lv_style_init(&measSence.mainShow.style);
     lv_style_set_radius(&measSence.mainShow.style, 10);
-    lv_style_set_bg_color(&measSence.mainShow.style, lv_color_hex(0xFFD8BD));
+    lv_style_set_bg_color(&measSence.mainShow.style, lv_color_hex(0xE6E5EB));
     lv_style_set_bg_opa(&measSence.mainShow.style, LV_OPA_100);
     lv_style_set_border_width(&measSence.mainShow.style, 0);
-    lv_style_set_border_color(&measSence.mainShow.style, lv_color_hex(0xFFD8BD));
+    lv_style_set_border_color(&measSence.mainShow.style, lv_color_hex(0xE6E5EB));
     lv_style_set_border_opa(&measSence.mainShow.style, LV_OPA_100);
     // lv_palette_main(LV_PALETTE_BLUE)
     lv_style_set_text_color(&measSence.mainShow.style, lv_color_hex(0x000000));
 
-#if 1
+#if 0
     lv_style_set_shadow_width(&measSence.mainShow.style, 2);
     lv_style_set_shadow_color(&measSence.mainShow.style, lv_palette_main(LV_PALETTE_GREY));
     lv_style_set_shadow_ofs_x(&measSence.mainShow.style, 2);
@@ -49,14 +49,14 @@ void labelStyleCreate(lv_obj_t * obj)
     // Reset style to free memory
     lv_style_reset(&measSence.sidebar.labelStyle);
     lv_style_init(&measSence.sidebar.labelStyle);
-    lv_style_set_radius(&measSence.sidebar.labelStyle, 1);
-    lv_style_set_bg_color(&measSence.sidebar.labelStyle, lv_color_hex(0xFFD8BD));
+    lv_style_set_radius(&measSence.sidebar.labelStyle, 2);
+    lv_style_set_bg_color(&measSence.sidebar.labelStyle, lv_color_hex(0x047DFF));
     lv_style_set_bg_opa(&measSence.sidebar.labelStyle, LV_OPA_100);
     lv_style_set_border_width(&measSence.sidebar.labelStyle, 0);
-    lv_style_set_border_color(&measSence.sidebar.labelStyle, lv_color_hex(0xFFD8BD));
+    lv_style_set_border_color(&measSence.sidebar.labelStyle, lv_color_hex(0x047DFF));
     lv_style_set_border_opa(&measSence.sidebar.labelStyle, LV_OPA_100);
     // lv_palette_main(LV_PALETTE_BLUE)
-    lv_style_set_text_color(&measSence.sidebar.labelStyle, lv_color_hex(0xFFD8BD));
+    lv_style_set_text_color(&measSence.sidebar.labelStyle, lv_color_hex(0x000000));
 
     lv_obj_add_style(obj, &measSence.sidebar.labelStyle, 0);
 }
@@ -97,8 +97,11 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_size(cont, 160, 60);
     lv_obj_set_pos(cont, 10, 10);
     mainShowStyleCreate(cont);
-    lv_obj_set_style_bg_color(cont, lv_color_hex(0xFEFEFE), 0);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0xE6E5EB/*0x232514*/), 0);
     lv_obj_set_style_text_color(cont, lv_color_hex(0x000000), 0);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0x047DFF), LV_STATE_FOCUSED);
+    lv_obj_set_style_text_color(cont, lv_color_hex(0xFFFFFF), LV_STATE_FOCUSED);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0x414141), LV_STATE_PRESSED);
     measSence.mainShow.cont1 = cont;
 
     cont = lv_obj_create(par);
@@ -106,8 +109,11 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_size(cont, 160, 60);
     lv_obj_set_pos(cont, 10, 95);
     mainShowStyleCreate(cont);
-    lv_obj_set_style_bg_color(cont, lv_color_hex(0xFEFEFE), 0);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0xE6E5EB/*0x232514*/), 0);
     lv_obj_set_style_text_color(cont, lv_color_hex(0x000000), 0);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0x047DFF), LV_STATE_FOCUSED);
+    lv_obj_set_style_text_color(cont, lv_color_hex(0xFFFFFF), LV_STATE_FOCUSED);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0x414141), LV_STATE_PRESSED);
     measSence.mainShow.cont2 = cont;
 
     lv_obj_t * label = lv_label_create(par);
@@ -115,45 +121,45 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_pos(label, 15, 75);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
-    // lv_obj_set_style_text_color(label, lv_color_hex(0x31D059), 0);
+    lv_obj_set_style_text_color(label, lv_color_hex(0x047DFF), 0);
     lv_label_set_text_fmt(label, "%s", "AVG");
 
     label = lv_label_create(measSence.mainShow.cont1);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 20, 20);
-    lv_obj_align(label, LV_ALIGN_CENTER, -18, 0);
     LV_FONT_DECLARE(font_bahnschrift_56);
     lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
     lv_label_set_text_fmt(label, "%s", "00.00");
+    lv_obj_align(label, LV_ALIGN_CENTER, /*-18*/-22, 0);
     measSence.mainShow.lableValue1 = label;
 
     label = lv_label_create(measSence.mainShow.cont1);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 136, 20);
-    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "V");
-    lv_obj_set_style_text_color(label, lv_color_hex(0x0985FF), 0);
+    // lv_obj_set_style_text_color(label, lv_color_hex(0x000000), 0);
+    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
     measSence.mainShow.lableUnit1 = label;
 
     label = lv_label_create(measSence.mainShow.cont2);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 20, 20);
-    lv_obj_align(label, LV_ALIGN_CENTER, -18, 0);
     LV_FONT_DECLARE(font_bahnschrift_56);
     lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
     lv_label_set_text_fmt(label, "%s", "00.00");
+    lv_obj_align(label, LV_ALIGN_CENTER, /*-18*/-22, 0);
     measSence.mainShow.lableValue2 = label;
 
     label = lv_label_create(measSence.mainShow.cont2);
     // lv_obj_set_size(label, 160, 80);
     // lv_obj_set_pos(label, 136, 20);
-    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "A");
-    lv_obj_set_style_text_color(label, lv_color_hex(0x31D059), 0);
+    // lv_obj_set_style_text_color(label, lv_color_hex(0x000000), 0);
+    lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
     measSence.mainShow.lableUnit2 = label;
 
     // mainShowAnim(cont);
@@ -169,8 +175,8 @@ void sidebarViewCreate(lv_obj_t * par)
     measSence.sidebar.cont = cont;
 // -------------------------------------------------------------------
     lv_obj_t * label = lv_label_create(measSence.sidebar.cont);
-    lv_obj_set_size(label, 4, 30);
-    lv_obj_set_pos(label, 6, 8);
+    lv_obj_set_size(label, 6, 24);
+    lv_obj_set_pos(label, 6, 12);
     lv_label_set_text_fmt(label, "%s", " ");
     labelStyleCreate(label);
 
@@ -193,8 +199,8 @@ void sidebarViewCreate(lv_obj_t * par)
     measSence.sidebar.labelUnit1 = label;
 // -------------------------------------------------------------------
     label = lv_label_create(measSence.sidebar.cont);
-    lv_obj_set_size(label, 4, 30);
-    lv_obj_set_pos(label, 6, 48);
+    lv_obj_set_size(label, 6, 24);
+    lv_obj_set_pos(label, 6, 51);
     lv_label_set_text_fmt(label, "%s", " ");
     labelStyleCreate(label);
 
@@ -217,8 +223,8 @@ void sidebarViewCreate(lv_obj_t * par)
     measSence.sidebar.labelUnit2 = label;
 // -------------------------------------------------------------------
     label = lv_label_create(measSence.sidebar.cont);
-    lv_obj_set_size(label, 4, 30);
-    lv_obj_set_pos(label, 6, 88);
+    lv_obj_set_size(label, 6, 24);
+    lv_obj_set_pos(label, 6, 91);
     lv_label_set_text_fmt(label, "%s", " ");
     labelStyleCreate(label);
 
@@ -241,14 +247,14 @@ void sidebarViewCreate(lv_obj_t * par)
     measSence.sidebar.labelUnit3 = label;
 // -------------------------------------------------------------------
     label = lv_label_create(measSence.sidebar.cont);
-    lv_obj_set_size(label, 4, 30);
-    lv_obj_set_pos(label, 6, 128);
+    lv_obj_set_size(label, 6, 24);
+    lv_obj_set_pos(label, 6, 129);
     lv_label_set_text_fmt(label, "%s", " ");
     labelStyleCreate(label);
     
     label = lv_label_create(measSence.sidebar.cont);
     lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 20, 128);
+    lv_obj_set_pos(label, 20, 126);
     LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_font(label, &font_bahnschrift_32, 0);
     lv_label_set_text_fmt(label, "%s", "0.000");
@@ -257,7 +263,7 @@ void sidebarViewCreate(lv_obj_t * par)
 
     label = lv_label_create(measSence.sidebar.cont);
     // lv_obj_set_size(label, 140, 40);
-    lv_obj_set_pos(label, 90, 136);
+    lv_obj_set_pos(label, 90, 134);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
     lv_label_set_text_fmt(label, "%s", "mWh");

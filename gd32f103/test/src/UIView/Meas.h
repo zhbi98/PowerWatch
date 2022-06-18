@@ -17,6 +17,7 @@ typedef struct {
 typedef struct {
     float sum;
     float avg;
+    unsigned char type;
 } Average;
 
 extern Energy energy;
@@ -24,6 +25,12 @@ extern Average average;
 extern struct data_pool_t data_pool;
 extern void electricalEnergy();
 extern void electricalAverage();
+
+typedef struct {
+	unsigned char mode;
+} DisplayMode;
+
+extern DisplayMode displayMode;
 
 extern void measCenterLoadView(lv_obj_t * root);
 extern void measCenterLoadGroup();

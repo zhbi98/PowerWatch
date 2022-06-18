@@ -31,6 +31,6 @@ extern void gd25q64_bulk_erase();
 extern void gd25q64_page_write(uint32_t address, unsigned int lenth, unsigned char * data_buf);
 extern unsigned char gd25q64_read_byte();
 extern void gd25q64_buffer_write(uint32_t address, unsigned int lenth, unsigned char * data_buf);
-extern void gd2564_buffer_read(uint32_t address, unsigned int lenth, unsigned char * data_buf);
+extern void gd25q64_buffer_read(uint32_t address, unsigned int lenth, unsigned char * data_buf);
 
 #endif

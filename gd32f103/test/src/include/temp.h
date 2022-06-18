@@ -5,11 +5,11 @@
 #include "gd32f10x.h"
 #include "time.h"
 
-#define CURRENT_ADC ADC0
-#define ADC_CLOCK   RCU_ADC0
+#define TEMP_ADC       ADC0
+#define TEMP_ADC_CLOCK RCU_ADC0
 
-extern void temp_adc_rcu_config();
-extern void temp_adc_config();
-extern int read_temp();
+extern void inside_temp_adc_rcu_init();
+extern void inside_temp_adc_init();
+extern unsigned int read_inside_temp();
 
 #endif

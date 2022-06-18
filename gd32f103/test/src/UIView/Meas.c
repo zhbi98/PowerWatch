@@ -9,6 +9,7 @@ Energy energy = {
 Average average = {
     .sum = 0.0,
     .avg = 0.0,
+    .type = 0,
 };
 
 struct data_pool_t data_pool;
@@ -37,6 +38,10 @@ void electricalAverage()
         input_pool(&data_pool, ina226_data.Shunt_Current);
     }
 }
+
+DisplayMode displayMode = {
+    .mode = 0,
+};
 
 void measCenterLoadView(lv_obj_t * root)
 {
@@ -69,6 +74,7 @@ const unsigned char * fmt_str[] = {
     "%5.3f", // 1.000
     "%5.2f", // 10.00
     "%5.1f", // 100.0
+    "%5.0f", // 1000.
 };
 
 const unsigned char * unit_str[][2] = {
@@ -97,6 +103,8 @@ unsigned char get_param_fmt(float value)
         return 1;
     } else if ((value >= 100.0) && (value < 1000.0)) {
         return 2;
+    } else if ((value >= 1000.0) && (value < 10000.0)) {
+        return 3;
     }
 }
 
@@ -119,12 +127,28 @@ void measCenterUpdate()
         i = 0;
         get_power();
 
-        memset(buf, '\0', 10);
-        fmt = param_fmt(ina226_data.voltageVal);
-        index = get_param_fmt(fmt);
-        snprintf(buf, 10, fmt_str[index], fmt);
-        lv_label_set_text_fmt(measSence.mainShow.lableValue1, "%s", buf);
-        lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
+        if (displayMode.mode == 0) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.voltageVal);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.mainShow.lableValue1, "%s", buf);
+            lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
+        } else if (displayMode.mode == 1) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.Shunt_Current);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.mainShow.lableValue1, "%s", buf);
+            lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
+        } else if (displayMode.mode == 2) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.Power);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.mainShow.lableValue1, "%s", buf);
+            lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
+        }
 
         memset(buf, '\0', 10);
         fmt = param_fmt(average.avg);
@@ -132,20 +156,52 @@ void measCenterUpdate()
         snprintf(buf, 10, fmt_str[index], fmt);
         lv_label_set_text_fmt(measSence.mainShow.lableValue2, "%s", buf);
         lv_label_set_text_fmt(measSence.mainShow.lableUnit2, "%s", unit_str[1][get_param_unit(average.avg)]);
+        
+        if (displayMode.mode == 0) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.Shunt_Current);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.sidebar.labelValue1, "%s", buf);
+            lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
+        } else if (displayMode.mode == 1) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.voltageVal);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.sidebar.labelValue1, "%s", buf);
+            lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
+        } else if (displayMode.mode == 2) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.Shunt_Current);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.sidebar.labelValue1, "%s", buf);
+            lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
+        }
 
-        memset(buf, '\0', 10);
-        fmt = param_fmt(ina226_data.Shunt_Current);
-        index = get_param_fmt(fmt);
-        snprintf(buf, 10, fmt_str[index], fmt);
-        lv_label_set_text_fmt(measSence.sidebar.labelValue1, "%s", buf);
-        lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
-
-        memset(buf, '\0', 10);
-        fmt = param_fmt(ina226_data.Power);
-        index = get_param_fmt(fmt);
-        snprintf(buf, 10, fmt_str[index], fmt);
-        lv_label_set_text_fmt(measSence.sidebar.labelValue2, "%s", buf);
-        lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
+        if (displayMode.mode == 0) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.Power);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.sidebar.labelValue2, "%s", buf);
+            lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
+        } else if (displayMode.mode == 1) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.Power);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.sidebar.labelValue2, "%s", buf);
+            lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
+        } else if (displayMode.mode == 2) {
+            memset(buf, '\0', 10);
+            fmt = param_fmt(ina226_data.voltageVal);
+            index = get_param_fmt(fmt);
+            snprintf(buf, 10, fmt_str[index], fmt);
+            lv_label_set_text_fmt(measSence.sidebar.labelValue2, "%s", buf);
+            lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
+        }
 
         memset(buf, '\0', 10);
         fmt = param_fmt(energy.mAh);
@@ -169,8 +225,17 @@ void measCenterOnEvent(lv_event_t * event)
     lv_obj_t * obj = lv_event_get_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
-    if (code == LV_EVENT_CLICKED) {
-        uiViewLoad("About");
+    if (obj == measSence.cont) {
+        if (code == LV_EVENT_CLICKED) {
+            uiViewLoad("About");
+        }
+    } else if (obj == measSence.mainShow.cont1) {
+        if (code == LV_EVENT_CLICKED) {
+            displayMode.mode++;
+            if (displayMode.mode > 2)
+                displayMode.mode = 0;
+        }
+    } else if (obj == measSence.mainShow.cont1) {
+
     }
 }
-

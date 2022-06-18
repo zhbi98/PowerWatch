@@ -78,6 +78,7 @@ unsigned char read_key_event()
             break;
     }
 
+#if 0
     if (k == RELEASE) {
         key_evt.press_duration = 8000;
     }
@@ -88,6 +89,7 @@ unsigned char read_key_event()
     } else {
         key_evt.press_long = false;
     }
+#endif
 
     key_event_ticks();
 

@@ -298,10 +298,6 @@ void botton_anim(lv_obj_t * bluetooth)
 
 int main()
 {
-    unsigned int i = 0;
-    unsigned int percent = 0;
-    float temperature;
-    float vref_value;
     // SystemInit()->system_clock_config()->system_clock_108m_hxtal();
     sys_clock_config();
     lvgl_timer_init(960, 100);
@@ -311,14 +307,14 @@ int main()
     usart_init();
     st7789_init();
     INA226_Init();
-    temp_adc_config();
+    inside_temp_adc_init();
     gd25q64_spi_gpio_init();
     sleep_ms(100);
-    // gd25q64_page_write(0x0000, 13, "Hello, World!");
     // gd25q64_sector_erase(0x0000);
+    // gd25q64_page_write(0x0000, 13, "Hello, World!");
     // sleep_ms(100);
     memset(flash_buf, '\0', 20);
-    gd2564_buffer_read(0x0000, 13, flash_buf);
+    gd25q64_buffer_read(0x0000, 13, flash_buf);
 
     lv_init();
     lv_port_disp_init();
@@ -605,6 +601,7 @@ int main()
                 display.status = 1;
                 ST7789_BL_L();
             }
+            sleep_ms(1000);
         }
         if (display.time <= 0) {
             display.status = 0;
