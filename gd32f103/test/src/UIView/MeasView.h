@@ -12,6 +12,8 @@ typedef struct {
     lv_obj_t * cont2;
     lv_obj_t * lableValue2;
     lv_obj_t * lableUnit2;
+    lv_obj_t * cont3;
+    lv_obj_t * lableValue3;
     lv_style_t style;
 } MainShow;
 
@@ -38,7 +40,7 @@ typedef struct {
 
 extern MeasSence measSence;
 
-extern void measCenterViewCreate(lv_obj_t * root);
+extern void measViewCreate(lv_obj_t * root);
 extern void mainShowViewCreate(lv_obj_t * par);
 extern void sidebarViewCreate(lv_obj_t * par);
 

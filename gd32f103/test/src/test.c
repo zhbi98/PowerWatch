@@ -23,14 +23,16 @@
 #include "AboutView.h"
 #include "About.h"
 
-lv_obj_t * container;
-lv_obj_t * button;
-lv_obj_t * button2;
-lv_obj_t * label;
-lv_obj_t * label2;
-lv_obj_t * sswitch;
-lv_obj_t * slider;
-lv_obj_t * bar;
+#include "elec.h"
+
+// lv_obj_t * container;
+// lv_obj_t * button;
+// lv_obj_t * button2;
+// lv_obj_t * label;
+// lv_obj_t * label2;
+// lv_obj_t * sswitch;
+// lv_obj_t * slider;
+// lv_obj_t * bar;
 extern lv_indev_t * indev_keypad;
 
 // custom_hid
@@ -247,7 +249,6 @@ void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t)
     timer_enable(LVGL_TIMER);
 }
 
-
 typedef struct {
     unsigned int time;
     unsigned char status;
@@ -270,7 +271,7 @@ void LVGL_TIMER_HANDLER()
 
         if (time == 99) {
             time = 0;
-            electricalEnergy();
+            elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
             electricalAverage();
         }
         time++;
@@ -375,11 +376,11 @@ int main()
 #endif
 
 #if 1 // LVGL UIKit
-    pool_init(&data_pool);
+    pool_init(&avg_pool);
     uiViewInit("Meas", 
-        measCenterLoadView, 
-        measCenterUpdate, 
-        measCenterLoadGroup);
+        measLoadView, 
+        measUpdate, 
+        measLoadGroup);
     uiViewInit("About", 
         aboutLoadView, 
         aboutViewUpdate, 
@@ -587,9 +588,9 @@ int main()
         lv_task_handler();
         sleep_ms(50);
 #endif
-        led_controller_handler(&led2);
         viewController.currentPage->uiViewUpdate();
         lv_task_handler();
+        led_controller_handler(&led2);
 
         if (read_key_event() == KEY4_EVT) {
             if (display.status == 1) {

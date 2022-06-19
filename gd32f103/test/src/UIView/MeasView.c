@@ -61,7 +61,7 @@ void labelStyleCreate(lv_obj_t * obj)
     lv_obj_add_style(obj, &measSence.sidebar.labelStyle, 0);
 }
 
-void measCenterViewCreate(lv_obj_t * root)
+void measViewCreate(lv_obj_t * root)
 {
     lv_obj_t * cont = lv_obj_create(root);
     lv_obj_remove_style_all(cont);
@@ -94,7 +94,7 @@ void mainShowViewCreate(lv_obj_t * par)
 {
     lv_obj_t * cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
-    lv_obj_set_size(cont, 160, 60);
+    lv_obj_set_size(cont, 160, 55);
     lv_obj_set_pos(cont, 10, 10);
     mainShowStyleCreate(cont);
     lv_obj_set_style_bg_color(cont, lv_color_hex(0xE6E5EB/*0x232514*/), 0);
@@ -106,8 +106,8 @@ void mainShowViewCreate(lv_obj_t * par)
 
     cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
-    lv_obj_set_size(cont, 160, 60);
-    lv_obj_set_pos(cont, 10, 95);
+    lv_obj_set_size(cont, 160, 55);
+    lv_obj_set_pos(cont, 10, 70);
     mainShowStyleCreate(cont);
     lv_obj_set_style_bg_color(cont, lv_color_hex(0xE6E5EB/*0x232514*/), 0);
     lv_obj_set_style_text_color(cont, lv_color_hex(0x000000), 0);
@@ -116,9 +116,22 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_style_bg_color(cont, lv_color_hex(0x414141), LV_STATE_PRESSED);
     measSence.mainShow.cont2 = cont;
 
+    cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_set_size(cont, 105, 24);
+    lv_obj_set_pos(cont, 65, 130);
+    mainShowStyleCreate(cont);
+    lv_obj_set_style_radius(cont, 5, 0);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0xE6E5EB/*0x232514*/), 0);
+    lv_obj_set_style_text_color(cont, lv_color_hex(0x000000), 0);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0x047DFF), LV_STATE_FOCUSED);
+    lv_obj_set_style_text_color(cont, lv_color_hex(0xFFFFFF), LV_STATE_FOCUSED);
+    lv_obj_set_style_bg_color(cont, lv_color_hex(0x414141), LV_STATE_PRESSED);
+    measSence.mainShow.cont3 = cont;
+
     lv_obj_t * label = lv_label_create(par);
     // lv_obj_set_size(label, 160, 80);
-    lv_obj_set_pos(label, 15, 75);
+    lv_obj_set_pos(label, 15, 132);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
     lv_obj_set_style_text_color(label, lv_color_hex(0x047DFF), 0);
@@ -161,6 +174,15 @@ void mainShowViewCreate(lv_obj_t * par)
     // lv_obj_set_style_text_color(label, lv_color_hex(0x000000), 0);
     lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
     measSence.mainShow.lableUnit2 = label;
+
+    label = lv_label_create(measSence.mainShow.cont3);
+    // lv_obj_set_size(label, 160, 80);
+    // lv_obj_set_pos(label, 20, 20);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    lv_label_set_text_fmt(label, "%s", "00:00:00");
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+    measSence.mainShow.lableValue3 = label;
 
     // mainShowAnim(cont);
 }

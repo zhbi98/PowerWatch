@@ -2588,6 +2588,18 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>194</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIView\elec.c</PathWithFileName>
+      <FilenameWithoutPath>elec.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -2598,7 +2610,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>194</FileNumber>
+      <FileNumber>195</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2610,7 +2622,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>195</FileNumber>
+      <FileNumber>196</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2622,7 +2634,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>196</FileNumber>
+      <FileNumber>197</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2634,7 +2646,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>197</FileNumber>
+      <FileNumber>198</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2646,7 +2658,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>198</FileNumber>
+      <FileNumber>199</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

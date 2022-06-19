@@ -6,13 +6,7 @@
 #include "ina226.h"
 #include "MeasView.h"
 #include "data_pool.h"
-
-#define ENERGY_TIME (0.1f / 3600)
-
-typedef struct {
-    float mAh;
-    float mWh;
-} Energy;
+#include "elec.h"
 
 typedef struct {
     float sum;
@@ -20,9 +14,8 @@ typedef struct {
     unsigned char type;
 } Average;
 
-extern Energy energy;
 extern Average average;
-extern struct data_pool_t data_pool;
+extern struct data_pool_t avg_pool;
 extern void electricalEnergy();
 extern void electricalAverage();
 
@@ -32,10 +25,10 @@ typedef struct {
 
 extern DisplayMode displayMode;
 
-extern void measCenterLoadView(lv_obj_t * root);
-extern void measCenterLoadGroup();
-extern void measCenterAttachEvent(lv_obj_t * obj);
-extern void measCenterUpdate();
-extern void measCenterOnEvent(lv_event_t * event);
+extern void measLoadView(lv_obj_t * root);
+extern void measLoadGroup();
+extern void measAttachEvent(lv_obj_t * obj);
+extern void measUpdate();
+extern void measOnEvent(lv_event_t * event);
 
 #endif

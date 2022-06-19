@@ -1392,6 +1392,11 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\MeasView.c</FilePath>
             </File>
+            <File>
+              <FileName>elec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\elec.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
