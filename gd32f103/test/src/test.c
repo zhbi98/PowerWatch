@@ -22,6 +22,8 @@
 #include "Meas.h"
 #include "AboutView.h"
 #include "About.h"
+#include "SheetView.h"
+#include "Sheet.h"
 
 #include "elec.h"
 
@@ -385,6 +387,11 @@ int main()
         aboutLoadView, 
         aboutViewUpdate, 
         aboutLoadGroup);
+    uiViewInit("Sheet", 
+        sheetLoadView, 
+        sheetUpdate,
+        sheetLoadGroup);
+
     uiViewLoad("Meas");
 #endif
 

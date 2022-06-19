@@ -213,7 +213,7 @@ void measOnEvent(lv_event_t * event)
 
     if (obj == measSence.cont) {
         if (code == LV_EVENT_CLICKED) {
-            uiViewLoad("About");
+            uiViewLoad("Sheet");
         }
     } else if (obj == measSence.mainShow.cont1) {
         if (code == LV_EVENT_CLICKED) {

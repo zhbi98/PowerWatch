@@ -1397,6 +1397,16 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\elec.c</FilePath>
             </File>
+            <File>
+              <FileName>Sheet.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\Sheet.c</FilePath>
+            </File>
+            <File>
+              <FileName>SheetView.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\SheetView.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

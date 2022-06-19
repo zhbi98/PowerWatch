@@ -5,7 +5,7 @@ struct elec_calc_t elec = {
     .mah  = 0.0,
     .mwh  = 0.0,
     .time = 0.0,
-    .status = 0,
+    .status = 1,
 };
 
 void set_elec_status(unsigned char status)
