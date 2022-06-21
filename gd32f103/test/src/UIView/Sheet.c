@@ -26,40 +26,35 @@ void sheetAttachEvent(lv_obj_t * obj)
 
 void sheetUpdate()
 {
-    static unsigned int i = 200;
     static unsigned int run = 0;
-    if (i == 200) {
-        i = 0;
-        srand(run);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    srand(run);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
 
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
-        lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
+    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser2, rand() % 300);
 
-        lv_chart_refresh(sheetSence.chart);
-    }
-    i++;
+    lv_chart_refresh(sheetSence.chart);
     run++;
 }
 

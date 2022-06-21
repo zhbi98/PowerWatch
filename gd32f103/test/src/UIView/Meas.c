@@ -108,102 +108,96 @@ unsigned char get_param_unit(float value)
 
 void measUpdate()
 {
-    static unsigned int i = 20000;
-
     float fmt = 0.0;
     unsigned char index = 0;
     unsigned char buf[15];
 
-    if (i == 20000) {
-        i = 0;
-        get_power();
+    get_power();
 
-        memset(buf, '\0', 10);
-        if (displayMode.mode == 0) {
-            fmt = param_fmt(ina226_data.voltageVal);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
-        } else if (displayMode.mode == 1) {
-            fmt = param_fmt(ina226_data.Shunt_Current);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
-        } else if (displayMode.mode == 2) {
-            fmt = param_fmt(ina226_data.Power);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
-        }
-        lv_label_set_text_fmt(measSence.mainShow.lableValue1, "%s", buf);
-
-        memset(buf, '\0', 10);
-        fmt = param_fmt(average.avg);
+    memset(buf, '\0', 10);
+    if (displayMode.mode == 0) {
+        fmt = param_fmt(ina226_data.voltageVal);
         index = get_param_fmt(fmt);
         snprintf(buf, 10, fmt_str[index], fmt);
-        lv_label_set_text_fmt(measSence.mainShow.lableValue2, "%s", buf);
-        lv_label_set_text_fmt(measSence.mainShow.lableUnit2, "%s", unit_str[1][get_param_unit(average.avg)]);
-
-        int hour = (int)(get_elec_calc_time()) / 3600;
-        int min  = (int)(get_elec_calc_time()) % 3600 / 60;
-        int sec  = (int)(get_elec_calc_time()) % 3600 % 60;
-        memset(buf, '\0', 10);
-        snprintf(buf, 13, "TIM:%02d:%02d:%02d", hour, min, sec);
-        lv_label_set_text_fmt(measSence.mainShow.lableValue3, "%s", buf);
-
-        memset(buf, '\0', 10);
-        if (displayMode.mode == 0) {
-            fmt = param_fmt(ina226_data.Shunt_Current);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
-        } else if (displayMode.mode == 1) {
-            fmt = param_fmt(ina226_data.voltageVal);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
-        } else if (displayMode.mode == 2) {
-            fmt = param_fmt(ina226_data.Shunt_Current);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
-        }
-        lv_label_set_text_fmt(measSence.sidebar.labelValue1, "%s", buf);
-
-        memset(buf, '\0', 10);
-        if (displayMode.mode == 0) {
-            fmt = param_fmt(ina226_data.Power);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
-        } else if (displayMode.mode == 1) {
-            fmt = param_fmt(ina226_data.Power);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
-        } else if (displayMode.mode == 2) {
-            fmt = param_fmt(ina226_data.voltageVal);
-            index = get_param_fmt(fmt);
-            snprintf(buf, 10, fmt_str[index], fmt);
-            lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
-        }
-        lv_label_set_text_fmt(measSence.sidebar.labelValue2, "%s", buf);
-
-        memset(buf, '\0', 10);
-        fmt = param_fmt(get_elec_calc_mah());
+        lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
+    } else if (displayMode.mode == 1) {
+        fmt = param_fmt(ina226_data.Shunt_Current);
         index = get_param_fmt(fmt);
         snprintf(buf, 10, fmt_str[index], fmt);
-        lv_label_set_text_fmt(measSence.sidebar.labelValue3, "%s", buf);
-        lv_label_set_text_fmt(measSence.sidebar.labelUnit3, "%s", unit_str[3][get_param_unit(get_elec_calc_mah())]);
-
-        memset(buf, '\0', 10);
-        fmt = param_fmt(get_elec_calc_mwh());
+        lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
+    } else if (displayMode.mode == 2) {
+        fmt = param_fmt(ina226_data.Power);
         index = get_param_fmt(fmt);
         snprintf(buf, 10, fmt_str[index], fmt);
-        lv_label_set_text_fmt(measSence.sidebar.labelValue4, "%s", buf);
-        lv_label_set_text_fmt(measSence.sidebar.labelUnit4, "%s", unit_str[4][get_param_unit(get_elec_calc_mwh())]);
+        lv_label_set_text_fmt(measSence.mainShow.lableUnit1, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
     }
-    i++;
+    lv_label_set_text_fmt(measSence.mainShow.lableValue1, "%s", buf);
+
+    memset(buf, '\0', 10);
+    fmt = param_fmt(average.avg);
+    index = get_param_fmt(fmt);
+    snprintf(buf, 10, fmt_str[index], fmt);
+    lv_label_set_text_fmt(measSence.mainShow.lableValue2, "%s", buf);
+    lv_label_set_text_fmt(measSence.mainShow.lableUnit2, "%s", unit_str[1][get_param_unit(average.avg)]);
+
+    int hour = (int)(get_elec_calc_time()) / 3600;
+    int min  = (int)(get_elec_calc_time()) % 3600 / 60;
+    int sec  = (int)(get_elec_calc_time()) % 3600 % 60;
+    memset(buf, '\0', 10);
+    snprintf(buf, 13, "TIM:%02d:%02d:%02d", hour, min, sec);
+    lv_label_set_text_fmt(measSence.mainShow.lableValue3, "%s", buf);
+
+    memset(buf, '\0', 10);
+    if (displayMode.mode == 0) {
+        fmt = param_fmt(ina226_data.Shunt_Current);
+        index = get_param_fmt(fmt);
+        snprintf(buf, 10, fmt_str[index], fmt);
+        lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
+    } else if (displayMode.mode == 1) {
+        fmt = param_fmt(ina226_data.voltageVal);
+        index = get_param_fmt(fmt);
+        snprintf(buf, 10, fmt_str[index], fmt);
+        lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
+    } else if (displayMode.mode == 2) {
+        fmt = param_fmt(ina226_data.Shunt_Current);
+        index = get_param_fmt(fmt);
+        snprintf(buf, 10, fmt_str[index], fmt);
+        lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", unit_str[1][get_param_unit(ina226_data.Shunt_Current)]);
+    }
+    lv_label_set_text_fmt(measSence.sidebar.labelValue1, "%s", buf);
+
+    memset(buf, '\0', 10);
+    if (displayMode.mode == 0) {
+        fmt = param_fmt(ina226_data.Power);
+        index = get_param_fmt(fmt);
+        snprintf(buf, 10, fmt_str[index], fmt);
+        lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
+    } else if (displayMode.mode == 1) {
+        fmt = param_fmt(ina226_data.Power);
+        index = get_param_fmt(fmt);
+        snprintf(buf, 10, fmt_str[index], fmt);
+        lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[2][get_param_unit(ina226_data.Power)]);
+    } else if (displayMode.mode == 2) {
+        fmt = param_fmt(ina226_data.voltageVal);
+        index = get_param_fmt(fmt);
+        snprintf(buf, 10, fmt_str[index], fmt);
+        lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", unit_str[0][get_param_unit(ina226_data.voltageVal)]);
+    }
+    lv_label_set_text_fmt(measSence.sidebar.labelValue2, "%s", buf);
+
+    memset(buf, '\0', 10);
+    fmt = param_fmt(get_elec_calc_mah());
+    index = get_param_fmt(fmt);
+    snprintf(buf, 10, fmt_str[index], fmt);
+    lv_label_set_text_fmt(measSence.sidebar.labelValue3, "%s", buf);
+    lv_label_set_text_fmt(measSence.sidebar.labelUnit3, "%s", unit_str[3][get_param_unit(get_elec_calc_mah())]);
+
+    memset(buf, '\0', 10);
+    fmt = param_fmt(get_elec_calc_mwh());
+    index = get_param_fmt(fmt);
+    snprintf(buf, 10, fmt_str[index], fmt);
+    lv_label_set_text_fmt(measSence.sidebar.labelValue4, "%s", buf);
+    lv_label_set_text_fmt(measSence.sidebar.labelUnit4, "%s", unit_str[4][get_param_unit(get_elec_calc_mwh())]);
 }
 
 void measOnEvent(lv_event_t * event)
