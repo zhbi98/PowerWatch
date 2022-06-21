@@ -383,11 +383,6 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\test.c</FilePath>
-            </File>
-            <File>
               <FileName>time.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\source\time.c</FilePath>
@@ -441,6 +436,11 @@
               <FileName>temp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\source\temp.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\main.c</FilePath>
             </File>
           </Files>
         </Group>

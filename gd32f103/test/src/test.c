@@ -304,11 +304,11 @@ void TIMX_IRQHandler_user(void)
    }
 }
 
-#define LVGL_TIMER         TIMER1
-#define LVGL_TIMER_CLOCK   RCU_TIMER1
-#define LVGL_TIMER_CH      TIMER_CH_3
-#define LVGL_TIMER_IRQN    TIMER1_IRQn
-#define LVGL_TIMER_HANDLER TIMER1_IRQHandler
+#define TIMER         TIMER1
+#define TIMER_CLOCK   RCU_TIMER1
+#define TIMER_CH      TIMER_CH_3
+#define TIMER_IRQN    TIMER1_IRQn
+#define TIMER_HANDLER TIMER1_IRQHandler
 
 /*
 -----------------------------------------
@@ -349,10 +349,10 @@ void TIMX_IRQHandler_user(void)
 -----------------------------------------
 */
 
-extern void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t);
-extern void LVGL_TIMER_HANDLER();
+extern void _timer_init(unsigned int prescaler_t, unsigned int period_t);
+extern void TIMER_HANDLER();
 
-void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t)
+void _timer_init(unsigned int prescaler_t, unsigned int period_t)
 {
     /**
      * TIMER configuration: generate PWM signals
@@ -362,8 +362,8 @@ void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t)
     timer_oc_parameter_struct timer_out_init;
     timer_parameter_struct time_init;
 
-    rcu_periph_clock_enable(LVGL_TIMER_CLOCK);
-    timer_deinit(LVGL_TIMER);
+    rcu_periph_clock_enable(TIMER_CLOCK);
+    timer_deinit(TIMER);
 
     time_init.prescaler         = prescaler_t - 1;
     time_init.alignedmode       = TIMER_COUNTER_EDGE;
@@ -371,7 +371,7 @@ void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t)
     time_init.period            = period_t;
     time_init.clockdivision     = TIMER_CKDIV_DIV1;
     time_init.repetitioncounter = 0;
-    timer_init(LVGL_TIMER, &time_init);
+    timer_init(TIMER, &time_init);
 
     // CH0 config in pwm mode
     // timer_out_init.outputstate  = TIMER_CCX_ENABLE;
@@ -380,21 +380,21 @@ void lvgl_timer_init(unsigned int prescaler_t, unsigned int period_t)
     // timer_out_init.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
     // timer_out_init.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
     // timer_out_init.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
-    // timer_channel_output_config(LVGL_TIMER,
+    // timer_channel_output_config(TIMER,
     //     SUART_TIMER_CH, &timer_out_init);
 
     // timer_channel_output_pulse_value_config(
-    //     LVGL_TIMER, SUART_TIMER_CH, 250);
+    //     TIMER, SUART_TIMER_CH, 250);
     // timer_channel_output_mode_config(
-    //     LVGL_TIMER, SUART_TIMER_CH, TIMER_OC_MODE_PWM0);
+    //     TIMER, SUART_TIMER_CH, TIMER_OC_MODE_PWM0);
     // timer_channel_output_shadow_config(
-    //     LVGL_TIMER, SUART_TIMER_CH, TIMER_OC_SHADOW_DISABLE);
-    // timer_primary_output_config(LVGL_TIMER, ENABLE);
-    // timer_auto_reload_shadow_enable(LVGL_TIMER);
+    //     TIMER, SUART_TIMER_CH, TIMER_OC_SHADOW_DISABLE);
+    // timer_primary_output_config(TIMER, ENABLE);
+    // timer_auto_reload_shadow_enable(TIMER);
 
-    nvic_irq_enable(LVGL_TIMER_IRQN, 1, 1);
-    timer_interrupt_enable(LVGL_TIMER, TIMER_INT_UP);
-    timer_enable(LVGL_TIMER);
+    nvic_irq_enable(TIMER_IRQN, 1, 1);
+    timer_interrupt_enable(TIMER, TIMER_INT_UP);
+    timer_enable(TIMER);
 }
 
 typedef struct {
@@ -407,12 +407,12 @@ Display display = {
     .status = 1,
 };
 
-void LVGL_TIMER_HANDLER()
+void TIMER_HANDLER()
 {
     static unsigned char time = 0;
 
-    if (timer_interrupt_flag_get(LVGL_TIMER, TIMER_INT_FLAG_UP) == SET) {
-        timer_interrupt_flag_clear(LVGL_TIMER, TIMER_INT_FLAG_UP);
+    if (timer_interrupt_flag_get(TIMER, TIMER_INT_FLAG_UP) == SET) {
+        timer_interrupt_flag_clear(TIMER, TIMER_INT_FLAG_UP);
         // 1ms tick
         // usb_fs_send_fmt_string("%s\n", "LVGL TICK");
         lv_tick_inc(1);
@@ -448,19 +448,39 @@ void botton_anim(lv_obj_t * bluetooth)
 
 void Task_01()
 {
-  led_controller_handler(&led2);
+    led_controller_handler(&led2);
 }
 
 void Task_02()
 {
-  viewController.currentPage->uiViewUpdate();
+    viewController.currentPage->uiViewUpdate();
+}
+
+void Task_03()
+{
+    if (read_key_event() == KEY4_EVT) {
+        if (display.status == 1) {
+            display.time = 0;
+            display.status = 0;
+            ST7789_BL_H();
+        } else {
+            display.time = 300000;
+            display.status = 1;
+            ST7789_BL_L();
+        }
+        sleep_ms(1000);
+    }
+    if (display.time <= 0) {
+        display.status = 0;
+        ST7789_BL_H();
+    }
 }
 
 int main()
 {
     // SystemInit()->system_clock_config()->system_clock_108m_hxtal();
     sys_clock_config();
-    lvgl_timer_init(960, 100);
+    _timer_init(960, 100);
     led1_gpio_init();
     led2_gpio_init();
     key_gpio_init();
@@ -478,6 +498,7 @@ int main()
 
     SCH_Add_Task(Task_01, 0, 500);
     SCH_Add_Task(Task_02, 0, 500);
+    SCH_Add_Task(Task_03, 0, 100);
 
     lv_init();
     lv_port_disp_init();
@@ -757,23 +778,6 @@ int main()
 #endif
         SCH_Dispatch_Tasks();
         lv_task_handler();
-
-        if (read_key_event() == KEY4_EVT) {
-            if (display.status == 1) {
-                display.time = 0;
-                display.status = 0;
-                ST7789_BL_H();
-            } else {
-                display.time = 300000;
-                display.status = 1;
-                ST7789_BL_L();
-            }
-            sleep_ms(1000);
-        }
-        if (display.time <= 0) {
-            display.status = 0;
-            ST7789_BL_H();
-        }
     }
 
     return 0;

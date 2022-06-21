@@ -118,8 +118,8 @@ void mainShowViewCreate(lv_obj_t * par)
 
     cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
-    lv_obj_set_size(cont, 105, 24);
-    lv_obj_set_pos(cont, 65, 130);
+    lv_obj_set_size(cont, 115, 24);
+    lv_obj_set_pos(cont, 55, 130);
     mainShowStyleCreate(cont);
     lv_obj_set_style_radius(cont, 5, 0);
     lv_obj_set_style_bg_color(cont, lv_color_hex(0xE6E5EB/*0x232514*/), 0);
