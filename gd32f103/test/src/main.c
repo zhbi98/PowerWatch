@@ -372,38 +372,26 @@ void _timer_init(unsigned int prescaler_t, unsigned int period_t)
     timer_enable(TIMER);
 }
 
-typedef struct {
-    unsigned int time;
-    unsigned char status;
-} Display;
-
-Display display = {
-    .time = 300000,
-    .status = 1,
-};
-
 void TIMER_HANDLER()
 {
-    static unsigned char time = 0;
-
     if (timer_interrupt_flag_get(TIMER, TIMER_INT_FLAG_UP) == SET) {
         timer_interrupt_flag_clear(TIMER, TIMER_INT_FLAG_UP);
         // 1ms tick
         // usb_fs_send_fmt_string("%s\n", "LVGL TICK");
         lv_tick_inc(1);
         TIMX_IRQHandler_user();
-
-        if (time == 99) {
-            time = 0;
-            elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
-            electricalAverage();
-        }
-        time++;
-
-        if (display.time > 0)
-            display.time--;
     }
 }
+
+typedef struct {
+    unsigned int time;
+    unsigned char status;
+} Display;
+
+Display display = {
+    .time = 3000,
+    .status = 1,
+};
 
 void Task_01()
 {
@@ -417,21 +405,26 @@ void Task_02()
 
 void Task_03()
 {
-    if (read_key_event() == KEY4_EVT) {
-        if (display.status == 1) {
-            display.time = 0;
-            display.status = 0;
-            ST7789_BL_H();
-        } else {
-            display.time = 300000;
-            display.status = 1;
-            ST7789_BL_L();
-        }
-        sleep_ms(1000);
-    }
     if (display.time <= 0) {
         display.status = 0;
         ST7789_BL_H();
+    } else
+        display.time--;
+
+    elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
+    electricalAverage();
+
+    if (read_key_event() == KEY4_EVT) {
+        if (display.status == 0) {
+            display.time = 300000;
+            display.status = 1;
+            ST7789_BL_L();
+        } else {
+            display.time = 0;
+            display.status = 0;
+            ST7789_BL_H();
+        }
+        sleep_ms(1000);
     }
 }
 
