@@ -2624,6 +2624,30 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>197</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIView\average.c</PathWithFileName>
+      <FilenameWithoutPath>average.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>198</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIView\display.c</PathWithFileName>
+      <FilenameWithoutPath>display.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -2634,7 +2658,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>197</FileNumber>
+      <FileNumber>199</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2646,7 +2670,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>198</FileNumber>
+      <FileNumber>200</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2658,7 +2682,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>199</FileNumber>
+      <FileNumber>201</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2670,7 +2694,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>200</FileNumber>
+      <FileNumber>202</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2682,7 +2706,7 @@
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>201</FileNumber>
+      <FileNumber>203</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

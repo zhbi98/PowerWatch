@@ -134,7 +134,7 @@ uint16_t INA226_Get_Power(uint8_t addr)
 }
 
 // 获取总线电压----------->1.25mV/bit
-void GetVoltage(float * Voltage) // mV
+void Get_Voltage(float * Voltage) // mV
 {
     // LSB 为 1.25 mV
     *Voltage = INA226_GetVoltage(INA226_ADDR1) * VOLTAGE_LSB;
@@ -162,9 +162,9 @@ void Get_Power(float * Power) // mW
 }
 
 // 获取功率 = 总线电压 * 电流
-void get_power() // 总线电压，分压，电流，功率
+void getPower() // 总线电压，分压，电流，功率
 {
-    GetVoltage(&ina226_data.voltageVal);            // mV
+    Get_Voltage(&ina226_data.voltageVal);           // mV
     Get_Shunt_voltage(&ina226_data.Shunt_voltage);  // uV
     Get_Shunt_Current(&ina226_data.Shunt_Current);  // mA
     Get_Power(&ina226_data.Power);                  // mW

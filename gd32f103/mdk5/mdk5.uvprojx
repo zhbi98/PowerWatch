@@ -1407,6 +1407,16 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\SheetView.c</FilePath>
             </File>
+            <File>
+              <FileName>average.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\average.c</FilePath>
+            </File>
+            <File>
+              <FileName>display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\display.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

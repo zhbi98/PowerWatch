@@ -25,6 +25,8 @@
 #include "SheetView.h"
 #include "Sheet.h"
 #include "elec.h"
+#include "average.h"
+#include "display.h"
 
 // cdc_acm
 #include "cdc_acm_core.h"
@@ -376,22 +378,11 @@ void TIMER_HANDLER()
 {
     if (timer_interrupt_flag_get(TIMER, TIMER_INT_FLAG_UP) == SET) {
         timer_interrupt_flag_clear(TIMER, TIMER_INT_FLAG_UP);
-        // 1ms tick
-        // usb_fs_send_fmt_string("%s\n", "LVGL TICK");
+        // Timer interrupt 1ms
         lv_tick_inc(1);
         TIMX_IRQHandler_user();
     }
 }
-
-typedef struct {
-    unsigned int time;
-    unsigned char status;
-} Display;
-
-Display display = {
-    .time = 3000,
-    .status = 1,
-};
 
 void Task_01()
 {
@@ -405,27 +396,12 @@ void Task_02()
 
 void Task_03()
 {
-    if (display.time <= 0) {
-        display.status = 0;
-        ST7789_BL_H();
-    } else
-        display.time--;
-
     elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
     electricalAverage();
 
-    if (read_key_event() == KEY4_EVT) {
-        if (display.status == 0) {
-            display.time = 300000;
-            display.status = 1;
-            ST7789_BL_L();
-        } else {
-            display.time = 0;
-            display.status = 0;
-            ST7789_BL_H();
-        }
-        sleep_ms(1000);
-    }
+    if (read_key_event() == KEY4_EVT)
+        display_event_handler();
+    display_off_hanlder();
 }
 
 extern lv_indev_t * indev_keypad;

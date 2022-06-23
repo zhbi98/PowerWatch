@@ -3,21 +3,9 @@
 #define __MEAS_H__
 
 #include "lvgl.h"
-#include "ina226.h"
 #include "MeasView.h"
-#include "data_pool.h"
 #include "elec.h"
-
-typedef struct {
-    float sum;
-    float avg;
-    unsigned char type;
-} Average;
-
-extern Average average;
-extern struct data_pool_t avg_pool;
-extern void electricalEnergy();
-extern void electricalAverage();
+#include "average.h"
 
 typedef struct {
 	unsigned char mode;

@@ -72,12 +72,12 @@ extern int16_t INA226_GetShuntVoltage(uint8_t addr);  // 分流电压装载值
 extern uint16_t INA226_Get_Power(uint8_t addr);       // 获取功率装载值，不使用
 
 extern void INA226_Init(void);
-extern void GetVoltage(float * Voltage);
-extern void Get_Shunt_voltage(float * Current);
+extern void Get_Voltage(float * Voltage);
+extern void Get_Shunt_voltage(float * Voltage);
 extern void Get_Shunt_Current(float * Current);
-extern void get_power(void); // 获取功率 = 总线电压 * 电流
+extern void Get_Power(float * Power);
+extern void getPower(void); // 获取功率 = 总线电压 * 电流
 
 extern uint8_t INA226_AlertAddr(void);
-extern void Get_Power(float * Power);
 
 #endif
