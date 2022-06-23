@@ -4,7 +4,7 @@
 
 #include <stdbool.h>
 #include "ina226.h"
-#include "data_pool.h"
+#include "cache.h"
 
 typedef struct {
     float sum;
@@ -13,7 +13,7 @@ typedef struct {
 } Average;
 
 extern Average average;
-extern struct data_pool_t avg_pool;
+extern struct cache_buffer_t avg_pool;
 extern void electricalEnergy();
 extern void electricalAverage();
 

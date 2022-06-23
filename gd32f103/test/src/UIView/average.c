@@ -7,15 +7,15 @@ Average average = {
     .type = 0,
 };
 
-struct data_pool_t avg_pool;
+struct cache_buffer_t avg_pool;
 
 void electricalAverage()
 {
-    pool_data_t pool_data;
+    cache_typedef pool_data;
 
-    if (pool_full(&avg_pool) == true) {
-        output_pool(&avg_pool, &pool_data);
-        input_pool(&avg_pool, ina226_data.Shunt_Current);
+    if (cache_full(&avg_pool) == true) {
+        cache_output(&avg_pool, &pool_data);
+        cache_input(&avg_pool, ina226_data.Shunt_Current);
 
         for (char i = 0; i < 32; i++) {
             average.sum = average.sum + avg_pool.buf[i];
@@ -24,6 +24,6 @@ void electricalAverage()
         average.avg = average.sum / 32;
         average.sum = 0;
     } else {
-        input_pool(&avg_pool, ina226_data.Shunt_Current);
+        cache_input(&avg_pool, ina226_data.Shunt_Current);
     }
 }

@@ -428,11 +428,6 @@
               <FilePath>..\test\src\source\key.c</FilePath>
             </File>
             <File>
-              <FileName>data_pool.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\source\data_pool.c</FilePath>
-            </File>
-            <File>
               <FileName>temp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\source\temp.c</FilePath>
@@ -441,6 +436,11 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\source\cache.c</FilePath>
             </File>
           </Files>
         </Group>

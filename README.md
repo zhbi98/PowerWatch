@@ -41,7 +41,14 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 
 ## 3D 模型设计
 
-> <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal2.png" alt="GitHub" title="GitHub,Social Coding" width="600" height="376"/></div>
+> 目前正在设计外壳 V2.0 版本，设计完成后将会提供在此处。目前 **image 目录** 
+下的版本是外壳 V1.0，设计完成后将开放到此处。
+
+> **V1.0 版本效果**
+> <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal_v1.0.png" alt="GitHub" title="GitHub,Social Coding" width="900" height="562"/></div>
+
+> **V2.0 版本效果**
+> <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal.png" alt="GitHub" title="GitHub,Social Coding" width="900" height="497"/></div>
 
 ## 实物效果
 
