@@ -421,7 +421,7 @@ void TIMER_HANDLER()
         if (time == 99) {
             time = 0;
             elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
-            electricalAverage();
+            average_calc_hanlder();
         }
         time++;
 
@@ -559,7 +559,7 @@ int main()
 #endif
 
 #if 1 // LVGL UIKit
-    pool_init(&avg_pool);
+    pool_init(&average_cache_buf);
     uiViewInit("Meas", 
         measLoadView, 
         measUpdate, 

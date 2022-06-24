@@ -107,11 +107,11 @@ void measUpdate()
     lv_label_set_text_fmt(measSence.mainShow.lableValue1, "%s", buf);
 
     memset(buf, '\0', 10);
-    fmt = param_fmt(average.avg);
+    fmt = param_fmt(average_calc.avg);
     index = get_param_fmt(fmt);
     snprintf(buf, 10, fmt_str[index], fmt);
     lv_label_set_text_fmt(measSence.mainShow.lableValue2, "%s", buf);
-    lv_label_set_text_fmt(measSence.mainShow.lableUnit2, "%s", unit_str[1][get_param_unit(average.avg)]);
+    lv_label_set_text_fmt(measSence.mainShow.lableUnit2, "%s", unit_str[1][get_param_unit(average_calc.avg)]);
 
     int hour = (int)(get_elec_calc_time()) / 3600;
     int min  = (int)(get_elec_calc_time()) % 3600 / 60;

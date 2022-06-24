@@ -6,15 +6,15 @@
 #include "ina226.h"
 #include "cache.h"
 
-typedef struct {
+struct average_calc_t {
     float sum;
     float avg;
     unsigned char type;
-} Average;
+};
 
-extern Average average;
-extern struct cache_buffer_t avg_pool;
-extern void electricalEnergy();
-extern void electricalAverage();
+extern struct average_calc_t average_calc;
+extern struct cache_buffer_t average_cache_buf;
+
+extern void average_calc_hanlder();
 
 #endif

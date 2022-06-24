@@ -397,7 +397,7 @@ void Task_02()
 void Task_03()
 {
     elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
-    electricalAverage();
+    average_calc_hanlder();
 
     if (read_key_event() == KEY4_EVT)
         display_event_handler();
@@ -434,7 +434,7 @@ int main()
     lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
     lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
 
-    cache_init(&avg_pool);
+    cache_init(&average_cache_buf);
     uiViewInit("Meas", measLoadView, measUpdate, measLoadGroup);
     uiViewInit("About", aboutLoadView, aboutViewUpdate, aboutLoadGroup);
     uiViewInit("Sheet", sheetLoadView, sheetUpdate, sheetLoadGroup);
