@@ -396,12 +396,24 @@ void Task_02()
 
 void Task_03()
 {
+    getPower();
     elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
-    average_calc_hanlder();
+    
+    if (displayMode.cont2_mode == 0)
+        average_calc_hanlder(ina226_data.voltageVal);
+    else if (displayMode.cont2_mode == 1)
+        average_calc_hanlder(ina226_data.Shunt_Current);
+    else if (displayMode.cont2_mode == 2)
+        average_calc_hanlder(ina226_data.Power);
 
     if (read_key_event() == KEY4_EVT)
         display_event_handler();
     display_off_hanlder();
+}
+
+void Task_04()
+{
+    bar_cache_hanlder(ina226_data.Shunt_Current);
 }
 
 extern lv_indev_t * indev_keypad;
@@ -435,6 +447,7 @@ int main()
     lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
 
     cache_init(&average_cache_buf);
+    cache_init(&bar_cache_buf);
     uiViewInit("Meas", measLoadView, measUpdate, measLoadGroup);
     uiViewInit("About", aboutLoadView, aboutViewUpdate, aboutLoadGroup);
     uiViewInit("Sheet", sheetLoadView, sheetUpdate, sheetLoadGroup);
@@ -443,6 +456,7 @@ int main()
     SCH_Add_Task(Task_01, 0, 500);
     SCH_Add_Task(Task_02, 0, 500);
     SCH_Add_Task(Task_03, 0, 100);
+    SCH_Add_Task(Task_04, 0, 20000);
 
     /* system clocks configuration */
     rcu_config();

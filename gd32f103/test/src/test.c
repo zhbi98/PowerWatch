@@ -559,7 +559,7 @@ int main()
 #endif
 
 #if 1 // LVGL UIKit
-    pool_init(&average_cache_buf);
+    cache_init(&average_cache_buf);
     uiViewInit("Meas", 
         measLoadView, 
         measUpdate, 

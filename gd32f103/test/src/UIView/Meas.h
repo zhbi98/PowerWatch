@@ -8,7 +8,8 @@
 #include "average.h"
 
 typedef struct {
-	unsigned char mode;
+	unsigned char cont1_mode;
+	unsigned char cont2_mode;
 } DisplayMode;
 
 extern DisplayMode displayMode;
