@@ -39,38 +39,51 @@ void bar_cache_hanlder(float value)
 
 void sheetUpdate()
 {
-#if 0
-    static unsigned int run = 0;
-
-    srand(run);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_set_next_value(sheetSence.chart, sheetSence.ser1, rand() % 100);
-    lv_chart_refresh(sheetSence.chart);
-    run++;
-#endif
-
+    unsigned char index = bar_cache_buf.phead;
     lv_coord_t * chart_array = lv_chart_get_y_array(sheetSence.chart, sheetSence.ser1);
-    chart_array[0]  = (int)bar_cache_buf.buf[0];
-    chart_array[1]  = (int)bar_cache_buf.buf[4];
-    chart_array[2]  = (int)bar_cache_buf.buf[7];
-    chart_array[3]  = (int)bar_cache_buf.buf[10];
-    chart_array[4]  = (int)bar_cache_buf.buf[13];
-    chart_array[5]  = (int)bar_cache_buf.buf[16];
-    chart_array[6]  = (int)bar_cache_buf.buf[19];
-    chart_array[7]  = (int)bar_cache_buf.buf[22];
-    chart_array[8]  = (int)bar_cache_buf.buf[25];
-    chart_array[9]  = (int)bar_cache_buf.buf[28];
-    chart_array[10] = (int)bar_cache_buf.buf[31];
+
+    chart_array[0]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[1]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[2]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[3]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[4]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[5]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[6]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[7]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[8]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[9]  = (int)bar_cache_buf.buf[index];
+    index += 3;
+    index = index % MAX_BUF_LEN;
+
+    chart_array[10] = (int)bar_cache_buf.buf[index];
+
     lv_chart_refresh(sheetSence.chart);
 }
 
