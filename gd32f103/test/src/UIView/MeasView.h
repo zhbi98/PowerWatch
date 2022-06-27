@@ -7,13 +7,13 @@
 
 typedef struct {
     lv_obj_t * cont1;
-    lv_obj_t * lableValue1;
-    lv_obj_t * lableUnit1;
+    lv_obj_t * labelValue1;
+    lv_obj_t * labelUnit1;
     lv_obj_t * cont2;
-    lv_obj_t * lableValue2;
-    lv_obj_t * lableUnit2;
+    lv_obj_t * labelValue2;
+    lv_obj_t * labelUnit2;
     lv_obj_t * cont3;
-    lv_obj_t * lableValue3;
+    lv_obj_t * labelValue3;
     lv_style_t style;
 } MainShow;
 

@@ -1422,6 +1422,11 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIView\display.c</FilePath>
             </File>
+            <File>
+              <FileName>curation.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIView\curation.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

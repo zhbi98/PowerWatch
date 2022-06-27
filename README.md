@@ -28,7 +28,10 @@ GD32F10 芯片描述包可以到兆易官方网站下载，
 ### model 目录
 
 该目录存放功率计外壳模型文件（STL 格式），外壳模型包含三个零件盒体，屏幕支架（需要使用半透明材料），上盖板（需要使用透明材料）。对于这个上盖板为了美观考虑最好使用透明亚克力板进行制作，普通 3D 打印无法实现透明。
-目前该目录下共有两个版本的外壳模型，其中 V1.0 版本为 `elecal_box.stl，elecal_bracket.stl，elecal_panel.stl`，V2.0 版本为`elecal_box_v2.0.stl，elecal_bracket_V2.0.stl，elecal_panel_V2.0.stl`。
+目前该目录下共有两个版本的外壳模型，其中 
+**V1.0 版本为**： `elecal_box.stl`，`elecal_bracket.stl`，`elecal_panel.stl`。
+**V2.0 版本为**：`elecal_box_v2.0.step`，`elecal_bracket_V2.0.step`，`elecal_panel_V2.0.step`，
+，`elecal_button1_v2.0.step`，`elecal_button2_v2.0.step`，`elecal_button3_v2.0.step`，`elecal_button4_v2.0.step`。
 建议打印 V2.0 版本的外壳模型，壳体建议采用尼龙或工程塑料材质 3D 打印。
 
 ### stm32_pcbv1.0 目录

@@ -6,6 +6,7 @@
 #include "MeasView.h"
 #include "elec.h"
 #include "average.h"
+#include "curation.h"
 
 typedef struct {
 	unsigned char cont1_mode;

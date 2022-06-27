@@ -144,7 +144,7 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
     lv_label_set_text_fmt(label, "%s", "00.00");
     lv_obj_align(label, LV_ALIGN_CENTER, /*-18*/-22, 0);
-    measSence.mainShow.lableValue1 = label;
+    measSence.mainShow.labelValue1 = label;
 
     label = lv_label_create(measSence.mainShow.cont1);
     // lv_obj_set_size(label, 160, 80);
@@ -154,7 +154,7 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_label_set_text_fmt(label, "%s", "V");
     // lv_obj_set_style_text_color(label, lv_color_hex(0x000000), 0);
     lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
-    measSence.mainShow.lableUnit1 = label;
+    measSence.mainShow.labelUnit1 = label;
 
     label = lv_label_create(measSence.mainShow.cont2);
     // lv_obj_set_size(label, 160, 80);
@@ -163,7 +163,7 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_style_text_font(label, &font_bahnschrift_56, 0);
     lv_label_set_text_fmt(label, "%s", "00.00");
     lv_obj_align(label, LV_ALIGN_CENTER, /*-18*/-22, 0);
-    measSence.mainShow.lableValue2 = label;
+    measSence.mainShow.labelValue2 = label;
 
     label = lv_label_create(measSence.mainShow.cont2);
     // lv_obj_set_size(label, 160, 80);
@@ -173,7 +173,7 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_label_set_text_fmt(label, "%s", "A");
     // lv_obj_set_style_text_color(label, lv_color_hex(0x000000), 0);
     lv_obj_align(label, LV_ALIGN_RIGHT_MID, -5, 5);
-    measSence.mainShow.lableUnit2 = label;
+    measSence.mainShow.labelUnit2 = label;
 
     label = lv_label_create(measSence.mainShow.cont3);
     // lv_obj_set_size(label, 160, 80);
@@ -182,7 +182,7 @@ void mainShowViewCreate(lv_obj_t * par)
     lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
     lv_label_set_text_fmt(label, "%s", "00:00:00");
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
-    measSence.mainShow.lableValue3 = label;
+    measSence.mainShow.labelValue3 = label;
 
     // mainShowAnim(cont);
 }
