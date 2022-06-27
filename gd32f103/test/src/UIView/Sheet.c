@@ -10,17 +10,17 @@ void sheetLoadView(lv_obj_t * root)
     sheetViewCreate(root);
 
     sheetAttachEvent(sheetSence.cont);
-    sheetAttachEvent(sheetSence.chart);
+    // sheetAttachEvent(sheetSence.chart);
 }
 
 void sheetLoadGroup()
 {
-    // lv_indev_wait_release(lv_indev_get_act());
+    lv_indev_wait_release(lv_indev_get_act());
     lv_group_t * group = lv_group_get_default();
     lv_group_remove_all_objs(group);
 
     lv_group_add_obj(group, sheetSence.cont);
-    lv_group_add_obj(group, sheetSence.chart);
+    // lv_group_add_obj(group, sheetSence.chart);
 }
 
 void sheetAttachEvent(lv_obj_t * obj)
@@ -40,7 +40,14 @@ void bar_cache_hanlder(float value)
 void sheetUpdate()
 {
     unsigned char index = bar_cache_buf.phead;
-    lv_coord_t * chart_array = lv_chart_get_y_array(sheetSence.chart, sheetSence.ser1);
+    float range = 0.0;
+    lv_coord_t * chart_array = lv_chart_get_y_array(sheetSence.chart, sheetSence.ser);
+
+    for (unsigned char i = 0; i < 32; i++) {
+        if (range <= bar_cache_buf.buf[i])
+            range = bar_cache_buf.buf[i];
+    }
+    lv_chart_set_range(sheetSence.chart, LV_CHART_AXIS_PRIMARY_Y, 0, (int)range + 10);
 
     chart_array[0]  = (int)bar_cache_buf.buf[index];
     index += 3;

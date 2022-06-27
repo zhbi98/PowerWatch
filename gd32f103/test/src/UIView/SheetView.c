@@ -11,7 +11,7 @@ static void draw_event_cb(lv_event_t * e)
 
     if (dsc->id == LV_CHART_AXIS_PRIMARY_X && dsc->text) {
         const char * month[] = {
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
+            "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"
         };
         lv_snprintf(dsc->text, dsc->text_length, "%s", month[dsc->value]);
     }
@@ -45,8 +45,8 @@ void sheetViewCreate(lv_obj_t * root)
     sheetSence.cont = cont;
 
     lv_obj_t * chart = lv_chart_create(sheetSence.cont);
-    lv_obj_set_size(chart, 270, 120);
-    lv_obj_set_pos(chart, 40, 10);
+    lv_obj_set_size(chart, 260, 120);
+    lv_obj_set_pos(chart, 50, 10);
     // lv_obj_center(chart);
     lv_chart_set_type(chart, LV_CHART_TYPE_BAR);
     lv_chart_set_range(chart, LV_CHART_AXIS_PRIMARY_Y, 0, 100);
@@ -59,6 +59,6 @@ void sheetViewCreate(lv_obj_t * root)
     // lv_chart_set_axis_tick(chart, LV_CHART_AXIS_SECONDARY_Y, 10, 5, 3,  4, true, 50);
     lv_chart_set_zoom_x(chart, 256);
 
-    lv_chart_series_t * ser1 = lv_chart_add_series(chart, lv_palette_darken(LV_PALETTE_GREEN, 2), LV_CHART_AXIS_PRIMARY_Y);
-    sheetSence.ser1 = ser1;
+    lv_chart_series_t * ser = lv_chart_add_series(chart, lv_palette_darken(LV_PALETTE_GREEN, 2), LV_CHART_AXIS_PRIMARY_Y);
+    sheetSence.ser = ser;
 }

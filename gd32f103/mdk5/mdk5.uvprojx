@@ -442,6 +442,11 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\source\cache.c</FilePath>
             </File>
+            <File>
+              <FileName>usbd_cdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\source\usbd_cdc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

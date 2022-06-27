@@ -8,8 +8,9 @@ typedef struct {
     lv_obj_t * cont;
     lv_style_t style;
     lv_obj_t * chart;
-    lv_chart_series_t * ser1;
-    lv_chart_series_t * ser2;
+    lv_chart_series_t * ser;
+    lv_obj_t * labelUnit;
+    lv_obj_t * labelTime;
 } SheetSence;
 
 extern SheetSence sheetSence;

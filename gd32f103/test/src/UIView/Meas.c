@@ -20,7 +20,7 @@ void measLoadView(lv_obj_t * root)
 
 void measLoadGroup()
 {
-    // lv_indev_wait_release(lv_indev_get_act());
+    lv_indev_wait_release(lv_indev_get_act());
     lv_group_t * group = lv_group_get_default();
     lv_group_remove_all_objs(group);
 
