@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include "cache.h"
+#include "curation.h"
 #include "SheetView.h"
 
 extern struct cache_buffer_t bar_cache_buf;

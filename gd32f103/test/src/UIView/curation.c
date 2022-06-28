@@ -23,7 +23,7 @@ void data_curation_handler(float origin_data, unsigned char curation_type)
     float last_data = origin_data;
 
     memset(curation.value_buf, '\0', 10);
-    memset(curation.unint_buf, '\0', 4);
+    memset(curation.unit_buf, '\0', 4);
     curation.unit_id = 0;
 
     while (last_data >= 1000.0) {
@@ -62,7 +62,7 @@ void data_curation_handler(float origin_data, unsigned char curation_type)
     }
 
     snprintf(
-        curation.unint_buf, 
+        curation.unit_buf, 
         4, 
         "%s", 
         unit_list[curation_type][curation.unit_id]

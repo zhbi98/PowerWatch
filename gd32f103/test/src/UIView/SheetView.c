@@ -45,8 +45,8 @@ void sheetViewCreate(lv_obj_t * root)
     sheetSence.cont = cont;
 
     lv_obj_t * chart = lv_chart_create(sheetSence.cont);
-    lv_obj_set_size(chart, 260, 120);
-    lv_obj_set_pos(chart, 50, 10);
+    lv_obj_set_size(chart, 250, 100);
+    lv_obj_set_pos(chart, 50, 25);
     // lv_obj_center(chart);
     lv_chart_set_type(chart, LV_CHART_TYPE_BAR);
     lv_chart_set_range(chart, LV_CHART_AXIS_PRIMARY_Y, 0, 100);
@@ -61,4 +61,13 @@ void sheetViewCreate(lv_obj_t * root)
 
     lv_chart_series_t * ser = lv_chart_add_series(chart, lv_palette_darken(LV_PALETTE_GREEN, 2), LV_CHART_AXIS_PRIMARY_Y);
     sheetSence.ser = ser;
+
+    lv_obj_t * label = lv_label_create(sheetSence.cont);
+    lv_obj_set_size(label, 30, 20);
+    lv_obj_set_pos(label, 20, 3);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
+    lv_label_set_text_fmt(label, "%s", "mA");
+    // labelStyleCreate(label);
+    sheetSence.labelUnit = label;
 }

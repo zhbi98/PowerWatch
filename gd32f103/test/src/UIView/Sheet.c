@@ -47,6 +47,12 @@ void sheetUpdate()
         if (range <= bar_cache_buf.buf[i])
             range = bar_cache_buf.buf[i];
     }
+
+    // Get unit
+    data_curation_handler(range, FMT_CURRENT);
+    // Convert unit
+    while (range >= 1000.0)
+        range = (float)(range / 1000.0);
     lv_chart_set_range(sheetSence.chart, LV_CHART_AXIS_PRIMARY_Y, 0, (int)range + 10);
 
     chart_array[0]  = (int)bar_cache_buf.buf[index];
@@ -91,6 +97,7 @@ void sheetUpdate()
 
     chart_array[10] = (int)bar_cache_buf.buf[index];
 
+    lv_label_set_text_fmt(sheetSence.labelUnit, "%s", curation.unit_buf);
     lv_chart_refresh(sheetSence.chart);
 }
 

@@ -14,7 +14,7 @@ enum curation_type {
 
 struct data_curation_t {
     unsigned char value_buf[10];
-    unsigned char unint_buf[4];
+    unsigned char unit_buf[4];
     unsigned char unit_id;
 };
 

@@ -52,7 +52,7 @@ void measUpdate()
         break;
     }
     lv_label_set_text_fmt(measSence.mainShow.labelValue1, "%s", curation.value_buf);
-    lv_label_set_text_fmt(measSence.mainShow.labelUnit1, "%s", curation.unint_buf);
+    lv_label_set_text_fmt(measSence.mainShow.labelUnit1, "%s", curation.unit_buf);
 
     switch (displayMode.cont2_mode) {
     case 0:
@@ -66,7 +66,7 @@ void measUpdate()
         break;
     }
     lv_label_set_text_fmt(measSence.mainShow.labelValue2, "%s", curation.value_buf);
-    lv_label_set_text_fmt(measSence.mainShow.labelUnit2, "%s", curation.unint_buf);
+    lv_label_set_text_fmt(measSence.mainShow.labelUnit2, "%s", curation.unit_buf);
 
     unsigned char buf[15];
     memset(buf, '\0', 15);
@@ -91,7 +91,7 @@ void measUpdate()
         break;
     }
     lv_label_set_text_fmt(measSence.sidebar.labelValue1, "%s", curation.value_buf);
-    lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", curation.unint_buf);
+    lv_label_set_text_fmt(measSence.sidebar.labelUnit1, "%s", curation.unit_buf);
 
     switch (displayMode.cont1_mode) {
     case 0:
@@ -105,15 +105,15 @@ void measUpdate()
         break;
     }
     lv_label_set_text_fmt(measSence.sidebar.labelValue2, "%s", curation.value_buf);
-    lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", curation.unint_buf);
+    lv_label_set_text_fmt(measSence.sidebar.labelUnit2, "%s", curation.unit_buf);
 
     data_curation_handler(get_elec_calc_mah(), FMT_MAH);
     lv_label_set_text_fmt(measSence.sidebar.labelValue3, "%s", curation.value_buf);
-    lv_label_set_text_fmt(measSence.sidebar.labelUnit3, "%s", curation.unint_buf);
+    lv_label_set_text_fmt(measSence.sidebar.labelUnit3, "%s", curation.unit_buf);
 
     data_curation_handler(get_elec_calc_mwh(), FMT_MWH);
     lv_label_set_text_fmt(measSence.sidebar.labelValue4, "%s", curation.value_buf);
-    lv_label_set_text_fmt(measSence.sidebar.labelUnit4, "%s", curation.unint_buf);
+    lv_label_set_text_fmt(measSence.sidebar.labelUnit4, "%s", curation.unit_buf);
 }
 
 void measOnEvent(lv_event_t * event)
