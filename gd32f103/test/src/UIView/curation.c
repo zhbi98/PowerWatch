@@ -31,6 +31,9 @@ void data_curation_handler(float origin_data, unsigned char curation_type)
         curation.unit_id++;
     }
 
+    if (last_data <= 0.0)
+        last_data = 0.0;
+
     if ((last_data >= 0.0) && (last_data < 10.0)) {
         snprintf(
             curation.value_buf, 
