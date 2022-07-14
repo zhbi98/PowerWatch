@@ -55,9 +55,4 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 > <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal_v1.0.png" alt="GitHub" title="GitHub,Social Coding" width="900" height="562"/></div>
 
 > **V2.0 版本模型效果**
-> <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal.png" alt="GitHub" title="GitHub,Social Coding" width="800" height="442"/></div>
-
-## 实物效果
-
-> <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/001.jpg" alt="GitHub" title="GitHub,Social Coding" width="500" height="667"/></div>
-<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/005.jpg" alt="GitHub" title="GitHub,Social Coding" width="500" height="667"/></div>
+> <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal.png" alt="GitHub" title="GitHub,Social Coding" width="824" height="530"/></div>
