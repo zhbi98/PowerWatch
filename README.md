@@ -21,6 +21,10 @@ Elecal 是一个迷你的 USB 电源功率计，在硬件设计上可以同时�
 GD32F10 芯片描述包可以到兆易官方网站下载，
 找到 **GD32F1x0 AddOn** 压缩包，芯片描述包就在该压缩包下，下载地址：https://www.gd32mcu.com/cn/download/7?kw=GD32F1
 
+### firmware 目录
+
+Elecal 的编译固件，如果使用编译固件，需要使芯片进入 BOOT 模式，并使用预留的串口来写入该固件。
+
 ### image 目录
 
 该目录是功率计制作实物效果图片展示，观看制作效果可以查看该目录下的实物照片。
@@ -28,11 +32,30 @@ GD32F10 芯片描述包可以到兆易官方网站下载，
 ### model 目录
 
 该目录存放功率计外壳模型文件（STL 格式），外壳模型包含三个零件盒体，屏幕支架（需要使用半透明材料），上盖板（需要使用透明材料）。对于这个上盖板为了美观考虑最好使用透明亚克力板进行制作，普通 3D 打印无法实现透明。
-目前该目录下共有两个版本的外壳模型，其中 
-**V1.0 版本为**： `elecal_box.stl`，`elecal_bracket.stl`，`elecal_panel.stl`。
-**V2.0 版本为**：`elecal_box_v2.0.step`，`elecal_bracket_V2.0.step`，`elecal_panel_V2.0.step`，
-，`elecal_button1_v2.0.step`，`elecal_button2_v2.0.step`，`elecal_button3_v2.0.step`，`elecal_button4_v2.0.step`。
-建议打印 V2.0 版本的外壳模型，壳体建议采用尼龙或工程塑料材质 3D 打印。
+目前该目录下共有两个版本的外壳模型，其中
+
+**V1.0 版本所属文件为**： 
+`elecal_box.stl`
+`elecal_bracket.stl`
+`elecal_panel.stl`
+
+**V2.0 版本所属文件为**：
+`elecal_box_v2.0.step`
+`elecal_bracket_V2.0.step`
+`elecal_panel_V2.0.step`
+`elecal_button1_v2.0.step`
+`elecal_button2_v2.0.step`
+`elecal_button3_v2.0.step`
+`elecal_button4_v2.0.step`
+
+建议打印 V2.0 版本的外壳模型，
+壳体 `elecal_button1_v2.0.step` 建议采用尼龙材质 3D 打印。
+屏幕托盘 `elecal_bracket_V2.0.step` 建议采用透明树脂材质 3D 打印。
+面板 `elecal_panel_V2.0.step` 建议采用亚克力或聚碳酸酯材质 CNC 加工。
+按钮 `elecal_button1_v2.0.step` 建议采用尼龙材质 3D 打印。
+按钮 `elecal_button2_v2.0.step` 建议采用尼龙材质 3D 打印。
+按钮 `elecal_button3_v2.0.step` 建议采用尼龙材质 3D 打印。
+按钮 `elecal_button4_v2.0.step` 建议采用尼龙材质 3D 打印。
 
 ### stm32_pcbv1.0 目录
 
@@ -51,8 +74,8 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 
 ## 3D 模型设计
 
-> **V1.0 版本模型效果**
-> <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal_v1.0.png" alt="GitHub" title="GitHub,Social Coding" width="900" height="562"/></div>
+**V1.0 版本模型效果**
+<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal_v1.0.png" alt="GitHub" title="GitHub,Social Coding" width="900" height="562"/></div>
 
-> **V2.0 版本模型效果**
-> <div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal.png" alt="GitHub" title="GitHub,Social Coding" width="800" height="501"/></div>
+**V2.0 版本模型效果**
+<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal.png" alt="GitHub" title="GitHub,Social Coding" width="800" height="513"/></div>
