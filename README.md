@@ -11,6 +11,7 @@ Elecal 是一个迷你的 USB 电源功率计，在硬件设计上可以同时�
 
 该目录是功率计固件源码以及编译工程所在目录。
 该文件夹下的 `mdk5\` 目录即为 MDK-ARM（即 Keil5 集成开发环境） 的工程文件，`test\` 目录包含所有功能实现需要用到的驱动库以及源码。主要包含以下文件：
+
 - GD32f103 的 USB Device 设备驱动，USB 驱动使用的设备描述符是 CDC 虚拟串口，使用 USB 接口可以用于和上位机进行数据通讯。
 - ST7789V3 屏幕芯片驱动。
 - 电压电流采样芯片驱动。
@@ -75,7 +76,13 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 ## 3D 模型设计
 
 **V1.0 版本模型效果**
-<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal_v1.0.png" alt="GitHub" title="GitHub,Social Coding" width="900" height="562"/></div>
+
+![Elecal_v1.0](./image/Elecal_v1.0.png)
 
 **V2.0 版本模型效果**
-<div align=center><img align="center" src="https://github.com/zhbi98/Elecal/blob/main/image/Elecal.png" alt="GitHub" title="GitHub,Social Coding" width="800" height="513"/></div>
+
+![Elecal_v2.0](./image/Elecal.png)
+
+## 实物
+
+![Elecal_v2.0](./image/Elecal_Model.jpg)
