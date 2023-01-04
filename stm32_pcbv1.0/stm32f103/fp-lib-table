@@ -1,9 +1,0 @@
-(fp_lib_table
-  (lib (name Zhbi_Mounting_Holes)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/zhbi98_lib/modules/Zhbi_Mounting_Holes.pretty")(options "")(descr ""))
-  (lib (name DL_Usb_C_USB4105-GF-A)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Usb_C_USB4105-GF-A.pretty")(options "")(descr ""))
-  (lib (name DL_Usb_A_USB1130-15-A_REVA)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Usb_A_USB1130-15-A_REVA.pretty")(options "")(descr ""))
-  (lib (name DL_Ina226_INA226AIDGSR)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Ina226_INA226AIDGSR.pretty")(options "")(descr ""))
-  (lib (name DL_Key_Hori_B3F-3100)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Key_Hori_B3F-3100.pretty")(options "")(descr ""))
-  (lib (name DL_Key_Vertical_B3F-1000)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_Key_Vertical_B3F-1000.pretty")(options "")(descr ""))
-  (lib (name DL_W25q32_W25Q32JVSSIQ)(type KiCad)(uri "H:/my items/stm32_pcbv1.0/third_party_lib/modules/DL_W25q32_W25Q32JVSSIQ.pretty")(options "")(descr ""))
-)

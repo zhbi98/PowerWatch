@@ -1,0 +1,9 @@
+(sym_lib_table
+  (lib (name "DL_Usb_C_USB4105-GF-A")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/library/DL_Usb_C_USB4105-GF-A.lib")(options "")(descr ""))
+  (lib (name "DL_Usb_A_USB1130-15-A_REVA")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/library/DL_Usb_A_USB1130-15-A_REVA.lib")(options "")(descr ""))
+  (lib (name "DL_Ina226_INA226AIDGSR")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/library/DL_Ina226_INA226AIDGSR.lib")(options "")(descr ""))
+  (lib (name "DL_Key_Hori_B3F-3100")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/library/DL_Key_Hori_B3F-3100.lib")(options "")(descr ""))
+  (lib (name "DL_Key_Vertical_B3F-1000")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/library/DL_Key_Vertical_B3F-1000.lib")(options "")(descr ""))
+  (lib (name "DL_W25q32_W25Q32JVSSIQ")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/library/DL_W25q32_W25Q32JVSSIQ.lib")(options "")(descr ""))
+  (lib (name "stm32f103-rescue")(type "Legacy")(uri "${KIPRJMOD}/stm32f103-rescue.lib")(options "")(descr ""))
+)

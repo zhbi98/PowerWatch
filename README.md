@@ -58,7 +58,7 @@ Elecal 的编译固件，如果使用编译固件，需要使芯片进入 BOOT �
 按钮 `elecal_button3_v2.0.step` 建议采用尼龙材质 3D 打印。
 按钮 `elecal_button4_v2.0.step` 建议采用尼龙材质 3D 打印。
 
-### stm32_pcbv1.0 目录
+### hardware 目录
 
 功率电路 PCB 源文件工程，该文件夹下包含电路原理图，以及 PCB 制造文件（即 Gerber 文件）将 Gerber 文件压缩后到嘉立创网站下单即可将 PCB 打样出来。
 PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控制器使用的，但是奈何 **STM32F103RCT6** 价格较高，所以最终芯片使用的是 **GD32F103RCT6**，但是这对电路并不影响，因为 **GD32F103RCT6** 可以不需要任何改动而实现 PIN 对 PIN 的引脚以及外设兼容 **STM32F103RCT6**。
