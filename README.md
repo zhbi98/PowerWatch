@@ -74,8 +74,11 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 为了美观考虑盖板最好使用透明亚克力板进行制作，普通 3D 打印无法实现透明。
 
 **(1)** 壳体  elecal_button1_v2.0.step 建议采用黑色尼龙材材料 3D 打印。
+
 **(2)** 屏幕支架 elecal_bracket_V2.0.step 建议采用透明树脂材料 3D 打印。
+
 **(3)** 上盖板 elecal_panel_V2.0.step 建议采用亚克力或聚碳酸酯材料 CNC 加工。
+
 **(4)** 按键帽 elecal_button1_v2.0.step ，elecal_button2_v2.0.step
 elecal_button3_v2.0.step，elecal_button4_v2.0.step 建议采用尼龙材料 3D 打印。
 
