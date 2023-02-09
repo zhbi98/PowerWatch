@@ -28,9 +28,9 @@ PowerWatch 在硬件设计上支持同时采样被测电源的电压，电流及
 
 该目录包含 PowerWatch 的所有功能源码实现，芯片驱动库，以及 Keil 编译工程所在目录，现在来简单介绍一下。
 
-mdk5/ 目录即为 MDK-ARM（即 Keil5 集成开发环境） 的工程文件。
+`mdk5/` 目录即为 MDK-ARM（即 Keil5 集成开发环境） 的工程文件。
 
-test/ 目录包含所有功能实现源码，以及需要用到的芯片驱动库，图形界面库 LVGL。
+`test/` 目录包含所有功能实现源码，以及需要用到的芯片驱动库，图形界面库 LVGL。
 
 程序主要包含以下内容：
 
@@ -86,12 +86,12 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 
 **最初的 V1.0 版本模型效果**
 
-![Elecal_v1.0](./image/image2.png)
+![image.png](./image/image2.png)
 
 **改进后 V2.0 版本模型效果**
 
-![Elecal_v2.0](./image/image1.png)
+![image.png](./image/image1.png)
 
 ## 5. 实物展示
 
-![Elecal_v2.0](./image/image3.png)
+![image.png](./image/image3.jpg)
