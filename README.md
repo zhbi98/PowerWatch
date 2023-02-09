@@ -27,6 +27,7 @@ PowerWatch 在硬件设计上支持同时采样被测电源的电压，电流及
 ### 3.1 firmware 目录
 
 该目录包含 PowerWatch 的所有功能源码实现，芯片驱动库，以及 Keil 编译工程所在目录，现在来简单介绍一下。
+
 mdk5/ 目录即为 MDK-ARM（即 Keil5 集成开发环境） 的工程文件。
 
 test/ 目录包含所有功能实现源码，以及需要用到的芯片驱动库，图形界面库 LVGL。
@@ -41,13 +42,13 @@ test/ 目录包含所有功能实现源码，以及需要用到的芯片驱动�
 
 **(4)** 移植好的 LVGL8.2.0 的 UI 绘图库，这个 UI 库可以实现美观的图形界面，使用 LVGL 后就不需要我们自己控制屏幕逐像素的绘制图形来实现 UI 了。
 
-注意：如果需要编译此工程需要安装 keil5 集成开发环境，以及在 keil5 中安装 GD32F10 系列的芯片描述包, 安装好后点击本项目工程文件夹下的工程文件启动 keil 直接编译即可**。
+注意：如果需要编译此工程需要安装 keil5 集成开发环境，以及在 keil5 中安装 GD32F10 系列的芯片描述包, 安装好后点击本项目工程文件夹下的工程文件启动 keil 直接编译即可。
 
 GD32F10 芯片描述包可以到兆易官方网站下载，找到 **GD32F1x0 AddOn** 压缩包，芯片描述包就在该压缩包下，下载地址：[点击这里](https://www.gd32mcu.com/cn/download/7?kw=GD32F1)。
 
 ---
 
-Firmware.hex：PowerWatch 的编译固件，如果使用编译固件，需要使芯片进入 BOOT 模式，并使用预留的串口来写入该固件。
+power_watch_firmware_v1.0.hex：为 PowerWatch 源码的编译后的固件，如果使用编译固件，需要使芯片进入 BOOT 模式，并使用 PCB 板上预留的串口来写入该固件。
 
 ### 3.2 hardware 目录
 
@@ -59,9 +60,9 @@ PowerWatch 的 PCB 工程源文件，该文件夹下包含电路原理图，以�
 
 ---
 
-PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控制器使用的，但是奈何 **STM32F103RCT6** 价格较高，所以最终芯片使用的是国产兆易的 **GD32F103RCT6**。
+PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控制器使用的，但是奈何 **STM32F103RCT6** 价格较高，所以最终芯片使用的是国产兆易的 **GD32F103RCT6** 系列芯片。
 
-但是这对电路并不影响，因为 **GD32F103RCT6** 可以不需要任何改动而实现 PIN 对 PIN 的引脚以及外设兼容 **STM32F103RCT6** 芯片。
+但是这对电路并不影响，因为 **GD32F103RCT6** 可以不需要任何改动而实现 PIN 对 PIN 的引脚以及外设兼容 **STM32F103RCT6** 芯片（即它们的每一根引脚和外设的功能是相同的）。
 
 ### 3.3 image 目录
 
@@ -73,25 +74,24 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 
 为了美观考虑盖板最好使用透明亚克力板进行制作，普通 3D 打印无法实现透明。
 
-**(1)** 壳体  elecal_button1_v2.0.step 建议采用黑色尼龙材材料 3D 打印。
+**(1)** 壳体 box_v2.0.step 建议采用黑色尼龙材材料 3D 打印。
 
-**(2)** 屏幕支架 elecal_bracket_V2.0.step 建议采用透明树脂材料 3D 打印。
+**(2)** 屏幕支架 bracket_v2.0.step 建议采用透明树脂材料 3D 打印。
 
-**(3)** 上盖板 elecal_panel_V2.0.step 建议采用亚克力或聚碳酸酯材料 CNC 加工。
+**(3)** 上盖板 panel_v2.0.step 建议采用亚克力或聚碳酸酯材料 CNC 加工。
 
-**(4)** 按键帽 elecal_button1_v2.0.step ，elecal_button2_v2.0.step
-elecal_button3_v2.0.step，elecal_button4_v2.0.step 建议采用尼龙材料 3D 打印。
+**(4)** 按键帽 button1_v2.0.step，button2_v2.0.step，button3_v2.0.step，button4_v2.0.step 建议采用尼龙材料 3D 打印。
 
 ## 4. 外观设计
 
 **最初的 V1.0 版本模型效果**
 
-![Elecal_v1.0](./image/Elecal_v1.0.png)
+![Elecal_v1.0](./image/image2.png)
 
 **改进后 V2.0 版本模型效果**
 
-![Elecal_v2.0](./image/Elecal.png)
+![Elecal_v2.0](./image/image1.png)
 
 ## 5. 实物展示
 
-![Elecal_v2.0](./image/Elecal_Model.jpg)
+![Elecal_v2.0](./image/image3.png)
