@@ -38,7 +38,7 @@
   (pad "6" smd rect (at 3.6 0.635 90) (size 0.65 1.65) (layers "F.Cu" "F.Paste" "F.Mask") (tstamp 91111b5e-43d6-4f0d-be8f-30cc34b152b2))
   (pad "7" smd rect (at 3.6 -0.635 90) (size 0.65 1.65) (layers "F.Cu" "F.Paste" "F.Mask") (tstamp b5eb8ba8-b1f5-41db-afca-abd2e48be34f))
   (pad "8" smd rect (at 3.6 -1.905 90) (size 0.65 1.65) (layers "F.Cu" "F.Paste" "F.Mask") (tstamp 9c72d1ad-da25-4c1d-b97d-2d47a77641df))
-  (model "${KIPRJMOD}/../third_party_lib/modules/packages3d/3rd_W25Q32JVSSIQ.3dshapes/3rd_W25Q32JVSSIQ.stp"
+  (model "${KIPRJMOD}/../third_party_lib/3dmodels/3rd_W25Q32JVSSIQ.3dshapes/3rd_W25Q32JVSSIQ.stp"
     (offset (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))

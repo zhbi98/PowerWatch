@@ -45,7 +45,7 @@
   (pad "4" thru_hole circle (at 3.5 -2.71) (size 1.428 1.428) (drill 0.92) (layers *.Cu *.Mask) (tstamp a49f109f-7a56-4b56-a115-ccab6723c501))
   (pad "S1" thru_hole circle (at -6.57 0) (size 3.276 3.276) (drill 2.26) (layers *.Cu *.Mask) (tstamp 1d315359-32f6-46f9-bb52-93a47623800b))
   (pad "S2" thru_hole circle (at 6.57 0) (size 3.276 3.276) (drill 2.26) (layers *.Cu *.Mask) (tstamp 55948c57-73ea-4729-99bb-47d0777127a8))
-  (model "${KIPRJMOD}/../third_party_lib/modules/packages3d/3rd_USB1130-15-A_REVA.3dshapes/3rd_USB1130-15-A_REVA(USB-A).step"
+  (model "${KIPRJMOD}/../third_party_lib/3dmodels/3rd_USB1130-15-A_REVA.3dshapes/3rd_USB1130-15-A_REVA(USB-A).step"
     (offset (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz -90 0 0))

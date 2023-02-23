@@ -24,7 +24,7 @@ PowerWatch 在硬件设计上支持同时采样被测电源的电压，电流及
 
 ## 3. 目录说明
 
-### 3.1 firmware 目录
+### 3.1 Firmware 目录
 
 该目录包含 PowerWatch 的所有功能源码实现，芯片驱动库，以及 Keil 编译工程所在目录，现在来简单介绍一下。
 
@@ -50,7 +50,7 @@ GD32F10 芯片描述包可以到兆易官方网站下载，找到 **GD32F1x0 Add
 
 power_watch_firmware_v1.0.hex：为 PowerWatch 源码的编译后的固件，如果使用编译固件，需要使芯片进入 BOOT 模式，并使用 PCB 板上预留的串口来写入该固件。
 
-### 3.2 hardware 目录
+### 3.2 Hardware 目录
 
 PowerWatch 的 PCB 工程源文件，该文件夹下包含电路原理图，以及 PCB 制造文件（即 Gerber 文件），器件 BOM 单（用于 SMT 贴片），器件位置文件（用于 SMT 贴片）。
 
@@ -64,11 +64,11 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 
 但是这对电路并不影响，因为 **GD32F103RCT6** 可以不需要任何改动而实现 PIN 对 PIN 的引脚以及外设兼容 **STM32F103RCT6** 芯片（即它们的每一根引脚和外设的功能是相同的）。
 
-### 3.3 image 目录
+### 3.3 Image 目录
 
 该目录是功率计制作实物效果图片展示，观看制作效果可以查看该目录下的实物照片。
 
-### 3.4 structure 目录
+### 3.4 Structure 目录
 
 该目录存放功率计外壳模型文件 `.step` 格式，外壳模型包含壳体，按键帽，屏幕支架，上盖板，直接下载用于 3D 打印即可。
 
@@ -82,16 +82,20 @@ PCB 设计时原本的设想是使用 **STM32F103RCT6** 这颗芯片作为微控
 
 **(4)** 按键帽 button1_v2.0.step，button2_v2.0.step，button3_v2.0.step，button4_v2.0.step 建议采用尼龙材料 3D 打印。
 
+### 3.5 Docs 目录
+
+用到的芯片配套的数据手册。
+
 ## 4. 外观设计
 
 **最初的 V1.0 版本模型效果**
 
-![image.png](./image/image2.png)
+![image.png](./Image/image2.png)
 
 **改进后 V2.0 版本模型效果**
 
-![image.png](./image/image1.png)
+![image.png](./Image/image1.png)
 
 ## 5. 实物展示
 
-![image.png](./image/image3.jpg)
+![image.png](./Image/image3.jpg)

@@ -46,7 +46,7 @@
   (pad "S2" thru_hole oval (at -4.32 0) (size 1 2) (drill oval 0.6 1.4) (layers *.Cu *.Mask) (tstamp 78558d2c-4c45-4c99-baea-df5a1acfc2d0))
   (pad "S3" thru_hole oval (at 4.32 0) (size 1 2) (drill oval 0.6 1.4) (layers *.Cu *.Mask) (tstamp 13418525-3b2c-40c7-9e60-22876735dd20))
   (pad "S4" thru_hole oval (at 4.32 -4.18) (size 1.05 2.1) (drill oval 0.6 1.7) (layers *.Cu *.Mask) (tstamp ba74773d-d496-434c-aaff-61832943a952))
-  (model "${KIPRJMOD}/../third_party_lib/modules/packages3d/3rd_USB4105-GF-A.3dshapes/3rd_USB4105-GF-A(USB-C).step"
+  (model "${KIPRJMOD}/../third_party_lib/3dmodels/3rd_USB4105-GF-A.3dshapes/3rd_USB4105-GF-A(USB-C).step"
     (offset (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz -90 0 0))

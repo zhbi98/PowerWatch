@@ -32,7 +32,7 @@
   (pad "8" smd roundrect (at 2.15 0) (size 1.47 0.28) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.04) (tstamp cf2930e0-6393-4518-a434-22ceae107a96))
   (pad "9" smd roundrect (at 2.15 -0.5) (size 1.47 0.28) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.04) (tstamp fcf9cce0-0627-4fb8-b717-df0ba76460cf))
   (pad "10" smd roundrect (at 2.15 -1) (size 1.47 0.28) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.04) (tstamp a5933110-2be7-496f-a3d2-67474cb6cc77))
-  (model "${KIPRJMOD}/../third_party_lib/modules/packages3d/3rd_INA226AIDGSR.3dshapes/3rd_INA226AIDGSR.step"
+  (model "${KIPRJMOD}/../third_party_lib/3dmodels/3rd_INA226AIDGSR.3dshapes/3rd_INA226AIDGSR.step"
     (offset (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz -90 0 0))
