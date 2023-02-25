@@ -1,9 +1,6 @@
 (sym_lib_table
-  (lib (name "3rd_USB4105-GF-A(USB-C)")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/symbols/3rd_USB4105-GF-A(USB-C).lib")(options "")(descr ""))
-  (lib (name "3rd_USB1130-15-A_REVA(USB-A)")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/symbols/3rd_USB1130-15-A_REVA(USB-A).lib")(options "")(descr ""))
-  (lib (name "3rd_INA226AIDGSR")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/symbols/3rd_INA226AIDGSR.lib")(options "")(descr ""))
-  (lib (name "3rd_B3F-3100(key_Hori)")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/symbols/3rd_B3F-3100(key_Hori).lib")(options "")(descr ""))
-  (lib (name "3rd_B3F-1000(Key_Vertical)")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/symbols/3rd_B3F-1000(Key_Vertical).lib")(options "")(descr ""))
-  (lib (name "3rd_W25Q32JVSSIQ")(type "Legacy")(uri "${KIPRJMOD}/../third_party_lib/symbols/3rd_W25Q32JVSSIQ.lib")(options "")(descr ""))
-  (lib (name "stm32f103-rescue")(type "Legacy")(uri "${KIPRJMOD}/stm32f103-rescue.lib")(options "")(descr ""))
+  (lib (name "3rd_Connector")(type "Legacy")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Connector.lib")(options "")(descr ""))
+  (lib (name "3rd_Sensor_Power")(type "Legacy")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Sensor_Power.lib")(options "")(descr ""))
+  (lib (name "3rd_Switch")(type "Legacy")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Switch.lib")(options "")(descr ""))
+  (lib (name "3rd_Memory_Flash")(type "Legacy")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Memory_Flash.lib")(options "")(descr ""))
 )
