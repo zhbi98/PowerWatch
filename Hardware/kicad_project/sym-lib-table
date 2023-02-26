@@ -1,6 +1,6 @@
 (sym_lib_table
-  (lib (name "3rd_Connector")(type "Legacy")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Connector.lib")(options "")(descr ""))
-  (lib (name "3rd_Sensor_Power")(type "Legacy")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Sensor_Power.lib")(options "")(descr ""))
-  (lib (name "3rd_Switch")(type "Legacy")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Switch.lib")(options "")(descr ""))
-  (lib (name "3rd_Memory_Flash")(type "Legacy")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Memory_Flash.lib")(options "")(descr ""))
+  (lib (name "3rd_Connector")(type "KiCad")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Connector.kicad_sym")(options "")(descr ""))
+  (lib (name "3rd_Sensor_Power")(type "KiCad")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Sensor_Power.kicad_sym")(options "")(descr ""))
+  (lib (name "3rd_Switch")(type "KiCad")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Switch.kicad_sym")(options "")(descr ""))
+  (lib (name "3rd_Memory_Flash")(type "KiCad")(uri "${KIPRJMOD}/../kicad-libs/symbols/3rd_Memory_Flash.kicad_sym")(options "")(descr ""))
 )
