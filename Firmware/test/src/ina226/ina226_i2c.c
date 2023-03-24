@@ -3,7 +3,7 @@
 
 static void ina226_sleep_us(unsigned int us)
 {
-    unsigned int i;
+    volatile unsigned int i = 0;
 
     /**
      * precise delay is best for software i2c bus, but
