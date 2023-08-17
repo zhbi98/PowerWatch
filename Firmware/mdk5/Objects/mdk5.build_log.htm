@@ -1,0 +1,107 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.35.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: keil 20220615, keil, LIC=JL28G-VI957-IIW5V-PHYBG-5TI5I-7G35K
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.35.0.2
+Toolchain Path:  D:\Others\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.35.0.2
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      CMSIS_AGDI.dll V1.33.0.0
+Dialog DLL:      TCM.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+C:\Users\20220615\Desktop\PowerWatch\Firmware\mdk5\mdk5.uvprojx
+Project File Date:  08/17/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Others\Keil_v5\ARM\ARMCC\Bin'
+Build target 'mdk'
+compiling dialplate.c...
+..\test\src\UIPages\HAL\elec.h(18): warning:  #1295-D: Deprecated declaration get_elec_status - give arg types
+  extern unsigned char get_elec_status();
+..\test\src\UIPages\HAL\elec.h(19): warning:  #1295-D: Deprecated declaration get_elec_calc_mah - give arg types
+  extern float get_elec_calc_mah();
+..\test\src\UIPages\HAL\elec.h(20): warning:  #1295-D: Deprecated declaration get_elec_calc_mwh - give arg types
+  extern float get_elec_calc_mwh();
+..\test\src\UIPages\HAL\elec.h(21): warning:  #1295-D: Deprecated declaration get_elec_calc_time - give arg types
+  extern float get_elec_calc_time();
+..\test\src\UIPages\HAL\elec.h(22): warning:  #1295-D: Deprecated declaration elec_calc_clear - give arg types
+  extern void elec_calc_clear();
+..\test\src\ina226\ina226_i2c.h(26): warning:  #1295-D: Deprecated declaration ina226_gpio_init - give arg types
+  extern void ina226_gpio_init();
+..\test\src\ina226\ina226_i2c.h(27): warning:  #1295-D: Deprecated declaration ina226_sda_out_mode - give arg types
+  extern void ina226_sda_out_mode();
+..\test\src\ina226\ina226_i2c.h(28): warning:  #1295-D: Deprecated declaration ina226_sda_in_mode - give arg types
+  extern void ina226_sda_in_mode();
+..\test\src\ina226\ina226_i2c.h(29): warning:  #1295-D: Deprecated declaration ina226_i2c_start - give arg types
+  extern void ina226_i2c_start();
+..\test\src\ina226\ina226_i2c.h(30): warning:  #1295-D: Deprecated declaration ina226_i2c_stop - give arg types
+  extern void ina226_i2c_stop();
+..\test\src\ina226\ina226_i2c.h(31): warning:  #1295-D: Deprecated declaration ina226_i2c_wait_ack - give arg types
+  extern unsigned char ina226_i2c_wait_ack();
+..\test\src\ina226\ina226_i2c.h(32): warning:  #1295-D: Deprecated declaration ina226_i2c_ack - give arg types
+  extern void ina226_i2c_ack();
+..\test\src\ina226\ina226_i2c.h(33): warning:  #1295-D: Deprecated declaration ina226_i2c_nack - give arg types
+  extern void ina226_i2c_nack();
+..\test\src\UIPages\HAL\average.h(19): warning:  #1295-D: Deprecated declaration average_calc_reset - give arg types
+  extern void average_calc_reset();
+..\test\src\include\usart.h(31): warning:  #1295-D: Deprecated declaration usart_gpio_init - give arg types
+  static void usart_gpio_init();
+..\test\src\include\usart.h(32): warning:  #1295-D: Deprecated declaration usart_init - give arg types
+  extern void usart_init();
+..\test\src\include\usart.h(36): warning:  #1295-D: Deprecated declaration USART1_IRQHandler - give arg types
+  extern void USART_IRQHANDLER();
+..\test\src\UIKit\nt_pm.h(87): warning:  #1295-D: Deprecated declaration nt_pm_get_num_of_init_view - give arg types
+  uint16_t nt_pm_get_num_of_init_view();
+..\test\src\UIKit\nt_pm.h(91): warning:  #1295-D: Deprecated declaration nt_pm_get_num_of_bg_page - give arg types
+  uint16_t nt_pm_get_num_of_bg_page();
+..\test\src\UIPages\Dialplate\dialplate.c(20): warning:  #1295-D: Deprecated declaration view_did_load - give arg types
+  static void view_did_load();
+..\test\src\UIPages\Dialplate\dialplate.c(21): warning:  #1295-D: Deprecated declaration view_will_appear - give arg types
+  static void view_will_appear();
+..\test\src\UIPages\Dialplate\dialplate.c(22): warning:  #1295-D: Deprecated declaration view_did_appear - give arg types
+  static void view_did_appear();
+..\test\src\UIPages\Dialplate\dialplate.c(23): warning:  #1295-D: Deprecated declaration view_will_disappear - give arg types
+  static void view_will_disappear();
+..\test\src\UIPages\Dialplate\dialplate.c(24): warning:  #1295-D: Deprecated declaration view_did_disappear - give arg types
+  static void view_did_disappear();
+..\test\src\UIPages\Dialplate\dialplate.c(25): warning:  #1295-D: Deprecated declaration view_did_unload - give arg types
+  static void view_did_unload();
+..\test\src\UIPages\Dialplate\dialplate.c(27): warning:  #1295-D: Deprecated declaration update - give arg types
+  static void update();
+..\test\src\UIPages\Dialplate\dialplate.c(28): warning:  #1295-D: Deprecated declaration ontimer_update - give arg types
+  static void ontimer_update();
+..\test\src\UIPages\Dialplate\dialplate.c(141): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+      snprintf(buf, 13, "%02d:%02d:%02d", hour, min, sec);
+..\test\src\UIPages\Dialplate\dialplate.c: 28 warnings, 0 errors
+linking...
+Program Size: Code=192304 RO-data=38112 RW-data=956 ZI-data=45484  
+FromELF: creating hex file...
+".\Objects\mdk5.axf" - 0 Error(s), 28 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: GigaDevice
+                https://gd32mcu.com/data/documents/pack/GigaDevice.GD32F10x_DFP.2.1.0.pack
+                GigaDevice.GD32F10x_DFP.2.1.0
+                GigaDevice GD32F10x Series Device Support and Examples
+
+<h2>Collection of Component include folders:</h2>
+  D:\Others\Keil_v5\Arm\Packs\GigaDevice\GD32F10x_DFP\2.1.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:10
+</pre>
+</body>
+</html>

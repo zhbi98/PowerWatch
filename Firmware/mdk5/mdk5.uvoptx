@@ -10,7 +10,7 @@
     <aExt>*.s*; *.src; *.a*</aExt>
     <oExt>*.obj; *.o</oExt>
     <lExt>*.lib</lExt>
-    <tExt>*.txt; *.h; *.inc</tExt>
+    <tExt>*.txt; *.h; *.inc; *.md</tExt>
     <pExt>*.plm</pExt>
     <CppX>*.cpp</CppX>
     <nMigrate>0</nMigrate>
@@ -140,7 +140,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>CMSIS_AGDI</Key>
-          <Name>-X"Holtek CMSIS-DAP" -U060002CD -O206 -S0 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(1BA01477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0GD32F10x_HD.FLM -FS08000000 -FL080000 -FP0($$Device:GD32F103RC$Flash\GD32F10x_HD.FLM)</Name>
+          <Name>-X"ATK-HS-V2-CMSIS-DAP" -UATK 20210914 -O206 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(1BA01477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0GD32F10x_HD.FLM -FS08000000 -FL080000 -FP0($$Device:GD32F103RC$Flash\GD32F10x_HD.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -148,7 +148,24 @@
           <Name>UL2CM3(-S0 -C0 -P0 )  -FN1 -FC1000 -FD20000000 -FF0GD32F10x_HD -FL040000 -FS08000000 -FP0($$Device:GD32F103RC$Flash\GD32F10x_HD.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>81</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134387688</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\test\src\UIPages\HAL\strifica.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\mdk5\../test/src/UIPages/HAL/strifica.c\81</Expression>
+        </Bp>
+      </Breakpoint>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -2491,8 +2508,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIKit\UIKit.c</PathWithFileName>
-      <FilenameWithoutPath>UIKit.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIKit\nt_action.c</PathWithFileName>
+      <FilenameWithoutPath>nt_action.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2503,8 +2520,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIKit\Utils.c</PathWithFileName>
-      <FilenameWithoutPath>Utils.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIKit\nt_pm.c</PathWithFileName>
+      <FilenameWithoutPath>nt_pm.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2515,8 +2532,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIKit\UIStack.c</PathWithFileName>
-      <FilenameWithoutPath>UIStack.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIKit\nt_qq.c</PathWithFileName>
+      <FilenameWithoutPath>nt_qq.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2527,20 +2544,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIKit\UIVector.c</PathWithFileName>
-      <FilenameWithoutPath>UIVector.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>190</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIKit\UIViewController.c</PathWithFileName>
-      <FilenameWithoutPath>UIViewController.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIKit\nt_shot.c</PathWithFileName>
+      <FilenameWithoutPath>nt_shot.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2548,10 +2553,22 @@
 
   <Group>
     <GroupName>UIView</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>190</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIPages\Dialplate\dialplate.c</PathWithFileName>
+      <FilenameWithoutPath>dialplate.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
     <File>
       <GroupNumber>10</GroupNumber>
       <FileNumber>191</FileNumber>
@@ -2559,8 +2576,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\AboutView.c</PathWithFileName>
-      <FilenameWithoutPath>AboutView.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIPages\Dialplate\dialplateview.c</PathWithFileName>
+      <FilenameWithoutPath>dialplateview.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2571,8 +2588,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\About.c</PathWithFileName>
-      <FilenameWithoutPath>About.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIPages\Info\infos.c</PathWithFileName>
+      <FilenameWithoutPath>infos.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2583,8 +2600,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\Meas.c</PathWithFileName>
-      <FilenameWithoutPath>Meas.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIPages\Info\infosview.c</PathWithFileName>
+      <FilenameWithoutPath>infosview.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2595,8 +2612,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\MeasView.c</PathWithFileName>
-      <FilenameWithoutPath>MeasView.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIPages\Recent\recent.c</PathWithFileName>
+      <FilenameWithoutPath>recent.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2607,68 +2624,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\elec.c</PathWithFileName>
-      <FilenameWithoutPath>elec.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>196</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\Sheet.c</PathWithFileName>
-      <FilenameWithoutPath>Sheet.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>197</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\SheetView.c</PathWithFileName>
-      <FilenameWithoutPath>SheetView.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>198</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\average.c</PathWithFileName>
-      <FilenameWithoutPath>average.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>199</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\display.c</PathWithFileName>
-      <FilenameWithoutPath>display.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>200</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\curation.c</PathWithFileName>
-      <FilenameWithoutPath>curation.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIPages\Recent\recentview.c</PathWithFileName>
+      <FilenameWithoutPath>recentview.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2682,61 +2639,129 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>201</FileNumber>
+      <FileNumber>196</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\Resource\Font\font_bahnschrift_17.c</PathWithFileName>
+      <PathWithFileName>..\test\src\UIPages\Resource\Font\font_bahnschrift_17.c</PathWithFileName>
       <FilenameWithoutPath>font_bahnschrift_17.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>202</FileNumber>
+      <FileNumber>197</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\Resource\Font\font_bahnschrift_32.c</PathWithFileName>
+      <PathWithFileName>..\test\src\UIPages\Resource\Font\font_bahnschrift_32.c</PathWithFileName>
       <FilenameWithoutPath>font_bahnschrift_32.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>203</FileNumber>
+      <FileNumber>198</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\Resource\Font\font_bahnschrift_56.c</PathWithFileName>
+      <PathWithFileName>..\test\src\UIPages\Resource\Font\font_bahnschrift_56.c</PathWithFileName>
       <FilenameWithoutPath>font_bahnschrift_56.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>204</FileNumber>
+      <FileNumber>199</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\Resource\Symbol\symbol_chip_20.c</PathWithFileName>
-      <FilenameWithoutPath>symbol_chip_20.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIPages\Resource\Font\font_bahnschrift_65.c</PathWithFileName>
+      <FilenameWithoutPath>font_bahnschrift_65.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>11</GroupNumber>
+      <FileNumber>200</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIPages\Resource\Font\font_celsius_24.c</PathWithFileName>
+      <FilenameWithoutPath>font_celsius_24.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>11</GroupNumber>
+      <FileNumber>201</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIPages\Resource\Symbol\symbol_chip_20.c</PathWithFileName>
+      <FilenameWithoutPath>symbol_chip_20.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>HAL</GroupName>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>202</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIPages\HAL\average.c</PathWithFileName>
+      <FilenameWithoutPath>average.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>203</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIPages\HAL\display.c</PathWithFileName>
+      <FilenameWithoutPath>display.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>12</GroupNumber>
+      <FileNumber>204</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\test\src\UIPages\HAL\elec.c</PathWithFileName>
+      <FilenameWithoutPath>elec.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>12</GroupNumber>
       <FileNumber>205</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIView\Resource\Font\font_celsius_24.c</PathWithFileName>
-      <FilenameWithoutPath>font_celsius_24.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIPages\HAL\strifica.c</PathWithFileName>
+      <FilenameWithoutPath>strifica.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

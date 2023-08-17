@@ -12,18 +12,18 @@
 #include "temp.h"
 
 #include "lvgl.h"
-#include "UIStack.h"
-#include "UIVector.h"
-#include "UIViewController.h"
-#include "MeasView.h"
-#include "Meas.h"
-#include "AboutView.h"
-#include "About.h"
-#include "SheetView.h"
-#include "Sheet.h"
+#include "nt_pm.h"
+
 #include "elec.h"
 #include "average.h"
 #include "display.h"
+
+#include "dialplateview.h"
+#include "dialplate.h"
+#include "infosview.h"
+#include "infos.h"
+#include "recentview.h"
+#include "recent.h"
 
 /**
   * 说明 : 初始化内核时钟(108M)
@@ -58,18 +58,18 @@ void sys_clock_config(void)
     SystemCoreClockUpdate();
 }
 
-// User-defined type to store required data for each task
+/*User-defined type to store required data for each task*/
 typedef struct
 {
-    // Pointer to the task
-    // (must be a 'uint32_t (void)' function)
+    /*Pointer to the task*/
+    /*(must be a 'uint32_t (void)' function)*/
     uint32_t (*pTask)(void);
-    //  void (*pTask) (void);
+    /*void (*pTask) (void);*/
 
-    // Delay (ticks) until the task will (next) be run
+    /*Delay (ticks) until the task will (next) be run*/
     uint32_t Delay;
 
-    // Interval (ticks) between subsequent runs.
+    /*Interval (ticks) between subsequent runs.*/
     uint32_t Period;
 } sTask_t;
 
@@ -262,24 +262,26 @@ void _timer_init(unsigned int prescaler_t, unsigned int period_t)
     time_init.repetitioncounter = 0;
     timer_init(TIMER, &time_init);
 
-    // CH0 config in pwm mode
-    // timer_out_init.outputstate  = TIMER_CCX_ENABLE;
-    // timer_out_init.outputnstate = TIMER_CCXN_DISABLE;
-    // timer_out_init.ocpolarity   = TIMER_OC_POLARITY_HIGH;
-    // timer_out_init.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
-    // timer_out_init.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
-    // timer_out_init.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
-    // timer_channel_output_config(TIMER,
-    //     SUART_TIMER_CH, &timer_out_init);
+#if 0
+    CH0 config in pwm mode
+    timer_out_init.outputstate  = TIMER_CCX_ENABLE;
+    timer_out_init.outputnstate = TIMER_CCXN_DISABLE;
+    timer_out_init.ocpolarity   = TIMER_OC_POLARITY_HIGH;
+    timer_out_init.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
+    timer_out_init.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
+    timer_out_init.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
+    timer_channel_output_config(TIMER,
+        SUART_TIMER_CH, &timer_out_init);
 
-    // timer_channel_output_pulse_value_config(
-    //     TIMER, SUART_TIMER_CH, 250);
-    // timer_channel_output_mode_config(
-    //     TIMER, SUART_TIMER_CH, TIMER_OC_MODE_PWM0);
-    // timer_channel_output_shadow_config(
-    //     TIMER, SUART_TIMER_CH, TIMER_OC_SHADOW_DISABLE);
-    // timer_primary_output_config(TIMER, ENABLE);
-    // timer_auto_reload_shadow_enable(TIMER);
+    timer_channel_output_pulse_value_config(
+        TIMER, SUART_TIMER_CH, 250);
+    timer_channel_output_mode_config(
+        TIMER, SUART_TIMER_CH, TIMER_OC_MODE_PWM0);
+    timer_channel_output_shadow_config(
+        TIMER, SUART_TIMER_CH, TIMER_OC_SHADOW_DISABLE);
+    timer_primary_output_config(TIMER, ENABLE);
+    timer_auto_reload_shadow_enable(TIMER);
+#endif
 
     nvic_irq_enable(TIMER_IRQN, 1, 1);
     timer_interrupt_enable(TIMER, TIMER_INT_UP);
@@ -304,7 +306,6 @@ void Task_01()
 
 void Task_02()
 {
-    viewController.currentPage->uiViewUpdate();
     usb_fs_send_fmt_string("Update TASK");
 }
 
@@ -334,7 +335,7 @@ extern lv_indev_t * indev_keypad;
 
 int main()
 {
-    // SystemInit()->system_clock_config()->system_clock_108m_hxtal();
+    /*SystemInit()->system_clock_config()->system_clock_108m_hxtal();*/
     sys_clock_config();
     _timer_init(960, 100);
     led1_gpio_init();
@@ -358,14 +359,15 @@ int main()
     lv_obj_t * scr = lv_scr_act();
     lv_obj_remove_style_all(scr);
     lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
-    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
+    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_white()/*lv_color_black()*/);
 
     cache_init(&average_cache_buf);
     cache_init(&bar_cache_buf);
-    uiViewInit("Meas", measLoadView, measUpdate, measLoadGroup);
-    uiViewInit("About", aboutLoadView, aboutViewUpdate, aboutLoadGroup);
-    uiViewInit("Sheet", sheetLoadView, sheetUpdate, sheetLoadGroup);
-    uiViewLoad("Meas");
+
+    _nt_view_pointer_init(&dialplateview);
+    _nt_view_pointer_init(&recentview);
+    _nt_view_pointer_init(&infosview);
+    _NT_START_PAGE(dialplateview);
 
     SCH_Add_Task(Task_01, 0, 500);
     SCH_Add_Task(Task_02, 0, 500);
