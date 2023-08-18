@@ -45,7 +45,10 @@ const nt_view_t recentview = {
     .name = "recentview",
 };
 
-static lv_timer_t * update_handle;
+static struct {
+    uint32_t last_update_time;
+    lv_timer_t * timer;
+} priv;
 
 struct cache_buffer_t bar_cache_buf;
 
@@ -75,14 +78,14 @@ static void view_will_appear()
 
 static void view_did_appear()
 {
-    update_handle = lv_timer_create(ontimer_update, 100, NULL);
+    priv.timer = lv_timer_create(ontimer_update, 100, NULL);
 }
 
 static void view_will_disappear()
 {
     lv_group_t * group = lv_group_get_default();
     lv_group_remove_all_objs(group);
-    lv_timer_del(update_handle);
+    lv_timer_del(priv.timer);
 }
 
 static void view_did_disappear()

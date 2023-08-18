@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\src\include;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting;..\test\src\UIKit;..\test\src\UIPages;..\test\src\UIPages\Resource\Symbol;..\test\src\UIPages\HAL;..\test\src\UIPages\Dialplate;..\test\src\UIPages\Info;..\test\src\UIPages\Recent</IncludePath>
+              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\main;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting;..\test\src\UIKit;..\test\src\UIPages;..\test\src\UIPages\Resource\Symbol;..\test\src\UIPages\HAL;..\test\src\UIPages\Dialplate;..\test\src\UIPages\Info;..\test\src\UIPages\Recent</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -381,22 +381,52 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>src</GroupName>
+          <GroupName>main</GroupName>
           <Files>
             <File>
-              <FileName>time.c</FileName>
+              <FileName>cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\source\time.c</FilePath>
+              <FilePath>..\test\src\main\cache.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\main\key.c</FilePath>
             </File>
             <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\source\led.c</FilePath>
+              <FilePath>..\test\src\main\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>log.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\main\log.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\main\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>temp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\main\temp.c</FilePath>
+            </File>
+            <File>
+              <FileName>time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\main\time.c</FilePath>
             </File>
             <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\source\usart.c</FilePath>
+              <FilePath>..\test\src\main\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\main\usbd_cdc.c</FilePath>
             </File>
             <File>
               <FileName>gd25q64.c</FileName>
@@ -422,31 +452,6 @@
               <FileName>st7789.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\st7789v3\st7789.c</FilePath>
-            </File>
-            <File>
-              <FileName>key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\source\key.c</FilePath>
-            </File>
-            <File>
-              <FileName>temp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\source\temp.c</FilePath>
-            </File>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>cache.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\source\cache.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_cdc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\source\usbd_cdc.c</FilePath>
             </File>
           </Files>
         </Group>
