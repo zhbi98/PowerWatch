@@ -39,4 +39,4 @@ extern DisplayMode displayMode;
 
 extern const nt_view_t dialplateview;
 
-#endif
+#endif /*__DIALPLATE_H__*/

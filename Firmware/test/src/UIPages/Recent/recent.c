@@ -55,8 +55,8 @@ struct cache_buffer_t bar_cache_buf;
 
 static void view_load(lv_obj_t * root)
 {
-    sheetViewCreate(root);
-    attach_event(sheetSence.cont);
+    nt_recent_create(root);
+    attach_event(recent_view.cont);
 }
 
 static void view_did_load()
@@ -70,7 +70,7 @@ static void view_will_appear()
     lv_group_t * group = lv_group_get_default();
     lv_group_remove_all_objs(group);
 
-    lv_group_add_obj(group, sheetSence.cont);
+    lv_group_add_obj(group, recent_view.cont);
 }
 
 static void view_did_appear()
@@ -99,7 +99,7 @@ static void update()
 {
     unsigned char index = bar_cache_buf.phead;
     float range = 0.0;
-    lv_coord_t * chart_array = lv_chart_get_y_array(sheetSence.chart, sheetSence.ser);
+    lv_coord_t * chart_array = lv_chart_get_y_array(recent_view.chart.chart, recent_view.chart.ser);
 
     for (unsigned char i = 0; i < 32; i++) {
         if (range <= bar_cache_buf.buf[i])
@@ -111,7 +111,7 @@ static void update()
     // Convert unit
     while (range >= 1000.0)
         range = (float)(range / 1000.0);
-    lv_chart_set_range(sheetSence.chart, LV_CHART_AXIS_PRIMARY_Y, 0, (int)range + 10);
+    lv_chart_set_range(recent_view.chart.chart, LV_CHART_AXIS_PRIMARY_Y, 0, (int)range + 10);
 
     chart_array[0]  = (int)bar_cache_buf.buf[index];
     index += 3;
@@ -155,8 +155,8 @@ static void update()
 
     chart_array[10] = (int)bar_cache_buf.buf[index];
 
-    lv_label_set_text_fmt(sheetSence.labelUnit, "%s", vstrifica.unit);
-    lv_chart_refresh(sheetSence.chart);
+    lv_label_set_text_fmt(recent_view.chart.unit_label, "%s", vstrifica.unit);
+    lv_chart_refresh(recent_view.chart.chart);
 }
 
 static void ontimer_update()
@@ -174,7 +174,7 @@ static void on_event(lv_event_t * event)
     lv_obj_t * obj = lv_event_get_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
-    if (obj == sheetSence.cont) {
+    if (obj == recent_view.cont) {
         if (code == LV_EVENT_CLICKED) {
             _NT_START_PAGE(infosview);
         }

@@ -1,5 +1,5 @@
 ﻿/**
- * @file about.c
+ * @file infos.c
  *
  */
 
@@ -53,8 +53,8 @@ static lv_timer_t * update_handle;
 
 static void view_load(lv_obj_t * root)
 {
-    aboutViewCreate(root);
-    attach_event(aboutSence.cont);
+    infos_create(root);
+    attach_event(infos_view.cont);
 }
 
 static void view_did_load()
@@ -68,7 +68,7 @@ static void view_will_appear()
     lv_group_t * group = lv_group_get_default();
     lv_group_remove_all_objs(group);
 
-    lv_group_add_obj(group, aboutSence.cont);
+    lv_group_add_obj(group, infos_view.cont);
 }
 
 static void view_did_appear()
@@ -95,10 +95,7 @@ static void view_did_unload()
 
 static void update()
 {
-    unsigned char buf[10];
-    memset(buf, '\0', 10);
-    sprintf(buf, "%02d", read_inside_temp() - 20);
-    lv_label_set_text_fmt(aboutSence.temp.labelTemp, "%s", buf);
+
 }
 
 static void ontimer_update()

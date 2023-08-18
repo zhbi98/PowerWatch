@@ -1,5 +1,5 @@
 /**
- * @file about.h
+ * @file infos.h
  *
  */
 
@@ -9,12 +9,11 @@
 /*********************
  *      INCLUDES
  *********************/
-
+#include <stdint.h>
 #include "lvgl.h"
+#include "nt_pm.h"
 #include "infosview.h"
 #include "temp.h"
-#include "nt_pm.h"
-
 /*********************
  *      DEFINES
  *********************/
@@ -29,4 +28,4 @@
 
 extern const nt_view_t infosview;
 
-#endif /*__ABOUT_H__*/
+#endif /*__INFOS_H__*/

@@ -1,5 +1,5 @@
 /**
- * @file dialplateview.h
+ * @file dialplateview.c
  *
  */
 
@@ -58,7 +58,7 @@ void nt_dialplate_style_create()
     lv_style_set_bg_color(&dialview._style, lv_color_hex(0xFF5136));
     lv_style_set_bg_opa(&dialview._style, LV_OPA_100);
     lv_style_set_border_width(&dialview._style, 0);
-    lv_style_set_border_color(&dialview._style, lv_color_hex(0xFF5136));
+    lv_style_set_border_color(&dialview._style, lv_color_hex(0x000000));
     lv_style_set_border_opa(&dialview._style, LV_OPA_100);
     lv_style_set_text_color(&dialview._style, lv_color_hex(0x000000));
     /*lv_obj_add_style(obj, &dialview._style, 0);*/
@@ -355,7 +355,7 @@ void count_create(lv_obj_t * par)
     dialview.count.node_0.cont = _cont;
 
     _label = lv_label_create(_cont);
-    lv_obj_align(_label, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_align(_label, LV_ALIGN_TOP_LEFT, 10, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
@@ -363,7 +363,7 @@ void count_create(lv_obj_t * par)
     dialview.count.node_0.title_label = _label;
 
     _label = lv_label_create(_cont);
-    lv_obj_align(_label, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+    lv_obj_align(_label, LV_ALIGN_BOTTOM_LEFT, 10, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
@@ -383,7 +383,7 @@ void count_create(lv_obj_t * par)
     dialview.count.node_1.cont = _cont;
 
     _label = lv_label_create(_cont);
-    lv_obj_align(_label, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_align(_label, LV_ALIGN_TOP_LEFT, 10, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
@@ -391,7 +391,7 @@ void count_create(lv_obj_t * par)
     dialview.count.node_1.title_label = _label;
 
     _label = lv_label_create(_cont);
-    lv_obj_align(_label, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+    lv_obj_align(_label, LV_ALIGN_BOTTOM_LEFT, 10, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
@@ -411,7 +411,7 @@ void count_create(lv_obj_t * par)
     dialview.count.node_2.cont = _cont;
 
     _label = lv_label_create(_cont);
-    lv_obj_align(_label, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_align(_label, LV_ALIGN_TOP_LEFT, 10, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
@@ -419,7 +419,7 @@ void count_create(lv_obj_t * par)
     dialview.count.node_2.title_label = _label;
 
     _label = lv_label_create(_cont);
-    lv_obj_align(_label, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+    lv_obj_align(_label, LV_ALIGN_BOTTOM_LEFT, 10, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
@@ -439,7 +439,7 @@ void count_create(lv_obj_t * par)
     dialview.count.node_3.cont = _cont;
 
     _label = lv_label_create(_cont);
-    lv_obj_align(_label, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_align(_label, LV_ALIGN_TOP_LEFT, 10, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
@@ -447,7 +447,7 @@ void count_create(lv_obj_t * par)
     dialview.count.node_3.title_label = _label;
 
     _label = lv_label_create(_cont);
-    lv_obj_align(_label, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+    lv_obj_align(_label, LV_ALIGN_BOTTOM_LEFT, 10, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);

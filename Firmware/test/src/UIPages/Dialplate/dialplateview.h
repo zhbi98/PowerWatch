@@ -1,9 +1,25 @@
+/**
+ * @file dialplateview.h
+ *
+ */
 
 #ifndef __DIALPLATEVIEW_H__
 #define __DIALPLATEVIEW_H__
 
+/*********************
+ *      INCLUDES
+ *********************/
+
 #include "lvgl.h"
 #include "usr_symbol_def.h"
+
+/*********************
+ *      DEFINES
+ *********************/
+
+/**********************
+ *      TYPEDEFS
+ **********************/
 
 typedef struct {
     lv_obj_t * cont;
@@ -77,8 +93,16 @@ typedef struct {
     } count;
 } nt_dialplate_view_t;
 
+/**********************
+ * GLOBAL PROTOTYPES
+ **********************/
+
 extern nt_dialplate_view_t dialview;
+
+/**********************
+ * GLOBAL FUNCTIONS
+ **********************/
 
 void nt_dialplate_create(lv_obj_t * par);
 
-#endif
+#endif /*__DIALPLATEVIEW_H__*/
