@@ -59,8 +59,7 @@ void sys_clock_config(void)
 }
 
 /*User-defined type to store required data for each task*/
-typedef struct
-{
+typedef struct {
     /*Pointer to the task*/
     /*(must be a 'uint32_t (void)' function)*/
     uint32_t (*pTask)(void);
@@ -86,23 +85,23 @@ void SCH_change_Task(uint32_t (*pTask)(), const uint32_t DELAY, const uint32_t P
 void SCH_Dispatch_Tasks(void);
 void TIMX_IRQHandler_user(void);
 
-// Add_Task
+/*Add_Task*/
 void SCH_Add_Task(uint32_t (*pTask)(), const uint32_t DELAY, const uint32_t PERIOD)
 {
     uint32_t Task_id = 0;
 
-    // Check pre-conditions (START)
-    // First find a gap in the array (if there is one)
+    /*Check pre-conditions (START)*/
+    /*First find a gap in the array (if there is one)*/
     while ((SCH_tasks_g[Task_id].pTask != SCH_NULL_PTR) && (Task_id < SCH_MAX_TASKS))
     {
         Task_id++;
     }
 
-    // Have we reached the end of the list?
+    /*Have we reached the end of the list?*/
     if ((Task_id < SCH_MAX_TASKS) || (PERIOD > 0))
     {
-        // If we're here, there is a space in the task array
-        // and the task to be added is periodic
+        /*If we're here, there is a space in the task array*/
+        /*and the task to be added is periodic*/
         SCH_tasks_g[Task_id].pTask = pTask;
         SCH_tasks_g[Task_id].Delay = DELAY + 1;
         SCH_tasks_g[Task_id].Period = PERIOD;
@@ -130,14 +129,15 @@ void SCH_delete_Task(uint32_t (*pTask)())
    }
 }
 
-// 任务运行过程中切换为其他任务运行。
-// 则当前任务返回后不再运行。
-// 为了安全应该关中断操作。
-// 可以在task中增加一个参数，task运行到一定次数切换到其他的task;
-// 或者 事件触发 退出当前task,执行新的task
+/**
+ * 任务运行过程中切换为其他任务运行.
+ * 则当前任务返回后不再运行.
+ * 为了安全应该关中断操作.
+ * 可以在 task 中增加一个参数，task 运行到一定次数切换到其他的 task.
+ * 或者 事件触发 退出当前 task, 执行新的 task.
+ */
 void SCH_change_Task(uint32_t (*pTask)(), const uint32_t DELAY, const uint32_t PERIOD)
 {
-
     __disable_irq();
 
     if ((Current_Task_id < SCH_MAX_TASKS) || (PERIOD > 0))
@@ -157,19 +157,19 @@ void SCH_Dispatch_Tasks(void)
    uint32_t Status;
    uint32_t Task_id;
 
-    // Go through the task array
+    /*Go through the task array*/
     for (Task_id = 0; Task_id < SCH_MAX_TASKS; Task_id++)
     {
 
-        // Check if there is a task at this location
+        /*Check if there is a task at this location*/
         if (SCH_tasks_g[Task_id].pTask != SCH_NULL_PTR)
         {
             if (SCH_tasks_g[Task_id].Delay == 0)
             {
-                //   printf("\n task=%d \n",Task_id);
+                /*printf("task=%d\n", Task_id);*/
                 Current_Task_id = Task_id;
-                Status = (*SCH_tasks_g[Task_id].pTask)(); // Run the task
-                // All tasks are periodic: schedule task to run again
+                Status = (*SCH_tasks_g[Task_id].pTask)(); /*Run the task*/
+                /*All tasks are periodic: schedule task to run again*/
                 SCH_tasks_g[Task_id].Delay = SCH_tasks_g[Task_id].Period;
             }
         }
@@ -292,7 +292,7 @@ void TIMER_HANDLER()
 {
     if (timer_interrupt_flag_get(TIMER, TIMER_INT_FLAG_UP) == SET) {
         timer_interrupt_flag_clear(TIMER, TIMER_INT_FLAG_UP);
-        // Timer interrupt 1ms
+        /*Timer interrupt 1ms*/
         lv_tick_inc(1);
         TIMX_IRQHandler_user();
     }
@@ -301,15 +301,13 @@ void TIMER_HANDLER()
 void Task_01()
 {
     led_controller_handler(&led2);
-    usb_fs_send_fmt_string("Led TASK");
+
+    if (read_key_event() == KEY4_EVT)
+        display_event_handler();
+    display_off_hanlder();
 }
 
 void Task_02()
-{
-    usb_fs_send_fmt_string("Update TASK");
-}
-
-void Task_03()
 {
     getPower();
     elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
@@ -324,11 +322,6 @@ void Task_03()
     if (read_key_event() == KEY4_EVT)
         display_event_handler();
     display_off_hanlder();
-}
-
-void Task_04()
-{
-    bar_cache_hanlder(ina226_data.Shunt_Current);
 }
 
 extern lv_indev_t * indev_keypad;
@@ -362,17 +355,14 @@ int main()
     lv_disp_set_bg_color(lv_disp_get_default(), lv_color_white()/*lv_color_black()*/);
 
     cache_init(&average_cache_buf);
-    cache_init(&bar_cache_buf);
 
     _nt_view_pointer_init(&dialplateview);
     _nt_view_pointer_init(&recentview);
     _nt_view_pointer_init(&infosview);
     _NT_START_PAGE(dialplateview);
 
-    SCH_Add_Task(Task_01, 0, 500);
+    SCH_Add_Task(Task_01, 0, 100);
     SCH_Add_Task(Task_02, 0, 500);
-    SCH_Add_Task(Task_03, 0, 100);
-    SCH_Add_Task(Task_04, 0, 20000);
 
     usb_cdc_init();
 

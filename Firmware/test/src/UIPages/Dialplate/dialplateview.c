@@ -173,7 +173,7 @@ void main_create(lv_obj_t * par)
     _label = lv_label_create(_cont);
     lv_obj_align(_label, LV_ALIGN_CENTER, -29, 0);
     LV_FONT_DECLARE(font_bahnschrift_56);
-    // lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
+    /*lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);*/
     lv_obj_set_style_text_font(_label, &font_bahnschrift_56, 0);
     lv_label_set_text(_label, "00.00");
     dialview.main.main_0.value_label = _label;
@@ -181,7 +181,7 @@ void main_create(lv_obj_t * par)
     _label = lv_label_create(_cont);
     lv_obj_align(_label, LV_ALIGN_CENTER, 52, 5);
     LV_FONT_DECLARE(font_bahnschrift_32);
-    // lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
+    /*lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);*/
     lv_obj_set_style_text_font(_label, &font_bahnschrift_32, 0);
     lv_label_set_text(_label, "mWh");
     dialview.main.main_0.unit_label = _label;
@@ -204,7 +204,7 @@ void main_create(lv_obj_t * par)
     _label = lv_label_create(_cont);
     lv_obj_align(_label, LV_ALIGN_CENTER, -29, 0);
     LV_FONT_DECLARE(font_bahnschrift_56);
-    // lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
+    /*lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);*/
     lv_obj_set_style_text_font(_label, &font_bahnschrift_56, 0);
     lv_label_set_text(_label, "00.00");
     dialview.main.main_1.value_label = _label;
@@ -212,7 +212,7 @@ void main_create(lv_obj_t * par)
     _label = lv_label_create(_cont);
     lv_obj_align(_label, LV_ALIGN_CENTER, 52, 5);
     LV_FONT_DECLARE(font_bahnschrift_32);
-    // lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
+    /*lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);*/
     lv_obj_set_style_text_font(_label, &font_bahnschrift_32, 0);
     lv_label_set_text(_label, "mAh");
     dialview.main.main_1.unit_label = _label;
@@ -226,9 +226,9 @@ void duration_create(lv_obj_t * par)
 
     cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
-    // lv_obj_add_style(cont, &dialview.main.style, 0);
-    // lv_obj_set_style_bg_color(cont,  lv_color_hex(0xE0E0E0), 0);
-    // lv_obj_set_style_bg_opa(cont,  LV_OPA_100, 0);
+    /*lv_obj_add_style(cont, &dialview.main.style, 0);*/
+    /*lv_obj_set_style_bg_color(cont,  lv_color_hex(0xE0E0E0), 0);*/
+    /*lv_obj_set_style_bg_opa(cont,  LV_OPA_100, 0);*/
     lv_obj_set_size(cont, 170, 25);
     lv_obj_set_pos(cont, 10, 135);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
@@ -331,6 +331,7 @@ void count_create(lv_obj_t * par)
     lv_obj_set_size(cont, 120, 150);
     lv_obj_set_pos(cont, 190, 10);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
+    lv_obj_set_flex_align(cont, LV_FLEX_ALIGN_END, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 
     static lv_style_t flex_style;
     lv_style_init(&flex_style);
@@ -344,7 +345,7 @@ void count_create(lv_obj_t * par)
 
     _points = lv_obj_create(cont);
     lv_obj_remove_style_all(_points);
-    lv_obj_set_size(_points, 10, 34);
+    lv_obj_set_size(_points, 10, 30);
     lv_obj_add_style(_points, &dialview.count.style_points, 0);
     lv_obj_set_style_bg_color(_points,  lv_palette_main(LV_PALETTE_RED), 0);
     lv_obj_set_style_radius(_points, 5, 0);
@@ -372,7 +373,7 @@ void count_create(lv_obj_t * par)
 
     _points = lv_obj_create(cont);
     lv_obj_remove_style_all(_points);
-    lv_obj_set_size(_points, 10, 34);
+    lv_obj_set_size(_points, 10, 30);
     lv_obj_add_style(_points, &dialview.count.style_points, 0);
     lv_obj_set_style_bg_color(_points,  lv_palette_main(LV_PALETTE_PINK), 0);
     lv_obj_set_style_radius(_points, 5, 0);
@@ -400,7 +401,7 @@ void count_create(lv_obj_t * par)
 
     _points = lv_obj_create(cont);
     lv_obj_remove_style_all(_points);
-    lv_obj_set_size(_points, 10, 34);
+    lv_obj_set_size(_points, 10, 30);
     lv_obj_add_style(_points, &dialview.count.style_points, 0);
     lv_obj_set_style_bg_color(_points,  lv_palette_main(LV_PALETTE_PURPLE), 0);
     lv_obj_set_style_radius(_points, 5, 0);
@@ -428,7 +429,7 @@ void count_create(lv_obj_t * par)
 
     _points = lv_obj_create(cont);
     lv_obj_remove_style_all(_points);
-    lv_obj_set_size(_points, 10, 34);
+    lv_obj_set_size(_points, 10, 30);
     lv_obj_add_style(_points, &dialview.count.style_points, 0);
     lv_obj_set_style_bg_color(_points,  lv_palette_main(LV_PALETTE_BLUE), 0);
     lv_obj_set_style_radius(_points, 5, 0);

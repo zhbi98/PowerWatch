@@ -86,7 +86,11 @@ static void view_will_appear()
 
 static void view_did_appear()
 {
-    priv.timer = lv_timer_create(ontimer_update, 100, NULL);
+    priv.timer = lv_timer_create(
+        ontimer_update, 
+        100, 
+        NULL
+    );
 }
 
 static void view_will_disappear()
@@ -108,6 +112,15 @@ static void view_did_unload()
 
 static void update()
 {
+    if (
+        lv_tick_elaps(
+            priv.last_update_time
+        ) >= 10
+    ) {
+        priv.last_update_time = \
+            lv_tick_get();
+    }
+
     switch (displayMode.cont1_mode) {
     case 0:
         strifica(ina226_data.voltageVal, NT_UNIT_VOLT);
@@ -183,7 +196,12 @@ static void ontimer_update()
 
 static void attach_event(lv_obj_t * obj)
 {
-    lv_obj_add_event_cb(obj, on_event, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(
+        obj, 
+        on_event, 
+        LV_EVENT_ALL, 
+        NULL
+    );
 }
 
 static void on_event(lv_event_t * event)

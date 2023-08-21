@@ -29,7 +29,5 @@
  **********************/
 
 extern const nt_view_t recentview;
-extern struct cache_buffer_t bar_cache_buf;
-extern void bar_cache_hanlder(float value);
 
 #endif /*__SHEET_H__*/

@@ -27,7 +27,9 @@ nt_recent_view_t recent_view;
  **********************/
 static void nt_recent_style_create();
 static void draw_event_cb(lv_event_t * e);
-static void chart_create(lv_obj_t * par);
+static void estimate_create(lv_obj_t * par);
+static void capacity_create(lv_obj_t * par);
+static void quantity_create(lv_obj_t * par);
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
@@ -73,46 +75,171 @@ void nt_recent_create(lv_obj_t * par)
 
     recent_view.cont = par;
 
-    chart_create(par);
+    estimate_create(par);
+    capacity_create(par);
+    quantity_create(par);
 }
 
-static void draw_event_cb(lv_event_t * e)
+void estimate_create(lv_obj_t * par)
 {
-    lv_obj_draw_part_dsc_t * dsc = lv_event_get_draw_part_dsc(e);
-    if (!lv_obj_draw_part_check_type(dsc, &lv_chart_class, LV_CHART_DRAW_PART_TICK_LABEL))
-        return;
+    lv_obj_t * _label = NULL;
+    lv_obj_t * _cont = NULL;
+    lv_obj_t * cont = NULL;
+    lv_obj_t * bar = NULL;
 
-    if (dsc->id == LV_CHART_AXIS_PRIMARY_X && dsc->text) {
-        const char * month[] = {
-            "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"
-        };
-        lv_snprintf(dsc->text, dsc->text_length, "%s", month[dsc->value]);
-    }
-}
+    cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_add_style(cont, &recent_view.style, 0);
 
-static void chart_create(lv_obj_t * par)
-{
-    lv_obj_t * chart = lv_chart_create(recent_view.cont);
-    lv_obj_set_size(chart, 250, 100);
-    lv_obj_set_pos(chart, 50, 25);
-    lv_chart_set_type(chart, LV_CHART_TYPE_BAR);
-    lv_chart_set_range(chart, LV_CHART_AXIS_PRIMARY_Y, 0, 100);
-    lv_chart_set_point_count(chart, 10);
-    lv_obj_add_event_cb(chart, draw_event_cb, LV_EVENT_DRAW_PART_BEGIN, NULL);
-    recent_view.chart.chart = chart;
+    lv_obj_set_style_radius(cont, 10, 0);
+    lv_obj_set_style_bg_color(cont,  lv_color_hex(0xE0E0E0), 0);
+    lv_obj_set_style_bg_opa(cont,  LV_OPA_100, 0);
 
-    lv_chart_set_axis_tick(chart, LV_CHART_AXIS_PRIMARY_X,   10, 5, 10, 3, true, 40);
-    lv_chart_set_axis_tick(chart, LV_CHART_AXIS_PRIMARY_Y,   10, 5, 6,  2, true, 50);
-    lv_chart_set_zoom_x(chart, 256);
+    lv_obj_set_size(cont, 180, 70);
+    lv_obj_set_pos(cont, 10, 10);
+    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
 
-    lv_chart_series_t * ser = lv_chart_add_series(chart, lv_palette_darken(LV_PALETTE_GREEN, 2), LV_CHART_AXIS_PRIMARY_Y);
-    recent_view.chart.ser = ser;
+    static lv_style_t flex_style;
+    lv_style_init(&flex_style);
+    lv_style_set_flex_flow(&flex_style, LV_FLEX_FLOW_ROW);
+    lv_style_set_flex_main_place(&flex_style, LV_FLEX_ALIGN_START);
+    lv_style_set_layout(&flex_style, LV_LAYOUT_FLEX);
+    lv_style_set_pad_column(&flex_style, 2);
+    lv_style_set_pad_row(&flex_style, 4);
+    lv_obj_add_style(cont, &flex_style, 0);
 
-    lv_obj_t * label = lv_label_create(recent_view.cont);
-    lv_obj_set_size(label, 30, 20);
-    lv_obj_set_pos(label, 20, 3);
+    _cont = lv_obj_create(cont);
+    lv_obj_remove_style_all(_cont);
+    lv_obj_set_size(_cont, 110, 34);
+
+    _label = lv_label_create(_cont);
+    lv_obj_align(_label, LV_ALIGN_CENTER, 0, 0);
+    LV_FONT_DECLARE(font_bahnschrift_32);
+    lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
+    lv_obj_set_style_text_font(_label, &font_bahnschrift_32, 0);
+    lv_label_set_text(_label, "20:00");
+
+    _cont = lv_obj_create(cont);
+    lv_obj_remove_style_all(_cont);
+    lv_obj_set_size(_cont, 60, 34);
+
+    _label = lv_label_create(_cont);
+    lv_obj_align(_label, LV_ALIGN_CENTER, 0, 0);
     LV_FONT_DECLARE(font_bahnschrift_17);
-    lv_obj_set_style_text_font(label, &font_bahnschrift_17, 0);
-    lv_label_set_text_fmt(label, "%s", "mA");
-    recent_view.chart.unit_label = label;
+    lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
+    lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
+    lv_label_set_text(_label, "complet");
+
+    _cont = lv_obj_create(cont);
+    lv_obj_remove_style_all(_cont);
+    lv_obj_set_size(_cont, 180, 35);
+
+    bar = lv_bar_create(_cont);
+    lv_obj_align(bar, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_size(bar, 160, 20);
+    lv_bar_set_value(bar, 50, LV_ANIM_ON);
+}
+
+void capacity_create(lv_obj_t * par)
+{
+    lv_obj_t * _label = NULL;
+    lv_obj_t * _cont = NULL;
+    lv_obj_t * cont = NULL;
+    lv_obj_t * spin = NULL;
+    lv_obj_t * btn = NULL;
+
+    cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_add_style(cont, &recent_view.style, 0);
+
+    lv_obj_set_style_radius(cont, 10, 0);
+    lv_obj_set_style_bg_color(cont,  lv_color_hex(0xE0E0E0), 0);
+    lv_obj_set_style_bg_opa(cont,  LV_OPA_100, 0);
+
+    lv_obj_set_size(cont, 80, 70);
+    lv_obj_set_pos(cont, 10, 90);
+    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
+
+    static lv_style_t flex_style;
+    lv_style_init(&flex_style);
+    lv_style_set_flex_flow(&flex_style, LV_FLEX_FLOW_ROW);
+    lv_style_set_flex_main_place(&flex_style, LV_FLEX_ALIGN_START);
+    lv_style_set_layout(&flex_style, LV_LAYOUT_FLEX);
+    lv_style_set_pad_column(&flex_style, 2);
+    lv_style_set_pad_row(&flex_style, 4);
+    lv_obj_add_style(cont, &flex_style, 0);
+
+    _cont = lv_obj_create(cont);
+    lv_obj_remove_style_all(_cont);
+    lv_obj_set_size(_cont, 80, 34);
+
+    _label = lv_label_create(_cont);
+    lv_obj_align(_label, LV_ALIGN_CENTER, 0, 0);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
+    lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
+    lv_label_set_text(_label, "capacity");
+
+    btn = lv_btn_create(cont);
+    lv_obj_set_size(btn, 15, 30);
+
+    spin = lv_spinbox_create(cont);
+    lv_obj_set_size(spin, 40, 30);
+    lv_spinbox_set_range(spin, 0, 50000);
+    lv_spinbox_set_digit_format(spin, 5, 0);
+
+    btn = lv_btn_create(cont);
+    lv_obj_set_size(btn, 15, 30);
+}
+
+void quantity_create(lv_obj_t * par)
+{
+    lv_obj_t * _label = NULL;
+    lv_obj_t * _cont = NULL;
+    lv_obj_t * cont = NULL;
+    lv_obj_t * spin = NULL;
+    lv_obj_t * btn = NULL;
+
+    cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_add_style(cont, &recent_view.style, 0);
+
+    lv_obj_set_style_radius(cont, 10, 0);
+    lv_obj_set_style_bg_color(cont,  lv_color_hex(0xE0E0E0), 0);
+    lv_obj_set_style_bg_opa(cont,  LV_OPA_100, 0);
+
+    lv_obj_set_size(cont, 80, 70);
+    lv_obj_set_pos(cont, 100, 90);
+    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
+
+    static lv_style_t flex_style;
+    lv_style_init(&flex_style);
+    lv_style_set_flex_flow(&flex_style, LV_FLEX_FLOW_ROW);
+    lv_style_set_flex_main_place(&flex_style, LV_FLEX_ALIGN_START);
+    lv_style_set_layout(&flex_style, LV_LAYOUT_FLEX);
+    lv_style_set_pad_column(&flex_style, 2);
+    lv_style_set_pad_row(&flex_style, 4);
+    lv_obj_add_style(cont, &flex_style, 0);
+
+    _cont = lv_obj_create(cont);
+    lv_obj_remove_style_all(_cont);
+    lv_obj_set_size(_cont, 80, 34);
+
+    _label = lv_label_create(_cont);
+    lv_obj_align(_label, LV_ALIGN_CENTER, 0, 0);
+    LV_FONT_DECLARE(font_bahnschrift_17);
+    lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
+    lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
+    lv_label_set_text(_label, "capacity");
+
+    btn = lv_btn_create(cont);
+    lv_obj_set_size(btn, 15, 30);
+
+    spin = lv_spinbox_create(cont);
+    lv_obj_set_size(spin, 40, 30);
+    lv_spinbox_set_range(spin, 0, 50000);
+    lv_spinbox_set_digit_format(spin, 5, 0);
+
+    btn = lv_btn_create(cont);
+    lv_obj_set_size(btn, 15, 30);
 }

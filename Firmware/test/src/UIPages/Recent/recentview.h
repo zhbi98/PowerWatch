@@ -26,10 +26,51 @@ typedef struct {
     lv_style_t _style;
 
     struct {
-        lv_obj_t * chart;
-        lv_chart_series_t * ser;
-        lv_obj_t * unit_label;
-    } chart;
+        lv_obj_t * cont;
+
+        struct {
+            lv_obj_t * cont;
+            lv_obj_t * label;
+        } title;
+
+        struct {
+            lv_obj_t * cont;
+            lv_obj_t * label;
+        } time;
+
+        struct {
+            lv_obj_t * cont;
+            lv_obj_t * bar;
+        } bar;
+    } estimate;
+
+    struct {
+        lv_obj_t * cont;
+
+        struct {
+            lv_obj_t * cont;
+            lv_obj_t * label;
+        } title;
+
+        struct {
+            lv_obj_t * spin;
+            lv_obj_t * incr_btn;
+            lv_obj_t * decr_btn;
+        } spinbox;
+    } capacity;
+
+    struct {
+        lv_obj_t * cont;
+        lv_obj_t * title_label;
+
+        struct {
+            lv_obj_t * spin;
+            lv_obj_t * incr_btn;
+            lv_obj_t * decr_btn;
+        } spinbox;
+    } quantity;
+
+    lv_obj_t * start_btn;
 } nt_recent_view_t;
 
 /**********************
