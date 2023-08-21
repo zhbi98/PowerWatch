@@ -13,7 +13,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "nt_ppbuf.h"
-#include "nt_master.h"
 #include "lvgl.h"
 #include "log.h"
 
@@ -21,12 +20,26 @@
  *      DEFINES
  *********************/
 
+/*
+ * Set up an account for the data member and specify the account name. This builds a 
+ * struct of type nt_acct_t.
+ */
+#define NT_ACCTOUNT_START(_name, _namestr) \
+    nt_acct_t _acct##_name \
+    .acct_id = _namestr, \
+    .publishers_ll = {0}, \
+    .subscribers_ll = {0}, \
+    .priv = {0}
+
+#define NT_ACCTOUNT_END \
+};
+
 /**********************
  *      TYPEDEFS
  **********************/
 
 /**
- * Error type enumeration.
+ * NT account error code.
  */
 enum {
     NT_ACCT_RES_OK =  0,
@@ -43,7 +56,7 @@ enum {
 typedef int8_t nt_acct_res_t;
 
 /**
- * Event type enumeration.
+ * NT account event type.
  */
 enum {
     NT_ACCT_EVENT_NONE = 0,
@@ -57,13 +70,15 @@ enum {
 typedef uint8_t nt_acct_event_t;
 
 /**
- * NT account error codes.
+ * NT account state codes.
  */
 enum {
     NT_ACCT_INV = 0, /*Typically indicates that the object is deleted (become invalid) in the action
                       function or an operation was failed*/
     NT_ACCT_OK,      /*The object is valid (no deleted) after the action*/
 };
+
+typedef int8_t nt_acct_state_t;
 
 /**
  * Construct event parameter structure.

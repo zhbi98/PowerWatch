@@ -12,24 +12,28 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
+
 static nt_acct_t * nt_acct_find_from_group(lv_ll_t * acct_group_p, 
     const int8_t * acct_id);
 static int32_t notify(nt_acct_t * acct_p, nt_acct_t * pub_p,
     const void * data_p, uint32_t size);
 static int32_t pull(nt_acct_t * acct_p, nt_acct_t * pub_p, 
     void * data_p, uint32_t size);
+
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
 
 /**
- * Construct an account for the associated communication model so that the other 
- * account communication model can publish data to that account for acceptance.
- * @param acct_p pointer to an initialized 'nt_acct_t' variable. Only its pointer is saved!
- * @param acct_id account name.
- * @param bufsize account name.
- * @param userdata
- * @return constructor result.
+ * Define an account for a data member and use this constructor to initialize the account, 
+ * including the account name, the size of the account's data space, the list of 
+ * subscribers, and the list of members that subscribe to the account.
+ * @param acct_p pointer to an initialized 'nt_acct_t' variable the data member 
+ * account being constructed.
+ * @param acct_id name the account being constructed.
+ * @param bufsize allocate a certain amount of storage space for the account to hold published content.
+ * @param userdata the user data used to initialize the account.
+ * @return account structure results.
  */
 uint8_t nt_acct_constructor(nt_acct_t * acct_p, const int8_t * acct_id, 
     uint32_t bufsize, void * userdata)
@@ -66,12 +70,13 @@ uint8_t nt_acct_constructor(nt_acct_t * acct_p, const int8_t * acct_id,
 /**
  * Destroy accounts that are no longer in use, and release the cache that 
  * stores the list of concerns and the list of concerns.
- * @param acct_p pointer to an 'nt_acct_t' variable. Only its pointer is saved!
+ * @param acct_p pointer to an 'nt_acct_t' variable the account to be destroyed.
  */
 void nt_acct_destructor(nt_acct_t * acct_p)
 {
     nt_acct_t * _acct;
 
+    /*Ask the publisher to delete this subscriber*/
     while(acct_p->publishers_ll.head) {
         _acct = _lv_ll_get_head(&acct_p->publishers_ll);
         _lv_ll_remove(&acct_p->publishers_ll, _acct);
@@ -79,13 +84,22 @@ void nt_acct_destructor(nt_acct_t * acct_p)
     }
     _lv_ll_clear(&acct_p->publishers_ll);
 
+    /*Let subscribers unfollow*/
     while(acct_p->subscribers_ll.head) {
         _acct = _lv_ll_get_head(&acct_p->subscribers_ll);
+
+        /*Let subscribers unfollow*/
+        nt_acct_unsubscribe(_acct, acct_p->acct_id);
+
         _lv_ll_remove(&acct_p->subscribers_ll, _acct);
         lv_mem_free(_acct);
     }
     _lv_ll_clear(&acct_p->subscribers_ll);
 
+    /*Delete timer*/
+    if (acct_p->priv.timer) lv_timer_del(acct_p->priv.timer);
+
+    /*Release cache*/
     lv_mem_free(acct_p->priv.buf0);
     lv_mem_free(acct_p->priv.buf1);
 }
@@ -93,7 +107,7 @@ void nt_acct_destructor(nt_acct_t * acct_p)
 /**
  * Use this account to follow a publisher.
  * @param acct_p pointer to an 'nt_acct_t' variable point to follow a publisher
- * the account of the content publisher you are interested in
+ * the account of the content publisher you are interested in.
  * @param pub_id specifies the user name of the content publisher.
  * @return pointer to find the account.
  */
@@ -111,8 +125,8 @@ static nt_acct_t * nt_acct_find_from_group(lv_ll_t * acct_group_p,
 
 /**
  * Use this account to follow a publisher.
- * @param acct_p pointer to an 'nt_acct_t' variable point to 
- * focus on the account of the publisher's account id.
+ * @param acct_p pointer to an 'nt_acct_t' variable point to focus on the account of 
+ * the publisher's account id.
  * @param pub_id Specifies the user name of the publisher of the content to follow.
  * @return pointer to find the account.
  */
