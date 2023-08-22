@@ -1,6 +1,7 @@
 
 #include "gd32f10x.h"
 
+#include <stdint.h>
 #include "led.h"
 #include "key.h"
 #include "time.h"
@@ -58,147 +59,6 @@ void sys_clock_config(void)
     SystemCoreClockUpdate();
 }
 
-/*User-defined type to store required data for each task*/
-typedef struct {
-    /*Pointer to the task*/
-    /*(must be a 'uint32_t (void)' function)*/
-    uint32_t (*pTask)(void);
-    /*void (*pTask) (void);*/
-
-    /*Delay (ticks) until the task will (next) be run*/
-    uint32_t Delay;
-
-    /*Interval (ticks) between subsequent runs.*/
-    uint32_t Period;
-} sTask_t;
-
-#define SCH_NULL_PTR NULL
-#define SCH_MAX_TASKS 5
-
-sTask_t SCH_tasks_g[SCH_MAX_TASKS];
-uint32_t Current_Task_id;
-uint32_t Tick_count_g;
-
-void SCH_Add_Task(uint32_t (*pTask)(), const uint32_t DELAY, const uint32_t PERIOD);
-void SCH_delete_Task(uint32_t (*pTask)());
-void SCH_change_Task(uint32_t (*pTask)(), const uint32_t DELAY, const uint32_t PERIOD);
-void SCH_Dispatch_Tasks(void);
-void TIMX_IRQHandler_user(void);
-
-/*Add_Task*/
-void SCH_Add_Task(uint32_t (*pTask)(), const uint32_t DELAY, const uint32_t PERIOD)
-{
-    uint32_t Task_id = 0;
-
-    /*Check pre-conditions (START)*/
-    /*First find a gap in the array (if there is one)*/
-    while ((SCH_tasks_g[Task_id].pTask != SCH_NULL_PTR) && (Task_id < SCH_MAX_TASKS))
-    {
-        Task_id++;
-    }
-
-    /*Have we reached the end of the list?*/
-    if ((Task_id < SCH_MAX_TASKS) || (PERIOD > 0))
-    {
-        /*If we're here, there is a space in the task array*/
-        /*and the task to be added is periodic*/
-        SCH_tasks_g[Task_id].pTask = pTask;
-        SCH_tasks_g[Task_id].Delay = DELAY + 1;
-        SCH_tasks_g[Task_id].Period = PERIOD;
-    }
-}
-
-void SCH_delete_Task(uint32_t (*pTask)())
-{
-
-    uint32_t id_counter;
-    for (id_counter = 0; id_counter < SCH_MAX_TASKS;)
-    {
-        if (SCH_tasks_g[id_counter].pTask != pTask)
-            id_counter++;
-
-        else
-        {
-            __disable_irq();
-
-            SCH_tasks_g[id_counter].pTask = SCH_NULL_PTR;
-
-            __enable_irq();
-            id_counter = SCH_MAX_TASKS + 1;
-        }
-   }
-}
-
-/**
- * 任务运行过程中切换为其他任务运行.
- * 则当前任务返回后不再运行.
- * 为了安全应该关中断操作.
- * 可以在 task 中增加一个参数，task 运行到一定次数切换到其他的 task.
- * 或者 事件触发 退出当前 task, 执行新的 task.
- */
-void SCH_change_Task(uint32_t (*pTask)(), const uint32_t DELAY, const uint32_t PERIOD)
-{
-    __disable_irq();
-
-    if ((Current_Task_id < SCH_MAX_TASKS) || (PERIOD > 0))
-    {
-       SCH_tasks_g[Current_Task_id].pTask = pTask;
-       SCH_tasks_g[Current_Task_id].Delay = DELAY + 1;
-       SCH_tasks_g[Current_Task_id].Period = PERIOD;
-    }
-    __enable_irq();
-}
-
-/****************************
- *    SCH_Dispatch_Tasks()
- ****************************/
-void SCH_Dispatch_Tasks(void)
-{
-   uint32_t Status;
-   uint32_t Task_id;
-
-    /*Go through the task array*/
-    for (Task_id = 0; Task_id < SCH_MAX_TASKS; Task_id++)
-    {
-
-        /*Check if there is a task at this location*/
-        if (SCH_tasks_g[Task_id].pTask != SCH_NULL_PTR)
-        {
-            if (SCH_tasks_g[Task_id].Delay == 0)
-            {
-                /*printf("task=%d\n", Task_id);*/
-                Current_Task_id = Task_id;
-                Status = (*SCH_tasks_g[Task_id].pTask)(); /*Run the task*/
-                /*All tasks are periodic: schedule task to run again*/
-                SCH_tasks_g[Task_id].Delay = SCH_tasks_g[Task_id].Period;
-            }
-        }
-    }
-
-    // Update inverted copy of Tick_count_g
-    //   Tick_count_ig = ~Tick_count_g;
-
-    // The scheduler enters idle mode at this point
-    // __WFI();
-}
-
-void TIMX_IRQHandler_user(void)
-{
-    uint32_t Task_id;
-    ++Tick_count_g;
-    for (Task_id = 0; Task_id < SCH_MAX_TASKS; Task_id++)
-    {
-        if (SCH_tasks_g[Task_id].Delay > 0)
-            SCH_tasks_g[Task_id].Delay--;
-    }
-}
-
-#define TIMER         TIMER1
-#define TIMER_CLOCK   RCU_TIMER1
-#define TIMER_CH      TIMER_CH_3
-#define TIMER_IRQN    TIMER1_IRQn
-#define TIMER_HANDLER TIMER1_IRQHandler
-
 /*
 -----------------------------------------
     Timing 0.1s
@@ -238,10 +98,7 @@ void TIMX_IRQHandler_user(void)
 -----------------------------------------
 */
 
-extern void _timer_init(unsigned int prescaler_t, unsigned int period_t);
-extern void TIMER_HANDLER();
-
-void _timer_init(unsigned int prescaler_t, unsigned int period_t)
+void _timer_init(uint32_t _prescaler, uint32_t _period)
 {
     /**
      * TIMER configuration: generate PWM signals
@@ -251,16 +108,16 @@ void _timer_init(unsigned int prescaler_t, unsigned int period_t)
     timer_oc_parameter_struct timer_out_init;
     timer_parameter_struct time_init;
 
-    rcu_periph_clock_enable(TIMER_CLOCK);
-    timer_deinit(TIMER);
+    rcu_periph_clock_enable(RCU_TIMER1);
+    timer_deinit(TIMER1);
 
-    time_init.prescaler         = prescaler_t - 1;
+    time_init.prescaler         = _prescaler - 1;
     time_init.alignedmode       = TIMER_COUNTER_EDGE;
     time_init.counterdirection  = TIMER_COUNTER_UP;
-    time_init.period            = period_t;
+    time_init.period            = _period;
     time_init.clockdivision     = TIMER_CKDIV_DIV1;
     time_init.repetitioncounter = 0;
-    timer_init(TIMER, &time_init);
+    timer_init(TIMER1, &time_init);
 
 #if 0
     CH0 config in pwm mode
@@ -270,35 +127,33 @@ void _timer_init(unsigned int prescaler_t, unsigned int period_t)
     timer_out_init.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
     timer_out_init.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
     timer_out_init.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
-    timer_channel_output_config(TIMER,
+    timer_channel_output_config(TIMER1,
         SUART_TIMER_CH, &timer_out_init);
 
     timer_channel_output_pulse_value_config(
-        TIMER, SUART_TIMER_CH, 250);
+        TIMER1, SUART_TIMER_CH, 250);
     timer_channel_output_mode_config(
-        TIMER, SUART_TIMER_CH, TIMER_OC_MODE_PWM0);
+        TIMER1, SUART_TIMER_CH, TIMER_OC_MODE_PWM0);
     timer_channel_output_shadow_config(
-        TIMER, SUART_TIMER_CH, TIMER_OC_SHADOW_DISABLE);
-    timer_primary_output_config(TIMER, ENABLE);
-    timer_auto_reload_shadow_enable(TIMER);
+        TIMER1, SUART_TIMER_CH, TIMER_OC_SHADOW_DISABLE);
+    timer_primary_output_config(TIMER1, ENABLE);
+    timer_auto_reload_shadow_enable(TIMER1);
 #endif
 
-    nvic_irq_enable(TIMER_IRQN, 1, 1);
-    timer_interrupt_enable(TIMER, TIMER_INT_UP);
-    timer_enable(TIMER);
+    nvic_irq_enable(TIMER1_IRQn, 1, 1);
+    timer_interrupt_enable(TIMER1, TIMER_INT_UP);
+    timer_enable(TIMER1);
 }
 
-void TIMER_HANDLER()
+void TIMER1_IRQHandler()
 {
-    if (timer_interrupt_flag_get(TIMER, TIMER_INT_FLAG_UP) == SET) {
-        timer_interrupt_flag_clear(TIMER, TIMER_INT_FLAG_UP);
-        /*Timer interrupt 1ms*/
+    if (timer_interrupt_flag_get(TIMER1, TIMER_INT_FLAG_UP) == SET) {
+        timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);
         lv_tick_inc(1);
-        TIMX_IRQHandler_user();
     }
 }
 
-void Task_01()
+void task_01()
 {
     led_controller_handler(&led2);
 
@@ -307,7 +162,7 @@ void Task_01()
     display_off_hanlder();
 }
 
-void Task_02()
+void task_02()
 {
     getPower();
     elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
@@ -330,15 +185,17 @@ int main()
 {
     /*SystemInit()->system_clock_config()->system_clock_108m_hxtal();*/
     sys_clock_config();
-    _timer_init(960, 100);
+    _timer_init(960, 100); /*Timer tick 1ms*/
     led1_gpio_init();
     led2_gpio_init();
     key_gpio_init();
     usart_init();
+    usb_cdc_init();
     st7789_init();
     INA226_Init();
     inside_temp_adc_init();
     gd25q64_spi_gpio_init();
+    cache_init(&average_cache_buf);
 
     lv_init();
     lv_port_disp_init();
@@ -354,21 +211,15 @@ int main()
     lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
     lv_disp_set_bg_color(lv_disp_get_default(), lv_color_white()/*lv_color_black()*/);
 
-    cache_init(&average_cache_buf);
-
     _nt_view_pointer_init(&dialplateview);
     _nt_view_pointer_init(&recentview);
     _nt_view_pointer_init(&infosview);
     _NT_START_PAGE(dialplateview);
 
-    SCH_Add_Task(Task_01, 0, 100);
-    SCH_Add_Task(Task_02, 0, 500);
-
-    usb_cdc_init();
-
     for (;;) {
-        SCH_Dispatch_Tasks();
         lv_task_handler();
+        task_01();
+        task_02();
     }
 
     return 0;

@@ -161,7 +161,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\test\src\UIPages\HAL\strifica.c</Filename>
+          <Filename>C:\Users\20220615\Desktop\PowerWatch\Firmware\test\src\UIPages\HAL\strifica.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\mdk5\../test/src/UIPages/HAL/strifica.c\81</Expression>
         </Bp>
@@ -2568,7 +2568,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIKit\LocalPubs\nt_account.c</PathWithFileName>
+      <PathWithFileName>..\test\src\UIKit\LocalRPC\nt_account.c</PathWithFileName>
       <FilenameWithoutPath>nt_account.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2580,8 +2580,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIKit\LocalPubs\nt_ppbuf.c</PathWithFileName>
-      <FilenameWithoutPath>nt_ppbuf.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIKit\LocalRPC\nt_master.c</PathWithFileName>
+      <FilenameWithoutPath>nt_master.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2592,8 +2592,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIKit\LocalPubs\nt_master.c</PathWithFileName>
-      <FilenameWithoutPath>nt_master.c</FilenameWithoutPath>
+      <PathWithFileName>..\test\src\UIKit\LocalRPC\nt_ppbuf.c</PathWithFileName>
+      <FilenameWithoutPath>nt_ppbuf.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2801,14 +2801,22 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+  </Group>
+
+  <Group>
+    <GroupName>Utils</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>12</GroupNumber>
+      <GroupNumber>13</GroupNumber>
       <FileNumber>209</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\test\src\UIPages\HAL\strifica.c</PathWithFileName>
+      <PathWithFileName>..\test\src\UIPages\Utils\strifica.c</PathWithFileName>
       <FilenameWithoutPath>strifica.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

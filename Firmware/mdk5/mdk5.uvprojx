@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\main;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting;..\test\src\UIKit;..\test\src\UIPages;..\test\src\UIPages\Resource\Symbol;..\test\src\UIPages\HAL;..\test\src\UIPages\Dialplate;..\test\src\UIPages\Info;..\test\src\UIPages\Recent;..\test\src\UIKit\LocalPubs</IncludePath>
+              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\main;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting;..\test\src\UIKit;..\test\src\UIKit\LocalRPC;..\test\src\UIPages;..\test\src\UIPages\Resource\Symbol;..\test\src\UIPages\HAL;..\test\src\UIPages\Dialplate;..\test\src\UIPages\Info;..\test\src\UIPages\Recent;..\test\src\UIPages\Utils</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1376,17 +1376,17 @@
             <File>
               <FileName>nt_account.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\LocalPubs\nt_account.c</FilePath>
-            </File>
-            <File>
-              <FileName>nt_ppbuf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\LocalPubs\nt_ppbuf.c</FilePath>
+              <FilePath>..\test\src\UIKit\LocalRPC\nt_account.c</FilePath>
             </File>
             <File>
               <FileName>nt_master.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\LocalPubs\nt_master.c</FilePath>
+              <FilePath>..\test\src\UIKit\LocalRPC\nt_master.c</FilePath>
+            </File>
+            <File>
+              <FileName>nt_ppbuf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIKit\LocalRPC\nt_ppbuf.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1478,10 +1478,15 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIPages\HAL\elec.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utils</GroupName>
+          <Files>
             <File>
               <FileName>strifica.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\HAL\strifica.c</FilePath>
+              <FilePath>..\test\src\UIPages\Utils\strifica.c</FilePath>
             </File>
           </Files>
         </Group>
