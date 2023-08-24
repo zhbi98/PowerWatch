@@ -15,9 +15,8 @@
 #include "lvgl.h"
 #include "nt_pm.h"
 
-#include "elec.h"
-#include "average.h"
-#include "display.h"
+#include "qflow.h"
+#include "blight.h"
 
 #include "dialplateview.h"
 #include "dialplate.h"
@@ -150,33 +149,16 @@ void TIMER1_IRQHandler()
     if (timer_interrupt_flag_get(TIMER1, TIMER_INT_FLAG_UP) == SET) {
         timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);
         lv_tick_inc(1);
+
+        qflow.tick++;
+        if (qflow.tick >= 20) {
+            qflow.tick = 0;
+            qflow_update(
+                ina226_data.Shunt_Current, 
+                ina226_data.Power);
+            qflow_int();
+        }
     }
-}
-
-void task_01()
-{
-    led_controller_handler(&led2);
-
-    if (read_key_event() == KEY4_EVT)
-        display_event_handler();
-    display_off_hanlder();
-}
-
-void task_02()
-{
-    getPower();
-    elec_calc_hanlder(ina226_data.Shunt_Current, ina226_data.Power);
-    
-    if (displayMode.cont2_mode == 0)
-        average_calc_hanlder(ina226_data.voltageVal);
-    else if (displayMode.cont2_mode == 1)
-        average_calc_hanlder(ina226_data.Shunt_Current);
-    else if (displayMode.cont2_mode == 2)
-        average_calc_hanlder(ina226_data.Power);
-
-    if (read_key_event() == KEY4_EVT)
-        display_event_handler();
-    display_off_hanlder();
 }
 
 extern lv_indev_t * indev_keypad;
@@ -195,7 +177,6 @@ int main()
     INA226_Init();
     inside_temp_adc_init();
     gd25q64_spi_gpio_init();
-    cache_init(&average_cache_buf);
 
     lv_init();
     lv_port_disp_init();
@@ -218,8 +199,21 @@ int main()
 
     for (;;) {
         lv_task_handler();
-        task_01();
-        task_02();
+
+        led_controller_handler(&led2);
+        getPower();
+        blight_tick();
+        switch (key_read_event()) {
+        case KEY1_EVT:
+            break;
+        case KEY2_EVT:
+            break;
+        case KEY3_EVT:
+            break;
+        case KEY4_EVT:
+            blight_beat_state();
+            break;
+        }
     }
 
     return 0;

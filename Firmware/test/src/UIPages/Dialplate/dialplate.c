@@ -29,11 +29,6 @@ static void ontimer_update();
 static void attach_event(lv_obj_t * obj);
 static void on_event(lv_event_t * event);
 
-DisplayMode displayMode = {
-    .cont1_mode = 0,
-    .cont2_mode = 0,
-};
-
 /**********************
  *      TYPEDEFS
  **********************/
@@ -121,71 +116,26 @@ static void update()
             lv_tick_get();
     }
 
-    switch (displayMode.cont1_mode) {
-    case 0:
-        strifica(ina226_data.voltageVal, NT_UNIT_VOLT);
-        break;
-    case 1:
-        strifica(ina226_data.Shunt_Current, NT_UNIT_CUR);
-        break;
-    case 2:
-        strifica(ina226_data.Power, NT_UNIT_POW);
-        break;
-    }
+    strifica(ina226_data.voltageVal, NT_UNIT_VOLT);
     lv_label_set_text_fmt(dialview.main.main_0.value_label, "%s", vstrifica.value);
     lv_label_set_text_fmt(dialview.main.main_0.unit_label, "%s", vstrifica.unit);
 
-    switch (displayMode.cont2_mode) {
-    case 0:
-        strifica(average_calc.average, NT_UNIT_VOLT);
-        break;
-    case 1:
-        strifica(average_calc.average, NT_UNIT_CUR);
-        break;
-    case 2:
-        strifica(average_calc.average, NT_UNIT_POW);
-        break;
-    }
+    strifica(ina226_data.voltageVal, NT_UNIT_VOLT);
     lv_label_set_text_fmt(dialview.main.main_1.value_label, "%s", vstrifica.value);
     lv_label_set_text_fmt(dialview.main.main_1.unit_label, "%s", vstrifica.unit);
 
-    uint8_t buf[15];
-    memset(buf, '\0', 15);
-    int32_t hour = (int32_t)(get_elec_calc_time()) / 3600;
-    int32_t min  = (int32_t)(get_elec_calc_time()) % 3600 / 60;
-    int32_t sec  = (int32_t)(get_elec_calc_time()) % 3600 % 60;
-    snprintf(buf, 13, "%02d:%02d:%02d", hour, min, sec);
-    lv_label_set_text_fmt(dialview.duration.dura.label, "%s", buf);
+    lv_label_set_text_fmt(dialview.duration.dura.label, "%s", "00:00:00");
 
-    switch (displayMode.cont1_mode) {
-    case 0:
-        strifica(ina226_data.Shunt_Current, NT_UNIT_CUR);
-        break;
-    case 1:
-        strifica(ina226_data.voltageVal, NT_UNIT_VOLT);
-        break;
-    case 2:
-        strifica(ina226_data.Shunt_Current, NT_UNIT_CUR);
-        break;
-    }
+    strifica(ina226_data.Shunt_Current, NT_UNIT_CUR);
     lv_label_set_text_fmt(dialview.count.node_0.value_label, "%s", vstrifica.full);
 
-    switch (displayMode.cont1_mode) {
-    case 0:
-        strifica(ina226_data.Power, NT_UNIT_POW);
-        break;
-    case 1:
-        strifica(ina226_data.Power, NT_UNIT_POW);
-        break;
-    case 2:
-        strifica(ina226_data.voltageVal, NT_UNIT_VOLT);
-        break;
-    }
+    strifica(ina226_data.Power, NT_UNIT_POW);
     lv_label_set_text_fmt(dialview.count.node_1.value_label, "%s", vstrifica.full);
 
-    strifica(get_elec_calc_mah(), NT_UNIT_MAH);
+    strifica(qflow.qflow_mah, NT_UNIT_MAH);
     lv_label_set_text_fmt(dialview.count.node_2.value_label, "%s", vstrifica.full);
-    strifica(get_elec_calc_mwh(), NT_UNIT_MWH);
+
+    strifica(qflow.qflow_mwh, NT_UNIT_MWH);
     lv_label_set_text_fmt(dialview.count.node_3.value_label, "%s", vstrifica.full);
 }
 
@@ -204,36 +154,52 @@ static void attach_event(lv_obj_t * obj)
     );
 }
 
+#define CLICKED  LV_EVENT_CLICKED
+#define PRESSED  LV_EVENT_LONG_PRESSED
+
+#define MODULE_0 dialview.cont
+#define MODULE_1 dialview.main.main_0.cont
+#define MODULE_2 dialview.main.main_1.cont
+#define MODULE_3 dialview.duration.dura.cont
+
 static void on_event(lv_event_t * event)
 {
     lv_obj_t * obj = lv_event_get_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
-    if (obj == dialview.cont) {
-        if (code == LV_EVENT_CLICKED) {
+    if (obj == MODULE_0) {
+        if (code == CLICKED) {
             _NT_START_PAGE(recentview);
         }
-    } else if (obj == dialview.main.main_0.cont) {
-        if (code == LV_EVENT_CLICKED) {
-            displayMode.cont1_mode++;
-            if (displayMode.cont1_mode > 2)
-                displayMode.cont1_mode = 0;
+        if (code == PRESSED) {
+
         }
-    } else if (obj == dialview.main.main_1.cont) {
-        if (code == LV_EVENT_CLICKED) {
-            displayMode.cont2_mode++;
-            if (displayMode.cont2_mode > 2)
-                displayMode.cont2_mode = 0;
-            average_calc_reset();
+    } 
+
+    if (obj == MODULE_1) {
+        if (code == CLICKED) {
+
         }
-    } else if (obj == dialview.duration.dura.cont) {
-        if (code == LV_EVENT_CLICKED) {
-            if (!get_elec_status())
-                set_elec_status(1);
-            else
-                set_elec_status(0);
-        } else if (code == LV_EVENT_LONG_PRESSED) {
-            elec_calc_clear();
+        if (code == PRESSED) {
+
+        }
+    } 
+
+    if (obj == MODULE_2) {
+        if (code == CLICKED) {
+
+        }
+        if (code == PRESSED) {
+
+        }
+    } 
+
+    if (obj == MODULE_3) {
+        if (code == CLICKED) {
+
+        }
+        if (code == PRESSED) {
+
         }
     }
 }

@@ -21,53 +21,127 @@
  *      TYPEDEFS
  **********************/
 
-nt_strifica_t vstrifica = {
-    .value = {0},
-    .unit = {0},
-    .uid = 0,
-};
-
+nt_strifica_t vstrifica = {0};
 
 /**********************
  *  STATIC PROTOTYPES
  **********************/
 
+static void strified(float _data, uint8_t * buffer);
+static uint8_t series(float * d);
 /**
  * Choose the format string according to the level of the value.
- * Display format for example: 1.000
- * Display format for example: 10.00
- * Display format for example: 100.0
- * Display format for example: 1000.
  */
-static const uint8_t * 
-const fmtstr[FMT_SERIES] = {
-    "%5.3f",
-    "%5.2f",
-    "%5.1f",
-    "%5.0f",
+static const uint8_t * const 
+fmtstr[FMT_SERIES] = {
+    {
+        "%5.3f" /*1.000*/
+    },
+
+    {
+        "%5.2f" /*10.00*/
+    },
+
+    {
+        "%5.1f"  /*100.0*/
+    },
+
+    {
+        "%5.0f" /*1000.*/
+    }, 
 };
 
 /**
  * Choose the appropriate format according to the 
  * level of the value and the type of data.
- * 1kV  = 1000V  = 1000000mV
- * 1kA  = 1000A  = 1000000mA
- * 1kW  = 1000W  = 1000000mW
- * 1kAh = 1000Ah = 1000000mAh
- * 1kWh = 1000Wh = 1000000mmWh
  */
-static const uint8_t * 
-const units[UNIT_TYPE][UNIT_SERIES] = {
-    {"mV",   "V", "kV" },
-    {"mA",   "A", "kA" },
-    {"mW",   "W", "kW" },
-    {"mAh", "Ah", "kAh"},
-    {"mWh", "Wh", "kWh"},
+static const uint8_t * const 
+units[UNIT_TYPE][UNIT_SERIES] = {
+    {
+        "mV",   "V", "kV"
+    },
+
+    {
+        "mA",   "A", "kA"
+    },
+
+    {
+        "mW",   "W", "kW"
+    },
+
+    {
+        "mAh", "Ah", "kAh"
+    },
+
+    {
+        "mWh", "Wh", "kWh"
+    },
 };
 
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
+
+static uint8_t series(float * d)
+{
+    uint8_t ser = 0;
+    float data = *d;
+
+    while (fabs(data) >= 1000.0) {
+        data = (float)(data / 1000.0);
+        ser++;
+    }
+
+    *d = data;
+
+    return ser;
+}
+
+static void strified(float _data, uint8_t * buffer)
+{
+    if (
+        (fabs(_data) >= 0.0) && 
+        (fabs(_data) < 10.0)
+    ) {
+        snprintf(
+            buffer, 
+            VSLEN, 
+            fmtstr[0], 
+            _data
+        );
+    } else if (
+        (fabs(_data) >= 10.0) && 
+        (fabs(_data) < 100.0)
+    ) {
+        snprintf(
+            buffer, 
+            VSLEN, 
+            fmtstr[1], 
+            _data
+        );
+    } else if (
+        (fabs(_data) >= 100.0) && 
+        (fabs(_data) < 1000.0)
+    ) {
+        snprintf(
+            buffer, 
+            VSLEN, 
+            fmtstr[2], 
+            _data
+        );
+    } else if (
+        (fabs(_data) >= 1000.0) && 
+        (fabs(_data) < 10000.0)
+    ) {
+        snprintf(
+            buffer, 
+            VSLEN, 
+            fmtstr[3], 
+            _data
+        );
+    }
+}
+
 /**
  * Enter an unformatted raw numeric value.
  * @param _oridata raw numeric value.
@@ -81,54 +155,10 @@ void strifica(float oridata, uint8_t _type)
     if (!sym) _data = fabs(oridata);
     else _data = oridata;
 
-    vstrifica.uid = 0;
-    while (fabs(_data) >= 1000.0) {
-        _data = (float)(_data / 1000.0);
-        vstrifica.uid++;
-    }
+    vstrifica.uid = series(&_data);
 
     memset(vstrifica.value, '\0', VSLEN);
-    if (
-        (fabs(_data) >= 0.0) && 
-        (fabs(_data) < 10.0)
-    ) {
-        snprintf(
-            vstrifica.value, 
-            VSLEN, 
-            fmtstr[0], 
-            _data
-        );
-    } else if (
-        (fabs(_data) >= 10.0) && 
-        (fabs(_data) < 100.0)
-    ) {
-        snprintf(
-            vstrifica.value, 
-            VSLEN, 
-            fmtstr[1], 
-            _data
-        );
-    } else if (
-        (fabs(_data) >= 100.0) && 
-        (fabs(_data) < 1000.0)
-    ) {
-        snprintf(
-            vstrifica.value, 
-            VSLEN, 
-            fmtstr[2], 
-            _data
-        );
-    } else if (
-        (fabs(_data) >= 1000.0) && 
-        (fabs(_data) < 10000.0)
-    ) {
-        snprintf(
-            vstrifica.value, 
-            VSLEN, 
-            fmtstr[3], 
-            _data
-        );
-    }
+    strified(_data, vstrifica.value);
 
     memset(vstrifica.unit, '\0', USLEN);
     snprintf(

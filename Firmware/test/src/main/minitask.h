@@ -31,6 +31,9 @@ typedef struct {
     uint32_t period;               /**< Interval (ticks) between subsequent runs*/
 } nt_task_t;
 
+/**
+ * Construct a task manager type
+ */
 typedef struct {
     nt_task_t nt_task_list[TASK_CNT];
     uint32_t cur_task_id;

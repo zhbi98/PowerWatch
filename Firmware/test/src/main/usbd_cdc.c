@@ -103,9 +103,29 @@ void usb_fs_send_fmt_string(unsigned char * format, ...)
 
     usb_fs_send_string(value);
 }
+
 /*
 void  USBD_LP_CAN0_RX0_IRQHandler (void)
 {
     usbd_isr();
 }
 */
+
+#if 0 /*USB TEST*/
+if (USBD_CONFIGURED == usb_device_dev.status) {
+    if (1 == packet_receive && 1 == packet_sent) {
+        packet_sent = 0;
+        /* receive datas from the host when the last packet datas have sent to the host */
+        cdc_acm_data_receive(&usb_device_dev);
+    } else {
+        if (0 != receive_length) {
+            /* send receive datas */
+            cdc_acm_data_send(&usb_device_dev, receive_length);
+            receive_length = 0;
+        }
+    }
+}
+
+memcpy(usb_data_buffer, "Hello, world!\n", 14);
+cdc_acm_data_send(&usb_device_dev, 14);
+#endif

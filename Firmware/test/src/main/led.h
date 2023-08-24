@@ -2,6 +2,7 @@
 #ifndef __LED_H__
 #define __LED_H__
 
+#include <stdint.h>
 #include "gd32f10x.h"
 
 #define LED1_GPIO  GPIOA
@@ -12,32 +13,33 @@
 #define LED2_PIN   GPIO_PIN_2
 #define LED2_CLOCK RCU_GPIOA
 
-enum led_status {
+enum {
     LED_OFF = 0,
-    LED_ON  = 1,
+    LED_ON,
 };
+typedef uint8_t led_state_t;
 
-// Period is running tick
-enum led_period {
+/*Period is running tick*/
+enum {
     ON_PERIOD  = 1,
     OFF_PERIOD = 2,
 };
 
-struct led_obj_t {
-    unsigned int turn_on_period;
-    unsigned int turn_off_period;
-    unsigned char last_status;
-    unsigned char status;
-    void (* led_cb)(unsigned char status);
-};
+typedef struct {
+    uint32_t turn_on_period;
+    uint32_t turn_off_period;
+    uint8_t last_status;
+    uint8_t status;
+    void (* led_cb)(uint8_t status);
+} led_obj_t;
 
-extern struct led_obj_t led2;
-extern void led_controller_handler(struct led_obj_t * led);
-extern void led2_controller_cb(unsigned char status);
+extern led_obj_t led2;
+extern void led_controller_handler(led_obj_t * led);
+extern void led2_controller_cb(uint8_t status);
 
 extern void led1_gpio_init();
 extern void led2_gpio_init();
-extern void led1_set_status(unsigned char status);
-extern void led2_set_status(unsigned char status);
+extern void led1_set_status(uint8_t status);
+extern void led2_set_status(uint8_t status);
 
 #endif

@@ -13,10 +13,10 @@
 #include <stdint.h>
 #include "lvgl.h"
 #include "dialplateview.h"
-#include "elec.h"
-#include "average.h"
+#include "qflow.h"
 #include "strifica.h"
 #include "nt_pm.h"
+#include "ina226.h"
 
 /*********************
  *      DEFINES
@@ -25,13 +25,6 @@
 /**********************
  *      TYPEDEFS
  **********************/
-
-typedef struct {
-	unsigned char cont1_mode;
-	unsigned char cont2_mode;
-} DisplayMode;
-
-extern DisplayMode displayMode;
 
 /**********************
  * GLOBAL PROTOTYPES

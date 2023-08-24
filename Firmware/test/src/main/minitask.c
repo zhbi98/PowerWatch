@@ -27,6 +27,12 @@ nt_task_manager_t tm = {
  * GLOBAL FUNCTIONS
  **********************/
 
+/**
+ * Add a task callback function to the task list.
+ * @param nt_task_cb pointer to a task callback function.
+ * @param _delay The interval between callback functions being executed.
+ * @param _period The interval between callback functions being executed.
+ */
 void nt_add_task(uint32_t (* nt_task_cb)(), const uint32_t _delay, 
     const uint32_t _period)
 {
@@ -46,6 +52,10 @@ void nt_add_task(uint32_t (* nt_task_cb)(), const uint32_t _delay,
     }
 }
 
+/**
+ * Remove the task callback function from the task list.
+ * @param nt_task_cb pointer to a task callback function.
+ */
 void nt_delete_task(uint32_t (* nt_task_cb)())
 {
     for (uint32_t i = 0; i < TASK_CNT ; ) {
@@ -59,18 +69,28 @@ void nt_delete_task(uint32_t (* nt_task_cb)())
    }
 }
 
+/**
+ * Manually switch the execution of the task callback function.
+ * @param nt_task_cb pointer to a task callback function.
+ * @param _delay The interval between callback functions being executed.
+ * @param _period The interval between callback functions being executed.
+ */
 void nt_plan_task(uint32_t (* nt_task_cb)(), 
-    const uint32_t DELAY, const uint32_t PERIOD)
+    const uint32_t _delay, const uint32_t _period)
 {
     __disable_irq();
-    if ((tm.cur_task_id < TASK_CNT) || (PERIOD > 0)) {
+    if ((tm.cur_task_id < TASK_CNT) || (_period > 0)) {
        tm.nt_task_list[tm.cur_task_id].nt_task_cb = nt_task_cb;
-       tm.nt_task_list[tm.cur_task_id].delay = DELAY + 1;
-       tm.nt_task_list[tm.cur_task_id].period = PERIOD;
+       tm.nt_task_list[tm.cur_task_id].delay = _delay + 1;
+       tm.nt_task_list[tm.cur_task_id].period = _period;
     }
     __enable_irq();
 }
 
+/**
+ * Iterates through the task list and executes the 
+ * task callback function at the end of the cycle time.
+ */
 void nt_task_handler()
 {
    uint32_t stat = 0;
@@ -85,11 +105,18 @@ void nt_task_handler()
     }
 }
 
+/**
+ * Gets the list number of the task callback function that is currently executing.
+ */
 uint32_t nt_task_get_cur_id()
 {
     return tm.cur_task_id;
 }
 
+/**
+ * Each task callback function is timed and used to 
+ * execute the corresponding callback function at the end of time.
+ */
 void nt_task_tick_inc()
 {
     for (uint32_t i = 0; i < TASK_CNT; i++) {

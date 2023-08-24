@@ -1,52 +1,57 @@
+/**
+ * @file key.h
+ *
+ */
 
 #ifndef __KEY_H__
 #define __KEY_H__
 
+/*********************
+ *      INCLUDES
+ *********************/
+
 #include <stdbool.h>
+#include <stdint.h>
 #include "gd32f10x.h"
 
-#define KEY1_GPIO  GPIOC
-#define KEY1_PIN   GPIO_PIN_14
-#define KEY1_CLOCK RCU_GPIOC
+/*********************
+ *      DEFINES
+ *********************/
 
-#define KEY2_GPIO  GPIOC
-#define KEY2_PIN   GPIO_PIN_13
-#define KEY2_CLOCK RCU_GPIOC
+#define KEY1_STATUS() \
+    gpio_input_bit_get(GPIOC, GPIO_PIN_14)
+#define KEY2_STATUS() \
+    gpio_input_bit_get(GPIOC, GPIO_PIN_13)
+#define KEY3_STATUS() \
+    gpio_input_bit_get(GPIOB, GPIO_PIN_7)
+#define KEY4_STATUS() \
+    gpio_input_bit_get(GPIOB, GPIO_PIN_6)
 
-#define KEY3_GPIO  GPIOB
-#define KEY3_PIN   GPIO_PIN_7
-#define KEY3_CLOCK RCU_GPIOB
+/**********************
+ *      TYPEDEFS
+ **********************/
 
-#define KEY4_GPIO  GPIOB
-#define KEY4_PIN   GPIO_PIN_6
-#define KEY4_CLOCK RCU_GPIOB
-
-#define KEY1_EVT   ('1')
-#define KEY2_EVT   ('2')
-#define KEY3_EVT   ('3')
-#define KEY4_EVT   ('4')
-#define RELEASE    ('0')
-
-#define KEY1_STATUS() gpio_input_bit_get(KEY1_GPIO, KEY1_PIN)
-#define KEY2_STATUS() gpio_input_bit_get(KEY2_GPIO, KEY2_PIN)
-#define KEY3_STATUS() gpio_input_bit_get(KEY3_GPIO, KEY3_PIN)
-#define KEY4_STATUS() gpio_input_bit_get(KEY4_GPIO, KEY4_PIN)
-
-struct key_event_t {
-    // false: short pressed event
-    // true : long pressed event
-    bool press_long;
-    // duration pressed time
-    unsigned int press_duration;
-    // pressed active speed
-    unsigned int active_time;
+enum {
+    KEY1_EVT = '0',
+    KEY2_EVT,
+    KEY3_EVT,
+    KEY4_EVT,
+    RELEASE,
 };
 
-extern struct key_event_t key_evt;
+typedef uint8_t key_evt_code_t;
 
-extern void key_gpio_init();
-extern unsigned char key_drive_code();
-extern void key_event_ticks();
-extern unsigned char read_key_event();
+typedef struct {
+    bool lpress;      /**< duration pressed time*/
+    uint32_t duration; /**< duration pressed time*/
+    uint32_t act_time; /**< pressed active speed*/
+} key_evt_t;
 
-#endif
+/**********************
+ * GLOBAL PROTOTYPES
+ **********************/
+
+void key_gpio_init();
+uint8_t key_read_event();
+
+#endif /*__KEY_H__*/

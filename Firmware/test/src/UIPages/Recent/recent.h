@@ -11,7 +11,6 @@
  *********************/
 
 #include <stdlib.h>
-#include "cache.h"
 #include "strifica.h"
 #include "recentview.h"
 #include "nt_pm.h"
