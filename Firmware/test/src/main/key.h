@@ -18,6 +18,9 @@
  *      DEFINES
  *********************/
 
+#define SECOND_TO_TICKS(s, base) \
+    ((uint32_t)((s) * (1000U) / (base)))
+
 #define KEY1_STATUS() \
     gpio_input_bit_get(GPIOC, GPIO_PIN_14)
 #define KEY2_STATUS() \

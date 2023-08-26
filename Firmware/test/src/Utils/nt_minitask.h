@@ -1,15 +1,16 @@
 /**
- * @file minitask.h
+ * @file nt_minitask.h
  *
  */
 
-#ifndef __MINITASK_H__
-#define __MINITASK_H__
+#ifndef __NT_MINITASK_H__
+#define __NT_MINITASK_H__
 
 /*********************
  *      INCLUDES
  *********************/
 
+#include <stdio.h>
 #include <stdint.h>
 
 /*********************
@@ -53,4 +54,4 @@ void nt_task_handler();
 uint32_t nt_task_get_cur_id();
 void nt_task_tick_inc();
 
-#endif /*__MINITASK_H__*/
+#endif /*__NT_MINITASK_H__*/

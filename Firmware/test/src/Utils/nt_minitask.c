@@ -1,5 +1,5 @@
 /**
- * @file minitask.c
+ * @file nt_minitask.c
  *
  */
 
@@ -7,7 +7,7 @@
  *      INCLUDES
  *********************/
 
-#include "minitask.h"
+#include "nt_minitask.h"
 
 /*********************
  *      DEFINES

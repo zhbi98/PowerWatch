@@ -1476,6 +1476,11 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\Utils\log.c</FilePath>
             </File>
+            <File>
+              <FileName>nt_minitask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\Utils\nt_minitask.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

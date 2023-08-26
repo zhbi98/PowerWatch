@@ -9,43 +9,69 @@
 
 #include "blight.h"
 
+/*********************
+ *      DEFINES
+ *********************/
+
+#define LCD_ONTIME  60U /*s*/
+#define LCD_REPEAT 100U /*ms*/
+
 /**********************
  *      TYPEDEFS
  **********************/
 
-lcd_blight_t blight = {
-    .ontime = ONTIME,
-    .state = 1,
+lcd_light_t lcd_light = {
+    .state = LCD_STATE_ON,
+    .tick = SECOND_TO_TICKS(
+        LCD_ONTIME, 
+        LCD_REPEAT
+    ),
 };
 
 /**********************
  * GLOBAL FUNCTIONS
  **********************/
 
-void blight_set_state(uint8_t state)
+void lcd_light_set_state(uint8_t state)
 {
-    blight.state = state;
-    if (!state) blight.ontime = 0;
-    else blight.ontime = ONTIME;
+    lcd_light.tick = (state) ? 
+        SECOND_TO_TICKS(
+            LCD_ONTIME, 
+            LCD_REPEAT
+        ) : 0;
+
+    lcd_light.state = state;
+    (state) ? ST7789_BL_L() : ST7789_BL_H();
 }
 
-uint8_t blight_get_state()
+void lcd_light_reset_state()
 {
-    return blight.state;
+    lcd_light.tick = SECOND_TO_TICKS(
+        LCD_ONTIME, LCD_REPEAT);
+
+    lcd_light.state = LCD_STATE_ON;
+    ST7789_BL_L();
 }
 
-void blight_beat_state()
+void lcd_light_repeat_state()
 {
-    if (blight_get_state()) blight_set_state(0);
-    else blight_set_state(1);
+    uint8_t state = lcd_light_get_state();
+    (state) ? lcd_light_set_state(LCD_STATE_OFF) : 
+    lcd_light_set_state(LCD_STATE_ON);
 }
 
-void blight_tick()
+void lcd_light_watch()
 {
-    if (blight.ontime != 0)
-        blight.ontime--;
-    if (!blight.ontime) {
+    if (lcd_light.tick > 0)
+        lcd_light.tick--;
+
+    if ((!lcd_light.tick) && (lcd_light.state)) {
+        lcd_light.state = LCD_STATE_OFF;
         ST7789_BL_H();
-        blight.state = 0;
-    } else ST7789_BL_L();
+    }
+}
+
+uint8_t lcd_light_get_state()
+{
+    return lcd_light.state;
 }

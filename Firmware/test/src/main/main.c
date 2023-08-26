@@ -1,3 +1,11 @@
+/**
+ * @file main.c
+ *
+ */
+
+/*********************
+ *      INCLUDES
+ *********************/
 
 #include "gd32f10x.h"
 
@@ -14,6 +22,7 @@
 
 #include "lvgl.h"
 #include "nt_pm.h"
+#include "nt_minitask.h"
 
 #include "qflow.h"
 #include "blight.h"
@@ -24,6 +33,10 @@
 #include "infos.h"
 #include "recentview.h"
 #include "recent.h"
+
+/**********************
+ * GLOBAL FUNCTIONS
+ **********************/
 
 /**
   * 说明 : 初始化内核时钟(108M)
@@ -150,15 +163,37 @@ void TIMER1_IRQHandler()
         timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);
         lv_tick_inc(1);
 
-        qflow.tick++;
-        if (qflow.tick >= 20) {
-            qflow.tick = 0;
-            qflow_update(
-                ina226_data.Shunt_Current, 
-                ina226_data.Power);
-            qflow_int();
-        }
+        QFLOW_TICK_INC(1);
+        QFLOW_TAKE(ina226_data.Shunt_Current, ina226_data.Power);
+        qflow_update();
+        nt_task_tick_inc();
     }
+}
+
+void ina226_update()
+{
+    getPower();
+}
+
+void key_update()
+{
+    switch (key_read_event()) {
+    case KEY1_EVT:
+        lcd_light_reset_state();
+        break;
+    case KEY2_EVT:
+        lcd_light_reset_state();
+        break;
+    case KEY3_EVT:
+        lcd_light_reset_state();
+        break;
+    case KEY4_EVT:
+        lcd_light_repeat_state();
+        break;
+    }
+    lcd_light_watch();
+    led_disp(&led1);
+    led_disp(&led2);
 }
 
 extern lv_indev_t * indev_keypad;
@@ -168,8 +203,7 @@ int main()
     /*SystemInit()->system_clock_config()->system_clock_108m_hxtal();*/
     sys_clock_config();
     _timer_init(960, 100); /*Timer tick 1ms*/
-    led1_gpio_init();
-    led2_gpio_init();
+    led_gpio_init();
     key_gpio_init();
     usart_init();
     usb_cdc_init();
@@ -190,30 +224,23 @@ int main()
     lv_obj_t * scr = lv_scr_act();
     lv_obj_remove_style_all(scr);
     lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
-    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_white()/*lv_color_black()*/);
+    lv_disp_set_bg_color(
+        lv_disp_get_default(), 
+        lv_color_white()
+        /*lv_color_black()*/
+    );
 
     _nt_view_pointer_init(&dialplateview);
     _nt_view_pointer_init(&recentview);
     _nt_view_pointer_init(&infosview);
     _NT_START_PAGE(dialplateview);
 
+    nt_add_task(ina226_update, 50, 50);
+    nt_add_task(key_update, 100, 100);
+
     for (;;) {
         lv_task_handler();
-
-        led_controller_handler(&led2);
-        getPower();
-        blight_tick();
-        switch (key_read_event()) {
-        case KEY1_EVT:
-            break;
-        case KEY2_EVT:
-            break;
-        case KEY3_EVT:
-            break;
-        case KEY4_EVT:
-            blight_beat_state();
-            break;
-        }
+        nt_task_handler();
     }
 
     return 0;

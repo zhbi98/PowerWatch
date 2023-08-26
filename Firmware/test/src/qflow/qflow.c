@@ -9,40 +9,62 @@
 
 #include "qflow.h"
 
-
 /*********************
  *      DEFINES
  *********************/
 
-#define INT_TIME 20.0f /*20ms*/
+#define QTIME  20U /*20ms*/
+#define HOUR_1 3600000U /*3600000ms*/ 
 
 /**********************
- * GLOBAL PROTOTYPES
+ * TYPEDEFS
  **********************/
 
 qflow_t qflow;
 
 /**********************
+ * STATIC PROTOTYPES
+ **********************/
+
+static void update();
+
+/**********************
  * GLOBAL FUNCTIONS
  **********************/
 
-void qflow_update(float cur, float pow)
+void qflow_take(float cur, float pow)
 {
     qflow.current = cur;
     qflow.power = pow;
 }
 
-void qflow_int()
+void update()
 {
     float current = qflow.current;
     float power = qflow.power;
 
-    float d_mah = current * INT_TIME;
-    float d_mwh = power * INT_TIME;
+    float d_mah = current * QTIME;
+    float d_mwh = power * QTIME;
 
-    d_mah = d_mah / 3600000.0;
-    d_mwh = d_mwh / 3600000.0;
+    d_mah = d_mah / HOUR_1;
+    d_mwh = d_mwh / HOUR_1;
 
     qflow.qflow_mah += d_mah;
     qflow.qflow_mwh += d_mwh;
+}
+
+void qflow_update()
+{
+    uint32_t tick = qflow.sys_time;
+    tick -= qflow.last_tick;
+    if (tick >= QTIME) {
+        qflow.last_tick = \
+        qflow.sys_time;
+        update();
+    }
+}
+
+void qflow_tick_inc(uint32_t tick_period)
+{
+    qflow.sys_time += tick_period;
 }

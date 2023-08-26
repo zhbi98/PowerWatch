@@ -132,10 +132,10 @@ static void update()
     strifica(ina226_data.Power, NT_UNIT_POW);
     lv_label_set_text_fmt(dialview.count.node_1.value_label, "%s", vstrifica.full);
 
-    strifica(qflow.qflow_mah, NT_UNIT_MAH);
+    strifica(QFLOW_GET_MAH(), NT_UNIT_MAH);
     lv_label_set_text_fmt(dialview.count.node_2.value_label, "%s", vstrifica.full);
 
-    strifica(qflow.qflow_mwh, NT_UNIT_MWH);
+    strifica(QFLOW_GET_MWH(), NT_UNIT_MWH);
     lv_label_set_text_fmt(dialview.count.node_3.value_label, "%s", vstrifica.full);
 }
 

@@ -93,6 +93,9 @@ static uint8_t series(float * d)
     }
 
     *d = data;
+    ser = (
+        ser > UNIT_SERIES
+    ) ? UNIT_SERIES : ser;
 
     return ser;
 }

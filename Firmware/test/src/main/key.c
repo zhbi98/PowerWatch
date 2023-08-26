@@ -13,14 +13,18 @@
  *      DEFINES
  *********************/
 
+#define KEY_DURATION 3U /*s*/
+#define KEY_ACT_TIME 1U /*s*/
+#define KEY_REPEAT 100U /*ms*/
+
 /**********************
  *      TYPEDEFS
  **********************/
 
 key_evt_t key_evt = {
+    .duration = SECOND_TO_TICKS(KEY_DURATION, KEY_REPEAT), 
+    .act_time = SECOND_TO_TICKS(KEY_ACT_TIME, KEY_REPEAT),
     .lpress = false,
-    .duration = 8000,
-    .act_time = 800,
 };
 
 /**********************
@@ -36,51 +40,55 @@ static void key_event_ticks();
 
 void key_gpio_init()
 {
-    rcu_periph_clock_enable(RCU_GPIOC);
-    rcu_periph_clock_enable(RCU_GPIOC);
-    rcu_periph_clock_enable(RCU_GPIOB);
-    rcu_periph_clock_enable(RCU_GPIOB);
+    rcu_periph_clock_enable(
+        RCU_GPIOC);
+    rcu_periph_clock_enable(
+        RCU_GPIOC);
+    rcu_periph_clock_enable(
+        RCU_GPIOB);
+    rcu_periph_clock_enable(
+        RCU_GPIOB);
 
     gpio_init(
         GPIOC, GPIO_MODE_IPU, 
-        GPIO_OSPEED_50MHZ, GPIO_PIN_14
+        GPIO_OSPEED_50MHZ, 
+        GPIO_PIN_14
     );
 
     gpio_init(
         GPIOC, GPIO_MODE_IPU, 
-        GPIO_OSPEED_50MHZ, GPIO_PIN_13
+        GPIO_OSPEED_50MHZ, 
+        GPIO_PIN_13
     );
 
     gpio_init(
         GPIOB, GPIO_MODE_IPU, 
-        GPIO_OSPEED_50MHZ, GPIO_PIN_7
+        GPIO_OSPEED_50MHZ, 
+        GPIO_PIN_7
     );
 
     gpio_init(
         GPIOB, GPIO_MODE_IPU, 
-        GPIO_OSPEED_50MHZ, GPIO_PIN_6
+        GPIO_OSPEED_50MHZ, 
+        GPIO_PIN_6
     );
 }
 
-/**
- * [1110, 1111], <k1, k2, k3, k4, 1, 1, 1, 1>
- * Key follow the code:
- * Key <1> <0x7f>
- * Key <2> <0xbf>
- * Key <3> <0xdf>
- * Key <4> <0xef>
- */
 static uint8_t key_drive_code()
 {
-    uint8_t dcode = 0x00;
-    dcode = (dcode << 1) | KEY1_STATUS();
-    dcode = (dcode << 1) | KEY2_STATUS();
-    dcode = (dcode << 1) | KEY3_STATUS();
-    dcode = (dcode << 1) | KEY4_STATUS();
-    dcode = (dcode << 1) | (0x01);
-    dcode = (dcode << 1) | (0x01);
-    dcode = (dcode << 1) | (0x01);
-    dcode = (dcode << 1) | (0x01);
+    uint8_t dcode = 0x0F;
+    uint8_t res[4] = {0};
+
+    res[0] = KEY1_STATUS();
+    res[1] = KEY2_STATUS();
+    res[2] = KEY3_STATUS();
+    res[3] = KEY4_STATUS();
+
+    for (uint8_t i = 0; i < 4; i++) {
+        res[i] = res[i] & 0x01;
+        res[i] <<= (7 - i);
+        dcode |= res[i];
+    }
     return dcode;
 }
 
@@ -117,16 +125,10 @@ uint8_t key_read_event()
     }
 
 #if 0
-    if (event == RELEASE) {
-        key_evt.duration = 8000;
-    }
-
-    // key 5 unsupport long press auto trigger active  
-    if ((key_evt.duration <= 0)/* && (event != KEY5_EVT)*/) {
-        key_evt.lpress = true;
-    } else {
-        key_evt.lpress = false;
-    }
+    if (event == RELEASE) key_evt.duration = SECOND_TO_TICKS(
+        KEY_DURATION, KEY_REPEAT);
+    if (key_evt.duration <= 0) key_evt.lpress = true;
+    else key_evt.lpress = false;
 #endif
 
     key_event_ticks();
@@ -135,7 +137,8 @@ uint8_t key_read_event()
     /*Press and hold the key event*/
     if (key_evt.lpress) {
         if (key_evt.act_time <= 0) {
-            key_evt.act_time = 800;
+            key_evt.act_time = SECOND_TO_TICKS(
+                KEY_ACT_TIME, KEY_REPEAT);
             return event;
         } else {
             return RELEASE;
@@ -145,7 +148,10 @@ uint8_t key_read_event()
 
 #if 0
     /*Key press events*/
-    if ((event != RELEASE) && (last_event == RELEASE)) {
+    if (
+        (event != RELEASE) && 
+        (last_event == RELEASE)
+    ) {
         last_event = event;
         return event;
     } else {
