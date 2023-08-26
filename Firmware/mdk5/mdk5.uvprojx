@@ -448,6 +448,11 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\blight\blight.c</FilePath>
             </File>
+            <File>
+              <FileName>kalman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\ina226\kalman.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

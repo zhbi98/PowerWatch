@@ -27,10 +27,10 @@ static void ina226_sleep_us(unsigned int us)
 void ina226_gpio_init()
 {
     rcu_periph_clock_enable(INA226_SDA_CLOCK);
-    // rcu_periph_clock_enable(INA226_SCL_CLOCK);
+    /*rcu_periph_clock_enable(INA226_SCL_CLOCK);*/
 
-    // output OD requires a pull-up resistor
-    // gpio_init(INA226_SDA_GPIO, GPIO_MODE_OUT_OD, GPIO_OSPEED_50MHZ, INA226_SDA_PIN);
+    /*Output OD requires a pull-up resistor*/
+    /*gpio_init(INA226_SDA_GPIO, GPIO_MODE_OUT_OD, GPIO_OSPEED_50MHZ, INA226_SDA_PIN);*/
     gpio_init(INA226_SDA_GPIO, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, INA226_SDA_PIN);
     gpio_init(INA226_SCL_GPIO, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, INA226_SCL_PIN);
 

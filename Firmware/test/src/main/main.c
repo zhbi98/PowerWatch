@@ -19,6 +19,8 @@
 #include "ina226.h"
 #include "gd25q64.h"
 #include "temp.h"
+#include "ina226.h"
+#include "kalman.h"
 
 #include "lvgl.h"
 #include "nt_pm.h"
@@ -164,7 +166,7 @@ void TIMER1_IRQHandler()
         lv_tick_inc(1);
 
         QFLOW_TICK_INC(1);
-        QFLOW_TAKE(ina226_data.Shunt_Current, ina226_data.Power);
+        QFLOW_TAKE(ina226_filte_get_cur(), ina226_filte_get_pow());
         qflow_update();
         nt_task_tick_inc();
     }
@@ -172,7 +174,7 @@ void TIMER1_IRQHandler()
 
 void ina226_update()
 {
-    getPower();
+    ina226_filte();
 }
 
 void key_update()

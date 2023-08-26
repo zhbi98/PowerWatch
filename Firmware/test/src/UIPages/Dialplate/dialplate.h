@@ -16,7 +16,7 @@
 #include "qflow.h"
 #include "strifica.h"
 #include "nt_pm.h"
-#include "ina226.h"
+#include "kalman.h"
 
 /*********************
  *      DEFINES

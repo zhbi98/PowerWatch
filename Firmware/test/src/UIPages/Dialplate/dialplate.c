@@ -116,20 +116,20 @@ static void update()
             lv_tick_get();
     }
 
-    strifica(ina226_data.voltageVal, NT_UNIT_VOLT);
+    strifica(ina226_filte_get_volt(), NT_UNIT_VOLT);
     lv_label_set_text_fmt(dialview.main.main_0.value_label, "%s", vstrifica.value);
     lv_label_set_text_fmt(dialview.main.main_0.unit_label, "%s", vstrifica.unit);
 
-    strifica(ina226_data.voltageVal, NT_UNIT_VOLT);
+    strifica(ina226_filte_get_volt(), NT_UNIT_VOLT);
     lv_label_set_text_fmt(dialview.main.main_1.value_label, "%s", vstrifica.value);
     lv_label_set_text_fmt(dialview.main.main_1.unit_label, "%s", vstrifica.unit);
 
     lv_label_set_text_fmt(dialview.duration.dura.label, "%s", "00:00:00");
 
-    strifica(ina226_data.Shunt_Current, NT_UNIT_CUR);
+    strifica(ina226_filte_get_cur(), NT_UNIT_CUR);
     lv_label_set_text_fmt(dialview.count.node_0.value_label, "%s", vstrifica.full);
 
-    strifica(ina226_data.Power, NT_UNIT_POW);
+    strifica(ina226_filte_get_pow(), NT_UNIT_POW);
     lv_label_set_text_fmt(dialview.count.node_1.value_label, "%s", vstrifica.full);
 
     strifica(QFLOW_GET_MAH(), NT_UNIT_MAH);

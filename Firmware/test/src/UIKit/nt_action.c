@@ -164,6 +164,9 @@ void nt_action_add_group(nt_action_t * act_p, uint16_t depth,
     _action_group_t * grp = &act_p->allgroup[depth][group];
     memcpy(grp, actgroup, sizeof(_action_group_t));
 
+    for (uint16_t node = 0; node < 4; node++)
+        grp->valid[node] = true;
+
     nt_action_refresh(act_p);
 }
 
