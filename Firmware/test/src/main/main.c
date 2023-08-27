@@ -177,6 +177,7 @@ void TIMER1_IRQHandler()
 void ina226_update()
 {
     ina226_filte_work();
+    qflow_dura_work();
 }
 
 void key_update()
@@ -198,6 +199,7 @@ void key_update()
     lcd_light_work();
     led_light_work(&led1);
     led_light_work(&led2);
+    _filte_work();
 }
 
 extern lv_indev_t * indev_keypad;

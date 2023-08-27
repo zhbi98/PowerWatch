@@ -22,6 +22,7 @@
  **********************/
 
 qflow_t qflow;
+qflow_duration_t qf_dura;
 
 const uint32_t TICK = MS_TO_TICKS(QFLOW_PROID, QFLOW_REPEAT);
 
@@ -70,4 +71,47 @@ void qflow_work()
 void qflow_tick_inc(uint32_t tick_period)
 {
     qflow.sys_time += tick_period;
+}
+
+float qflow_get_mah()
+{
+    return qflow.qflow_mah;
+}
+
+float qflow_get_mwh()
+{
+    return qflow.qflow_mwh;
+}
+
+void qflow_dura_work()
+{
+    uint32_t _sec = (uint32_t)(
+        qflow.sys_time * 
+        QFLOW_REPEAT / 1000);
+
+    uint32_t hour = (uint32_t)(_sec / 3600);
+    qf_dura.hour = hour;
+
+    uint32_t min = (uint32_t)((
+        _sec - hour * 3600) / 60);
+    qf_dura.min = min;
+
+    uint32_t sec = (uint32_t)(
+        _sec - (hour * 3600) - (min * 60));
+    qf_dura.sec = sec;
+}
+
+uint32_t qflow_dura_get_hour()
+{
+    return qf_dura.hour;
+}
+
+uint32_t qflow_dura_get_min()
+{
+    return qf_dura.min;
+}
+
+uint32_t qflow_dura_get_sec()
+{
+    return qf_dura.sec;
 }

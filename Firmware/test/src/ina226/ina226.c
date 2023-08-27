@@ -22,9 +22,9 @@ static void INA226_Get_ID(uint8_t addr);              /**< 获取 ID*/
 static void INA226_Get_MID(uint8_t addr);             /**< 获取 Manufacturer ID*/
 static uint16_t INA226_Get_CAL_Reg(uint8_t addr);     /**< 获取校准值*/
 static uint16_t INA226_GetVoltage( uint8_t addr);     /**< 获取总线电压装载值*/
-static int16_t INA226_GetShuntCurrent(uint8_t addr); /**< 获取分流电流装载值*/
+static int16_t INA226_GetShuntCurrent(uint8_t addr);  /**< 获取分流电流装载值*/
 static int16_t INA226_GetShuntVoltage(uint8_t addr);  /**< 分流电压装载值*/
-static uint16_t INA226_GetPower(uint8_t addr);       /**< 获取功率装载值，不使用*/
+static uint16_t INA226_GetPower(uint8_t addr);        /**< 获取功率装载值，不使用*/
 
 /**********************
  * GLOBAL FUNCTIONS
@@ -148,7 +148,7 @@ int16_t INA226_GetShuntCurrent(uint8_t addr)
     int16_t temp=0;
     INA226_SetRegPointer(addr, CUR_REG);
     temp = INA226_ReadData(addr);
-    /*if (temp&0x8000) temp = ~(temp - 1);*/
+    /*if (temp & 0x8000) temp = ~(temp - 1);*/
     return temp;
 }
 
@@ -162,28 +162,28 @@ uint16_t INA226_GetPower(uint8_t addr)
 }
 
 /*获取总线电压----------->1.25mV/bit*/
-void Get_Bus_Voltage(float * Voltage) // mV
+void Get_Bus_Voltage(float * Voltage) /*mV*/
 {
     /*LSB 为 1.25 mV*/
     *Voltage = INA226_GetVoltage(INA226_ADDR1) * VOLTAGE_LSB;
 }
 
 /*获取分流电压----------->2.5uV/bit*/
-void Get_Shunt_voltage(float * Voltage) // uV
+void Get_Shunt_voltage(float * Voltage) /*uV*/
 {
     /*LSB 为 2.5 uV*/
-    *Voltage = (INA226_GetShuntVoltage(INA226_ADDR1) * INA226_VAL_LSB);//如需矫正电流分流参数请将这里改为2.5
+    *Voltage = (INA226_GetShuntVoltage(INA226_ADDR1) * INA226_VAL_LSB); /*如需矫正电流分流参数请将这里改为 2.5*/
 }
 
 /*获取电流----------->0.1mA/bit*/
-void Get_Shunt_Current(float * Current) // mA
+void Get_Shunt_Current(float * Current) /*mA*/
 {
     /*LSB 为 0.1 mA*/
     *Current = (INA226_GetShuntCurrent(INA226_ADDR1) * CURRENT_LSB);
 }
 
 /*获取功率----------->25.0*CURRENT_LSBmW/bit*/
-void Get_Power(float * Power) // mW
+void Get_Power(float * Power) /*mW*/
 {
     /*LSB 为 25.0*CURRENT_LSB mW*/
     *Power = (INA226_GetPower(INA226_ADDR1) * POWER_LSB);
@@ -199,11 +199,11 @@ void INA226_Update()
 
     /*获取功率 = 总线电压 * 电流，
     其中 1mW 等于 1V * 1mA 或 1mV * 1A*/
-    INA226_Data.Ref_Power = INA226_Data.Bus_voltage 
-        * 0.001f * INA226_Data.Shunt_Current * 1.0f;/*mW*/
+    INA226_Data.Ref_Power = (INA226_Data.Bus_voltage 
+        * 0.001f) * (INA226_Data.Shunt_Current * 1.0f);/*mW*/
 }
 
-/*不设置报警，舍弃*/
+/*设置报警*/
 uint8_t INA226_AlertAddr()
 {
     uint8_t temp;

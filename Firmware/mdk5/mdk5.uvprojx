@@ -1443,21 +1443,6 @@
               <FileType>1</FileType>
               <FilePath>..\test\src\UIPages\Resource\Font\font_bahnschrift_56.c</FilePath>
             </File>
-            <File>
-              <FileName>font_bahnschrift_65.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Resource\Font\font_bahnschrift_65.c</FilePath>
-            </File>
-            <File>
-              <FileName>font_celsius_24.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Resource\Font\font_celsius_24.c</FilePath>
-            </File>
-            <File>
-              <FileName>symbol_chip_20.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Resource\Symbol\symbol_chip_20.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

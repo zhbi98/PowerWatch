@@ -11,7 +11,7 @@
  *********************/
 
 #include "lvgl.h"
-#include "usr_symbol_def.h"
+#include "symbol_def.h"
 
 /*********************
  *      DEFINES

@@ -50,7 +50,15 @@ typedef struct {
     uint32_t last_tick;
 } qflow_t;
 
+/*Construct a qflow type*/
+typedef struct {
+    uint16_t hour;
+    uint8_t min;
+    uint8_t sec;
+} qflow_duration_t;
+
 extern qflow_t qflow;
+extern qflow_duration_t qf_dura;
 
 /**********************
  * GLOBAL PROTOTYPES
@@ -59,5 +67,11 @@ extern qflow_t qflow;
 void qflow_take(float cur, float pow);
 void qflow_work();
 void qflow_tick_inc(uint32_t tick_period);
+float qflow_get_mah();
+float qflow_get_mwh();
+void qflow_dura_work();
+uint32_t qflow_dura_get_hour();
+uint32_t qflow_dura_get_min();
+uint32_t qflow_dura_get_sec();
 
 #endif /*__QFLOW_H__*/

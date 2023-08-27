@@ -121,11 +121,15 @@ static void update()
     lv_label_set_text_fmt(dialview.main.main_0.value_label, "%s", vstrifica.value);
     lv_label_set_text_fmt(dialview.main.main_0.unit_label, "%s", vstrifica.unit);
 
-    strifica(ina226_filte_get_volt(), NT_UNIT_VOLT);
+    strifica(_filte_get_volt(), NT_UNIT_VOLT);
     lv_label_set_text_fmt(dialview.main.main_1.value_label, "%s", vstrifica.value);
     lv_label_set_text_fmt(dialview.main.main_1.unit_label, "%s", vstrifica.unit);
 
-    lv_label_set_text_fmt(dialview.duration.dura.label, "%s", "00:00:00");
+    lv_label_set_text_fmt(dialview.duration.dura.label, "%02d:%02d:%02d", 
+        qflow_dura_get_hour(),
+        qflow_dura_get_min(),
+        qflow_dura_get_sec()
+    );
 
     strifica(ina226_filte_get_cur(), NT_UNIT_CUR);
     lv_label_set_text_fmt(dialview.count.node_0.value_label, "%s", vstrifica.full);
