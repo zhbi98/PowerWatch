@@ -32,23 +32,23 @@ float kalman_filte(km_filte_t * km, float Y_meas)
     return km->cur_est;
 }
 
-void ina226_filte()
+void ina226_filte_work()
 {
-    getPower();
+    INA226_Update();
 
     ina226_filted.filte_volt = kalman_filte(
         &km_ina226_volt, 
-        ina226_data.voltageVal
+        INA226_Data.Bus_voltage
     );
 
     ina226_filted.filte_cur = kalman_filte(
         &km_ina226_cur, 
-        ina226_data.Shunt_Current
+        INA226_Data.Shunt_Current
     );
 
     ina226_filted.filte_pow = kalman_filte(
         &km_ina226_pow, 
-        ina226_data.Power
+        INA226_Data.Power
     );
 }
 

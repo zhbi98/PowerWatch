@@ -175,7 +175,7 @@ void main_create(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_56);
     /*lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);*/
     lv_obj_set_style_text_font(_label, &font_bahnschrift_56, 0);
-    lv_label_set_text(_label, "00.00");
+    lv_label_set_text(_label, "000.0");
     dialview.main.main_0.value_label = _label;
 
     _label = lv_label_create(_cont);
@@ -206,7 +206,7 @@ void main_create(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_56);
     /*lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);*/
     lv_obj_set_style_text_font(_label, &font_bahnschrift_56, 0);
-    lv_label_set_text(_label, "00.00");
+    lv_label_set_text(_label, "000.0");
     dialview.main.main_1.value_label = _label;
 
     _label = lv_label_create(_cont);
@@ -368,7 +368,7 @@ void count_create(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
-    lv_label_set_text(_label, "915.9 mA");
+    lv_label_set_text(_label, "000.0 mA");
     dialview.count.node_0.value_label = _label;
 
     _points = lv_obj_create(cont);
@@ -396,7 +396,7 @@ void count_create(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
-    lv_label_set_text(_label, "915.9 mW");
+    lv_label_set_text(_label, "000.0 mW");
     dialview.count.node_1.value_label = _label;
 
     _points = lv_obj_create(cont);
@@ -416,7 +416,7 @@ void count_create(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
-    lv_label_set_text(_label, "capacity");
+    lv_label_set_text(_label, "ampere");
     dialview.count.node_2.title_label = _label;
 
     _label = lv_label_create(_cont);
@@ -424,7 +424,7 @@ void count_create(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
-    lv_label_set_text(_label, "915.9 mAh");
+    lv_label_set_text(_label, "000.0 mAh");
     dialview.count.node_2.value_label = _label;
 
     _points = lv_obj_create(cont);
@@ -444,7 +444,7 @@ void count_create(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
-    lv_label_set_text(_label, "capacity");
+    lv_label_set_text(_label, "watt");
     dialview.count.node_3.title_label = _label;
 
     _label = lv_label_create(_cont);
@@ -452,6 +452,6 @@ void count_create(lv_obj_t * par)
     LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x000000), 0);
     lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
-    lv_label_set_text(_label, "915.9 mWh");
+    lv_label_set_text(_label, "000.0 mWh");
     dialview.count.node_3.value_label = _label;
 }

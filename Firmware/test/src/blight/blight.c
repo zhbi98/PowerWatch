@@ -60,7 +60,7 @@ void lcd_light_repeat_state()
     lcd_light_set_state(LCD_STATE_ON);
 }
 
-void lcd_light_watch()
+void lcd_light_work()
 {
     if (lcd_light.tick > 0)
         lcd_light.tick--;

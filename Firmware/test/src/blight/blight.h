@@ -43,7 +43,7 @@ typedef struct {
 void lcd_light_set_state(uint8_t state);
 void lcd_light_reset_state();
 void lcd_light_repeat_state();
-void lcd_light_watch();
+void lcd_light_work();
 uint8_t lcd_light_get_state();
 
 #endif /*__BL_H__*/

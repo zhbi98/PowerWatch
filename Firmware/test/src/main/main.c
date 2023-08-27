@@ -164,17 +164,19 @@ void TIMER1_IRQHandler()
     if (timer_interrupt_flag_get(TIMER1, TIMER_INT_FLAG_UP) == SET) {
         timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);
         lv_tick_inc(1);
+        nt_task_tick_inc(1);
 
         QFLOW_TICK_INC(1);
-        QFLOW_TAKE(ina226_filte_get_cur(), ina226_filte_get_pow());
-        qflow_update();
-        nt_task_tick_inc();
+        QFLOW_TAKE(
+            ina226_filte_get_cur(), 
+            ina226_filte_get_pow());
+        qflow_work();
     }
 }
 
 void ina226_update()
 {
-    ina226_filte();
+    ina226_filte_work();
 }
 
 void key_update()
@@ -193,9 +195,9 @@ void key_update()
         lcd_light_repeat_state();
         break;
     }
-    lcd_light_watch();
-    led_disp(&led1);
-    led_disp(&led2);
+    lcd_light_work();
+    led_light_work(&led1);
+    led_light_work(&led2);
 }
 
 extern lv_indev_t * indev_keypad;
@@ -237,8 +239,8 @@ int main()
     _nt_view_pointer_init(&infosview);
     _NT_START_PAGE(dialplateview);
 
-    nt_add_task(ina226_update, 50, 50);
-    nt_add_task(key_update, 100, 100);
+    nt_task_add(ina226_update, 50, 50);
+    nt_task_add(key_update, 100, 100);
 
     for (;;) {
         lv_task_handler();

@@ -47,7 +47,7 @@ typedef struct {
  * GLOBAL PROTOTYPES
  **********************/
 
-void ina226_filte();
+void ina226_filte_work();
 float ina226_filte_get_volt();
 float ina226_filte_get_cur();
 float ina226_filte_get_pow();

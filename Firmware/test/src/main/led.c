@@ -82,7 +82,7 @@ void led2_set_state(uint8_t state)
     else gpio_bit_reset(GPIOA, GPIO_PIN_2);
 }
 
-void led_disp(led_obj_t * led)
+void led_light_work(led_obj_t * led)
 {
     if (led->state == LED_ON) {
         led->on_tick--;

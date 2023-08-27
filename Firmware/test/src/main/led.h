@@ -46,6 +46,6 @@ extern led_obj_t led2;
  **********************/
 
 void led_gpio_init();
-void led_disp(led_obj_t * led);
+void led_light_work(led_obj_t * led);
 
 #endif

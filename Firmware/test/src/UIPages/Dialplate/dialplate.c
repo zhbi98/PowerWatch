@@ -49,6 +49,7 @@ static struct {
     uint32_t last_update_time;
     lv_timer_t * timer;
 } priv;
+
 /**********************
  * GLOBAL PROTOTYPES
  **********************/

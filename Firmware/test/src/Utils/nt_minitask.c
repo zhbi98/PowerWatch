@@ -33,36 +33,36 @@ nt_task_manager_t tm = {
  * @param _delay The interval between callback functions being executed.
  * @param _period The interval between callback functions being executed.
  */
-void nt_add_task(uint32_t (* nt_task_cb)(), const uint32_t _delay, 
+void nt_task_add(nt_task_cb_t tcb, const uint32_t _delay, 
     const uint32_t _period)
 {
     uint32_t task_id = 0;
+    nt_task_t * list_p = tm.nt_task_list;
 
     while (
-        (tm.nt_task_list[task_id].nt_task_cb != NULL) &&
-        (task_id < TASK_CNT)
-    ) {
-        task_id++;
-    }
+        (list_p[task_id].task_cb != NULL) && 
+        (task_id < TASK_CNT)) task_id++;
 
-    if ((task_id < TASK_CNT) || (_period > 0)) {
-        tm.nt_task_list[task_id].nt_task_cb = nt_task_cb;
-        tm.nt_task_list[task_id].delay = _delay + 1;
-        tm.nt_task_list[task_id].period = _period;
-    }
+    if ((task_id > TASK_CNT) || (!_period)) return;
+
+    list_p[task_id].task_cb = tcb;
+    list_p[task_id].delay = _delay + 1;
+    list_p[task_id].period = _period;
 }
 
 /**
  * Remove the task callback function from the task list.
  * @param nt_task_cb pointer to a task callback function.
  */
-void nt_delete_task(uint32_t (* nt_task_cb)())
+void nt_task_remove(nt_task_cb_t tcb)
 {
-    for (uint32_t i = 0; i < TASK_CNT ; ) {
-        if (tm.nt_task_list[i].nt_task_cb != nt_task_cb) i++;
+    nt_task_t * list_p = tm.nt_task_list;
+
+    for (uint32_t i = 0; i < TASK_CNT; ) {
+        if (list_p[i].task_cb != tcb) i++;
         else {
             __disable_irq();
-            tm.nt_task_list[i].nt_task_cb = NULL;
+            list_p[i].task_cb = NULL;
             __enable_irq();
             i = TASK_CNT + 1;
         }
@@ -75,15 +75,18 @@ void nt_delete_task(uint32_t (* nt_task_cb)())
  * @param _delay The interval between callback functions being executed.
  * @param _period The interval between callback functions being executed.
  */
-void nt_plan_task(uint32_t (* nt_task_cb)(), 
-    const uint32_t _delay, const uint32_t _period)
+void nt_task_path(nt_task_cb_t tcb, const uint32_t _delay, 
+    const uint32_t _period)
 {
+    nt_task_t * list_p = tm.nt_task_list;
+    uint32_t cur_id = tm.cur_task_id;
+
+    if ((cur_id > TASK_CNT) || (!_period)) return;
+
     __disable_irq();
-    if ((tm.cur_task_id < TASK_CNT) || (_period > 0)) {
-       tm.nt_task_list[tm.cur_task_id].nt_task_cb = nt_task_cb;
-       tm.nt_task_list[tm.cur_task_id].delay = _delay + 1;
-       tm.nt_task_list[tm.cur_task_id].period = _period;
-    }
+   list_p[cur_id].task_cb = tcb;
+   list_p[cur_id].delay = _delay + 1;
+   list_p[cur_id].period = _period;
     __enable_irq();
 }
 
@@ -94,13 +97,15 @@ void nt_plan_task(uint32_t (* nt_task_cb)(),
 void nt_task_handler()
 {
    uint32_t stat = 0;
+    nt_task_t * list_p = tm.nt_task_list;
+    uint32_t cur_id = tm.cur_task_id;
 
     for (uint32_t i = 0; i < TASK_CNT; i++) {
-        if (!tm.nt_task_list[i].delay) {
+        if (!list_p[i].delay) {
             tm.cur_task_id = i;
-            if (tm.nt_task_list[i].nt_task_cb != NULL)
-                stat = (*tm.nt_task_list[i].nt_task_cb)();
-            tm.nt_task_list[i].delay = tm.nt_task_list[i].period;
+            if (list_p[i].task_cb != NULL)
+                stat = (*list_p[i].task_cb)();
+            list_p[i].delay = list_p[i].period;
         }
     }
 }
@@ -117,12 +122,14 @@ uint32_t nt_task_get_cur_id()
  * Each task callback function is timed and used to 
  * execute the corresponding callback function at the end of time.
  */
-void nt_task_tick_inc()
+void nt_task_tick_inc(uint32_t tick_period)
 {
+    nt_task_t * list_p = tm.nt_task_list;
+
+    tm.tick_count += tick_period;
     for (uint32_t i = 0; i < TASK_CNT; i++) {
-        if (tm.nt_task_list[i].delay > 0) {
-            tm.nt_task_list[i].delay--;
+        if (list_p[i].delay > 0) {
+            list_p[i].delay -= tick_period;
         }
     }
-    tm.tick_count++;
 }

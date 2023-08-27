@@ -23,11 +23,13 @@
  *      TYPEDEFS
  **********************/
 
+typedef uint32_t (* nt_task_cb_t)();
+
 /**
  * User-defined type to store required data for each task
  */
 typedef struct {
-    uint32_t (* nt_task_cb)(void); /**< Pointer to the task*/
+    nt_task_cb_t task_cb; /**< Pointer to the task*/
     uint32_t delay;                /**< delay (ticks) until the task will (next) be run*/
     uint32_t period;               /**< Interval (ticks) between subsequent runs*/
 } nt_task_t;
@@ -45,13 +47,13 @@ typedef struct {
  * GLOBAL PROTOTYPES
  **********************/
 
-void nt_add_task(uint32_t (* nt_task_cb)(), const uint32_t _delay, 
+void nt_task_add(nt_task_cb_t tcb, const uint32_t _delay, 
     const uint32_t _period);
-void nt_delete_task(uint32_t (* nt_task_cb)());
-void nt_plan_task(uint32_t (* nt_task_cb)(), 
-    const uint32_t DELAY, const uint32_t PERIOD);
+void nt_task_remove(nt_task_cb_t tcb);
+void nt_task_path(nt_task_cb_t tcb, const uint32_t _delay, 
+    const uint32_t _period);
 void nt_task_handler();
 uint32_t nt_task_get_cur_id();
-void nt_task_tick_inc();
+void nt_task_tick_inc(uint32_t tick_period);
 
 #endif /*__NT_MINITASK_H__*/
