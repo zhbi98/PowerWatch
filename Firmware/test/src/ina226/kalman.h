@@ -40,14 +40,23 @@ typedef struct {
  * Filtered voltage, current and power data.
  */
 typedef struct {
-    float filte_volt;
-    float filte_cur;
-    float filte_pow;
-} ina226_filted_t;
+    float volt;
+    float cur;
+    float pow;
+} km_filted_t;
+
+/**
+ * Rectified voltage, current and power data.
+ */
+typedef struct {
+    float volt;   /*calibrated rawAngle data*/
+    float cur;    /*calibrated rawAngle data*/
+    float pow;    /*calibrated rawAngle data*/
+} rectified_t;
 
 /**
  * Describe the historical parameters
- * of the Kalman filter.
+ * of the avg filter.
  */
 typedef struct {
     float buffer[BUFFER_SIZE]; /*Buffer*/
@@ -59,10 +68,10 @@ typedef struct {
  * Filtered voltage, current and power data.
  */
 typedef struct {
-    float filte_volt;
-    float filte_cur;
-    float filte_pow;
-} _filted_t;
+    float volt;
+    float cur;
+    float pow;
+} avg_filted_t;
 
 /**********************
  * GLOBAL PROTOTYPES
@@ -73,9 +82,9 @@ float ina226_filte_get_volt();
 float ina226_filte_get_cur();
 float ina226_filte_get_pow();
 
-void _filte_work();
-float _filte_get_volt();
-float _filte_get_cur();
-float _filte_get_pow();
+void avg_filte_work();
+float avg_filte_get_volt();
+float avg_filte_get_cur();
+float avg_filte_get_pow();
 
 #endif /*__KALMAN_H__*/

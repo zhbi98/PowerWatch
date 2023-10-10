@@ -121,7 +121,7 @@ static void update()
     lv_label_set_text_fmt(dialview.main.main_0.value_label, "%s", vstrifica.value);
     lv_label_set_text_fmt(dialview.main.main_0.unit_label, "%s", vstrifica.unit);
 
-    strifica(_filte_get_volt(), NT_UNIT_VOLT);
+    strifica(avg_filte_get_volt(), NT_UNIT_VOLT);
     lv_label_set_text_fmt(dialview.main.main_1.value_label, "%s", vstrifica.value);
     lv_label_set_text_fmt(dialview.main.main_1.unit_label, "%s", vstrifica.unit);
 

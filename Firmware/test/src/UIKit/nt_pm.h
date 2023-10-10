@@ -98,8 +98,8 @@ nt_state_t nt_state_will_disappear_execute(nt_page_t * page_p);
 nt_state_t nt_state_did_disappear_execute(nt_page_t * page_p);
 nt_state_t nt_state_unload_execute(nt_page_t * page_p);
 
-#define _NT_START_PAGE(name) \
-    nt_start_page(#name)
+#define _NT_START_PAGE(_name) \
+    nt_start_page(#_name)
 
 /**
  * Structure for holding page animation state.

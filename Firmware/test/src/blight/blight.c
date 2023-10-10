@@ -22,7 +22,7 @@
 
 lcd_light_t lcd_light = {
     .state = LCD_STATE_ON,
-    .tick = SECOND_TO_TICKS(
+    .tick = STMS_TICKS(
         LCD_ONTIME, 
         LCD_REPEAT
     ),
@@ -32,46 +32,91 @@ lcd_light_t lcd_light = {
  * GLOBAL FUNCTIONS
  **********************/
 
-void lcd_light_set_state(uint8_t state)
+/**
+ * Reset status and time of light.
+ */
+void lcd_light_state_reset()
 {
-    lcd_light.tick = (state) ? 
-        SECOND_TO_TICKS(
-            LCD_ONTIME, 
-            LCD_REPEAT
-        ) : 0;
+    if (lcd_light.state) return;
+    if (lcd_light.tick) return;
 
-    lcd_light.state = state;
-    (state) ? ST7789_BL_L() : ST7789_BL_H();
-}
-
-void lcd_light_reset_state()
-{
-    lcd_light.tick = SECOND_TO_TICKS(
-        LCD_ONTIME, LCD_REPEAT);
-
-    lcd_light.state = LCD_STATE_ON;
+    lcd_light.state = true;
+    lcd_light.tick = STMS_TICKS(
+        LCD_ONTIME, 
+        LCD_REPEAT
+    );
     ST7789_BL_L();
 }
 
-void lcd_light_repeat_state()
+/**
+ * Repeated execution will perform the opposite operation once.
+ */
+void lcd_light_state_repeat()
 {
-    uint8_t state = lcd_light_get_state();
-    (state) ? lcd_light_set_state(LCD_STATE_OFF) : 
-    lcd_light_set_state(LCD_STATE_ON);
-}
-
-void lcd_light_work()
-{
-    if (lcd_light.tick > 0)
-        lcd_light.tick--;
-
-    if ((!lcd_light.tick) && (lcd_light.state)) {
-        lcd_light.state = LCD_STATE_OFF;
+    if (!lcd_light.state) {
+        lcd_light.state = true;
+        ST7789_BL_L();
+        lcd_light.tick = STMS_TICKS(
+            LCD_ONTIME, 
+            LCD_REPEAT
+        );
+    } else {
+        lcd_light.state = false;
         ST7789_BL_H();
+        lcd_light.tick = STMS_TICKS(0, 
+            LCD_REPEAT
+        );
     }
 }
 
-uint8_t lcd_light_get_state()
+/**
+ * Automatic logical calls to perform close-related 
+ * operations after a period of time.
+ */
+void lcd_light_state_work()
+{
+    if (!lcd_light.state) return;
+    if (lcd_light.tick > 0) 
+        lcd_light.tick--;
+
+    if (!lcd_light.tick) {
+        lcd_light.state = false;
+        ST7789_BL_H();
+        lcd_light.tick = STMS_TICKS(0, 
+            LCD_REPEAT
+        );
+    }
+}
+
+/**
+ * Sets the state of the statbar light state.
+ * @param state light state.
+ */
+void lcd_light_set_state(bool state)
+{
+    if (state != lcd_light.state) {
+        lcd_light.state = state;
+
+        if (state) {
+            ST7789_BL_L();
+            lcd_light.tick = STMS_TICKS(
+                LCD_ONTIME, 
+                LCD_REPEAT
+            );
+        } else {
+            ST7789_BL_H();
+            lcd_light.tick = STMS_TICKS(0, 
+                LCD_REPEAT
+            );
+        }
+    }
+}
+
+/**
+ * gets the state of the statbar light state.
+ * @return light state.
+ */
+bool lcd_light_get_state()
 {
     return lcd_light.state;
 }

@@ -16,15 +16,17 @@
 static float kalman_filte(km_filte_t * km, float Y_meas);
 static float average_filte(avg_filte_t * af, float Y_meas);
 
-static km_filte_t km_ina226_volt = {.K_gain = 0.3};
-static km_filte_t km_ina226_cur = {.K_gain = 0.3};
-static km_filte_t km_ina226_pow = {.K_gain = 0.3};
-static ina226_filted_t ina226_filted = {0};
+static km_filte_t km_filte_volt = {.K_gain = 0.3};
+static km_filte_t km_filte_cur = {.K_gain = 0.3};
+static km_filte_t km_filte_pow = {.K_gain = 0.3};
+static km_filted_t km_filted = {0};
 
-static avg_filte_t avg_filte_volt = {0};
-static avg_filte_t avg_filte_cur = {0};
-static avg_filte_t avg_filte_pow = {0};
-static _filted_t _filted;
+static avg_filte_t avg_filte_volt = {.index = 0};
+static avg_filte_t avg_filte_cur = {.index = 0};
+static avg_filte_t avg_filte_pow = {.index = 0};
+static avg_filted_t avg_filted = {0};
+
+static rectified_t rectified = {0};
 
 /**********************
  * GLOBAL FUNCTIONS
@@ -63,63 +65,69 @@ void ina226_filte_work()
 {
     INA226_Update();
 
-    ina226_filted.filte_volt = kalman_filte(
-        &km_ina226_volt, 
+    km_filted.volt = kalman_filte(
+        &km_filte_volt, 
         INA226_Data.Bus_voltage
     );
 
-    ina226_filted.filte_cur = kalman_filte(
-        &km_ina226_cur, 
+    km_filted.cur = kalman_filte(
+        &km_filte_cur, 
         INA226_Data.Shunt_Current
     );
 
-    ina226_filted.filte_pow = kalman_filte(
-        &km_ina226_pow, 
+    km_filted.pow = kalman_filte(
+        &km_filte_pow, 
         INA226_Data.Power
     );
 }
 
 float ina226_filte_get_volt()
 {
-    return ina226_filted.filte_volt;
+    return km_filted.volt;
 }
 
 float ina226_filte_get_cur()
 {
-    return ina226_filted.filte_cur;
+    return km_filted.cur;
 }
 
 float ina226_filte_get_pow()
 {
-    return ina226_filted.filte_pow;
+    return km_filted.pow;
 }
 
-void _filte_work()
+/*
+RawRange = RawHigh – RawLow;
+ReferenceRange = ReferenceHigh – ReferenceLow;
+CorrectedValue = (((RawValue – RawLow) * ReferenceRange) / RawRange) + ReferenceLow;
+*/
+
+void avg_filte_work()
 {
-    _filted.filte_volt = average_filte(
+    avg_filted.volt = average_filte(
         &avg_filte_volt,
         ina226_filte_get_volt());
 
-    _filted.filte_cur = average_filte(
+    avg_filted.cur = average_filte(
         &avg_filte_cur,
         ina226_filte_get_cur());
 
-    _filted.filte_pow = average_filte(
+    avg_filted.pow = average_filte(
         &avg_filte_pow,
         ina226_filte_get_pow());
 }
 
-float _filte_get_volt()
+float avg_filte_get_volt()
 {
-    return _filted.filte_volt;
+    return avg_filted.volt;
 }
 
-float _filte_get_cur()
+float avg_filte_get_cur()
 {
-    return _filted.filte_cur;
+    return avg_filted.cur;
 }
 
-float _filte_get_pow()
+float avg_filte_get_pow()
 {
-    return _filted.filte_pow;
+    return avg_filted.pow;
 }

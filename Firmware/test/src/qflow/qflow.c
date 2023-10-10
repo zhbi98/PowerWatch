@@ -24,7 +24,7 @@
 qflow_t qflow;
 qflow_duration_t qf_dura;
 
-const uint32_t TICK = MS_TO_TICKS(QFLOW_PROID, QFLOW_REPEAT);
+const uint32_t TICK = MSTMS_TICKS(QFLOW_PROID, QFLOW_REPEAT);
 
 /**********************
  * STATIC PROTOTYPES

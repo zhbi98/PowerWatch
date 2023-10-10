@@ -29,7 +29,8 @@ enum {
 typedef uint8_t nt_master_res_t;
 
 typedef struct {
-	lv_ll_t accounts_ll; /**< List Accounts*/
+    nt_acct_t acct;      /**< Master Account*/
+    lv_ll_t accounts_ll; /**< List Accounts*/
 } nt_master_t;
 
 /**********************

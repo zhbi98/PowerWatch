@@ -184,22 +184,22 @@ void key_update()
 {
     switch (key_read_event()) {
     case KEY1_EVT:
-        lcd_light_reset_state();
+        lcd_light_state_reset();
         break;
     case KEY2_EVT:
-        lcd_light_reset_state();
+        lcd_light_state_reset();
         break;
     case KEY3_EVT:
-        lcd_light_reset_state();
+        lcd_light_state_reset();
         break;
     case KEY4_EVT:
-        lcd_light_repeat_state();
+        lcd_light_state_repeat();
         break;
     }
-    lcd_light_work();
+    lcd_light_state_work();
     led_light_work(&led1);
     led_light_work(&led2);
-    _filte_work();
+    avg_filte_work();
 }
 
 extern lv_indev_t * indev_keypad;

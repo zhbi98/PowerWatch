@@ -16,8 +16,8 @@
  *      DEFINES
  *********************/
 
-#define MS_TO_TICKS(ms, base) \
-    ((uint32_t)((ms) / (base)))
+#define MSTMS_TICKS(ms1, ms2) \
+    ((uint32_t)((ms1) / (ms2)))
 
 #define QFLOW_GET_MAH() \
     qflow.qflow_mah
