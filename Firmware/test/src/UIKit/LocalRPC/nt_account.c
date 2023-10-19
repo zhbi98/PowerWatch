@@ -8,6 +8,7 @@
  *********************/
 
 #include "nt_account.h"
+#include "nt_master.h"
 
 /**********************
  *  STATIC PROTOTYPES
@@ -15,14 +16,36 @@
 
 static nt_acct_t * nt_acct_find_from_group(lv_ll_t * acct_group_p, 
     const int8_t * acct_id);
+static nt_acct_t ** nt_acct_find_node_from_group(
+    lv_ll_t * acct_group_p, const int8_t * acct_id);
 static int32_t notify(nt_acct_t * acct_p, nt_acct_t * pub_p,
     const void * data_p, uint32_t size);
 static int32_t pull(nt_acct_t * acct_p, nt_acct_t * pub_p, 
     void * data_p, uint32_t size);
+static void nt_acct_timer_callback_handler(lv_timer_t * timer);
+
+/**********************
+ *  STATIC VARIABLES
+ **********************/
+
+/**
+ * Define an account master, used to 
+ * store all registered accounts.
+ */
+static nt_master_t acct_master = {0};
 
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
+
+/**
+ * Define an account master and construct it, this master 
+ * used to store all registered accounts.
+ */
+void nt_acct_master_constructor()
+{
+    _nt_master_init(&acct_master);
+}
 
 /**
  * Define an account for a data member and use this constructor to initialize the account, 
@@ -62,8 +85,11 @@ uint8_t nt_acct_constructor(nt_acct_t * acct_p, const int8_t * acct_id,
         acct_p->priv.buf1 = buf1;
     }
 
-    _lv_ll_init(&acct_p->publishers_ll, sizeof(nt_acct_t));
-    _lv_ll_init(&acct_p->subscribers_ll, sizeof(nt_acct_t));
+    _lv_ll_init(&acct_p->publishers_ll, sizeof(nt_acct_t *));
+    _lv_ll_init(&acct_p->subscribers_ll, sizeof(nt_acct_t *));
+
+    nt_master_add_acct(&acct_master, acct_p);
+
     return NT_ACCT_OK;
 }
 
@@ -74,25 +100,28 @@ uint8_t nt_acct_constructor(nt_acct_t * acct_p, const int8_t * acct_id,
  */
 void nt_acct_destructor(nt_acct_t * acct_p)
 {
-    nt_acct_t * _acct;
+    nt_acct_t ** _node_p = NULL;
+    nt_acct_t * _acct_p = NULL;
 
     /*Ask the publisher to delete this subscriber*/
     while(acct_p->publishers_ll.head) {
-        _acct = _lv_ll_get_head(&acct_p->publishers_ll);
-        _lv_ll_remove(&acct_p->publishers_ll, _acct);
-        lv_mem_free(_acct);
+        _node_p = _lv_ll_get_head(&acct_p->publishers_ll);
+        _lv_ll_remove(&acct_p->publishers_ll, _node_p);
+        lv_mem_free(_node_p);
     }
     _lv_ll_clear(&acct_p->publishers_ll);
 
     /*Let subscribers unfollow*/
     while(acct_p->subscribers_ll.head) {
-        _acct = _lv_ll_get_head(&acct_p->subscribers_ll);
+        _node_p = _lv_ll_get_head(&acct_p->subscribers_ll);
+
+        _acct_p = *_node_p;
 
         /*Let subscribers unfollow*/
-        nt_acct_unsubscribe(_acct, acct_p->acct_id);
+        nt_acct_unsubscribe(_acct_p, acct_p->acct_id);
 
-        _lv_ll_remove(&acct_p->subscribers_ll, _acct);
-        lv_mem_free(_acct);
+        _lv_ll_remove(&acct_p->subscribers_ll, _node_p);
+        lv_mem_free(_node_p);
     }
     _lv_ll_clear(&acct_p->subscribers_ll);
 
@@ -114,11 +143,38 @@ void nt_acct_destructor(nt_acct_t * acct_p)
 static nt_acct_t * nt_acct_find_from_group(lv_ll_t * acct_group_p, 
     const int8_t * acct_id)
 {
-    nt_acct_t * _acct_p;
+    nt_acct_t ** _node_p = NULL;
+    nt_acct_t * _acct_p = NULL;
 
-    _LV_LL_READ_BACK(acct_group_p, _acct_p) {
+    _LV_LL_READ_BACK(acct_group_p, _node_p) {
+
+        _acct_p = *_node_p;
+
         if (!strcmp(acct_id, _acct_p->acct_id))
             return _acct_p;
+    }
+    return NULL;
+}
+
+/**
+ * Use this account to follow a publisher.
+ * @param acct_p pointer to an 'nt_acct_t' variable point to follow a publisher
+ * the account of the content publisher you are interested in.
+ * @param pub_id specifies the user name of the content publisher.
+ * @return pointer to find the account.
+ */
+static nt_acct_t ** nt_acct_find_node_from_group(
+    lv_ll_t * acct_group_p, const int8_t * acct_id)
+{
+    nt_acct_t ** _node_p = NULL;
+    nt_acct_t * _acct_p = NULL;
+
+    _LV_LL_READ_BACK(acct_group_p, _node_p) {
+
+        _acct_p = *_node_p;
+
+        if (!strcmp(acct_id, _acct_p->acct_id))
+            return _node_p;
     }
     return NULL;
 }
@@ -141,15 +197,24 @@ nt_acct_t * nt_acct_subscribe(nt_acct_t * acct_p, const int8_t * pub_id)
     if (acct_pub != NULL)
         return NULL;
 
+    /*Extracts the related account specified 
+    by name from the account list*/
+    acct_pub = nt_master_find_account(&acct_master, pub_id);
+    if (acct_pub == NULL) return NULL;
+
     /*Add the publisher to the subscription list*/
     nt_acct_t * publishers = _lv_ll_ins_head(&acct_p->publishers_ll);
     LV_ASSERT_MALLOC(publishers);
-    memcpy(publishers, acct_pub, sizeof(nt_acct_t));
+
+    memcpy(publishers, &acct_pub, sizeof(nt_acct_t *));
 
     /*Let the publisher add this subscriber*/
     nt_acct_t * subscribers = _lv_ll_ins_head(&acct_pub->subscribers_ll);
     LV_ASSERT_MALLOC(subscribers);
-    memcpy(subscribers, acct_p, sizeof(nt_acct_t));
+
+    memcpy(subscribers, &acct_p, sizeof(nt_acct_t *));
+
+    return acct_pub;
 }
 
 /**
@@ -162,18 +227,42 @@ nt_acct_t * nt_acct_subscribe(nt_acct_t * acct_p, const int8_t * pub_id)
  */
 uint8_t nt_acct_unsubscribe(nt_acct_t * acct_p, const int8_t * pub_id)
 {
+    nt_acct_t ** _node_p = NULL;
+    nt_acct_t * _publisher_p = NULL;
+    nt_acct_t * _subscriber_p = NULL;
+    nt_acct_t * _acct_p = NULL;
+
     /*Multiple subscriptions to the same content publisher*/
-    nt_acct_t * acct_pub = nt_acct_find_from_group(
+    _node_p = nt_acct_find_node_from_group(
         &acct_p->publishers_ll, pub_id);
-    if (acct_pub == NULL)
+    if (_node_p == NULL)
         return NT_ACCT_INV;
 
     /*Remove the publisher from the subscription list*/
-    _lv_ll_remove(&acct_p->publishers_ll, acct_pub);
-    lv_mem_free(acct_pub);
+    _lv_ll_remove(&acct_p->publishers_ll, _node_p);
+    lv_mem_free(_node_p);
+
+    _node_p = NULL;
+
+    /*Multiple subscriptions to the same content publisher*/
+    _publisher_p = nt_acct_find_from_group(
+        &acct_p->publishers_ll, pub_id);
+    if (_publisher_p == NULL)
+        return NT_ACCT_INV;
+
+    /*Multiple subscriptions to the same content publisher*/
+    _node_p = nt_acct_find_node_from_group(
+        &_publisher_p->subscribers_ll, acct_p->acct_id);
+    if (_node_p == NULL)
+        return NT_ACCT_INV;
+
     /*Let the publisher add this subscriber*/
-    _lv_ll_remove(&acct_pub->subscribers_ll, acct_p);
-    lv_mem_free(acct_p);
+    _lv_ll_remove(&_publisher_p->subscribers_ll, _node_p);
+    lv_mem_free(_node_p);
+
+    _node_p = NULL;
+
+    return NT_ACCT_OK;
 }
 
 /**
@@ -182,7 +271,8 @@ uint8_t nt_acct_unsubscribe(nt_acct_t * acct_p, const int8_t * pub_id)
  * @param data_p content data to be published.
  * @return commit result.
  */
-uint8_t nt_acct_commit(nt_acct_t * acct_p, const void * data_p, uint32_t size)
+uint8_t nt_acct_commit(nt_acct_t * acct_p, 
+    const void * data_p, uint32_t size)
 {
     if (!size || size != acct_p->priv.buffersize) return NT_ACCT_INV;
 
@@ -204,6 +294,7 @@ uint8_t nt_acct_commit(nt_acct_t * acct_p, const void * data_p, uint32_t size)
  */
 int32_t nt_acct_publish(nt_acct_t * acct_p)
 {
+    _nt_acct_event_param_t param = {0};
     int32_t retval = NT_ACCT_RES_UNKNOW;
     void * rbuf = NULL;
 
@@ -213,26 +304,31 @@ int32_t nt_acct_publish(nt_acct_t * acct_p)
     if (!nt_ppbuf_get_read_buf(&acct_p->priv.ppbuf, &rbuf))
         return NT_ACCT_RES_NO_COMMITED;
 
-    _nt_acct_event_param_t param;
     param.event = NT_ACCT_EVENT_PUB_PUBLISH;
     param.tran = acct_p;
     param.recv = NULL;
     param.data_p = rbuf;
     param.size = acct_p->priv.buffersize;
 
+    nt_acct_t ** _node_p = NULL;
     /*Publish messages to subscribers*/
-    nt_acct_t * subscribers;
+    nt_acct_t * subscribers = NULL;
 
-    _LV_LL_READ_BACK(&acct_p->subscribers_ll, subscribers) {
+    _LV_LL_READ_BACK(&acct_p->subscribers_ll, _node_p) {
+
+        subscribers = *_node_p;
+
         int32_t (* callback)(struct _nt_acct_t * acct, 
             _nt_acct_event_param_t * param
         ) = subscribers->priv.event_callback;
 
         if (callback != NULL) {
             param.recv = subscribers;
-            retval = callback(subscribers, &param);
-        }
-        else {
+            retval = callback(
+                subscribers, 
+                &param
+            );
+        } else {
             continue;
         }
     }
@@ -250,7 +346,8 @@ int32_t nt_acct_publish(nt_acct_t * acct_p)
  * @param size the size, in bytes, of the data or content contained in the notification.
  * @return the result of the operation.
  */
-int32_t nt_acct_pull_data(nt_acct_t * acct_p, const int8_t * pub_id, void * data_p, uint32_t size)
+int32_t nt_acct_pull_data(nt_acct_t * acct_p, 
+    const int8_t * pub_id, void * data_p, uint32_t size)
 {
     /*Multiple subscriptions to the same content publisher*/
     nt_acct_t * acct_pub = nt_acct_find_from_group(
@@ -268,10 +365,11 @@ int32_t nt_acct_pull_data(nt_acct_t * acct_p, const int8_t * pub_id, void * data
  * @param size the size, in bytes, of the data or content contained in the notification.
  * @return the result of the operation.
  */
-static int32_t pull(nt_acct_t * acct_p, nt_acct_t * pub_p, void * data_p, uint32_t size)
+static int32_t pull(nt_acct_t * acct_p, nt_acct_t * pub_p, 
+    void * data_p, uint32_t size)
 {
-    int32_t retval = NT_ACCT_RES_UNKNOW;
     void * rbuf = NULL;
+    int32_t retval = NT_ACCT_RES_UNKNOW;
     if (pub_p == NULL) return NT_ACCT_RES_NOT_FOUND;
 
     int32_t (* callback)(struct _nt_acct_t * acct, 
@@ -280,7 +378,7 @@ static int32_t pull(nt_acct_t * acct_p, nt_acct_t * pub_p, void * data_p, uint32
 
     if (callback != NULL) {
         _nt_acct_event_param_t param; /*Construct the notification parameter*/
-        param.event = NT_ACCT_EVENT_NOTIFY;
+        param.event = NT_ACCT_EVENT_SUB_PULL;
         param.tran = acct_p;
         param.recv = pub_p;
         param.data_p = (void *)data_p;
@@ -288,16 +386,17 @@ static int32_t pull(nt_acct_t * acct_p, nt_acct_t * pub_p, void * data_p, uint32
 
         int32_t ret = callback(pub_p, &param);
         retval = ret;
-    }
-    else {
+    } else {
         if (pub_p->priv.buffersize == size) {
-            if (!nt_ppbuf_get_read_buf(&pub_p->priv.ppbuf, &rbuf)) {
+            if (!nt_ppbuf_get_read_buf(
+                &pub_p->priv.ppbuf, &rbuf)
+            ) {
                 memcpy(data_p, rbuf, size);
-                nt_ppbuf_read_done(&pub_p->priv.ppbuf);
+                nt_ppbuf_read_done(
+                    &pub_p->priv.ppbuf);
                 retval = 0;
             }
-        }
-        else {
+        } else {
 
         }
     }
@@ -315,7 +414,8 @@ static int32_t pull(nt_acct_t * acct_p, nt_acct_t * pub_p, void * data_p, uint32
  * @param size the size, in bytes, of the data or content contained in the notification.
  * @return the result of the operation.
  */
-int32_t nt_acct_notify(nt_acct_t * acct_p, const int8_t * pub_id, const void * data_p, uint32_t size)
+int32_t nt_acct_notify(nt_acct_t * acct_p, const int8_t * pub_id, 
+    const void * data_p, uint32_t size)
 {
     /*Multiple subscriptions to the same content publisher*/
     nt_acct_t * acct_pub = nt_acct_find_from_group(
@@ -334,7 +434,8 @@ int32_t nt_acct_notify(nt_acct_t * acct_p, const int8_t * pub_id, const void * d
  * @param size the size, in bytes, of the data or content contained in the notification.
  * @return the result of the operation.
  */
-static int32_t notify(nt_acct_t * acct_p, nt_acct_t * pub_p, const void * data_p, uint32_t size)
+static int32_t notify(nt_acct_t * acct_p, nt_acct_t * pub_p, 
+    const void * data_p, uint32_t size)
 {
     int32_t retval = NT_ACCT_RES_UNKNOW;
     if (pub_p == NULL) return NT_ACCT_RES_NOT_FOUND;
@@ -399,7 +500,8 @@ void nt_acct_timer_callback_handler(lv_timer_t * timer)
 
 /**
  * Sets the firing period of the timer for the timed task.
- * @param acct_p pointer to an 'nt_acct_t' variable the account to set up for the timing cycle.
+ * @param acct_p pointer to an 'nt_acct_t' variable the 
+ * account to set up for the timing cycle.
  * @param period period of the timer.
  */
 void nt_acct_set_timer_period(nt_acct_t * acct_p, uint32_t period)
@@ -420,7 +522,8 @@ void nt_acct_set_timer_period(nt_acct_t * acct_p, uint32_t period)
 
 /**
  * Start or stop the timer.
- * @param acct_p pointer to an 'nt_acct_t' variable of need start or stop timer account.
+ * @param acct_p pointer to an 'nt_acct_t' variable 
+ * of need start or stop timer account.
  * @param en start or stop.
  */
 void nt_acct_set_timer_enable(nt_acct_t * acct_p, bool en)

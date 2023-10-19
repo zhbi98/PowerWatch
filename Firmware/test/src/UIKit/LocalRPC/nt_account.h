@@ -21,11 +21,17 @@
  *********************/
 
 /*
+ * Access the account specified by name.
+ */
+#define NT_ACCTOUNT(_name) \
+    _acct##_name
+
+/*
  * Set up an account for the data member and specify the account name. This builds a 
  * struct of type nt_acct_t.
  */
 #define NT_ACCTOUNT_START(_name, _namestr) \
-    nt_acct_t _acct##_name \
+    nt_acct_t _acct##_name = { \
     .acct_id = _namestr, \
     .publishers_ll = {0}, \
     .subscribers_ll = {0}, \
@@ -115,6 +121,7 @@ typedef struct _nt_acct_t {
  * GLOBAL PROTOTYPES
  **********************/
 
+void nt_acct_master_constructor();
 uint8_t nt_acct_constructor(nt_acct_t * acct_p, const int8_t * acct_id, 
     uint32_t bufsize, void * userdata);
 void nt_acct_destructor(nt_acct_t * acct_p);
@@ -122,10 +129,14 @@ nt_acct_t * nt_acct_subscribe(nt_acct_t * acct_p, const int8_t * pub_id);
 uint8_t nt_acct_unsubscribe(nt_acct_t * acct_p, const int8_t * pub_id);
 uint8_t nt_acct_commit(nt_acct_t * acct_p, const void * data_p, uint32_t size);
 int32_t nt_acct_publish(nt_acct_t * acct_p);
+int32_t nt_acct_pull_data(nt_acct_t * acct_p, const int8_t * pub_id, 
+    void * data_p, uint32_t size);
 int32_t nt_acct_notify(nt_acct_t * acct_p, const int8_t * pub_id, 
     const void * data_p, uint32_t size);
 void nt_acct_set_event_callback(nt_acct_t * acct_p, int (* callback)(
     struct _nt_acct_t * acct, _nt_acct_event_param_t * param));
+void nt_acct_set_timer_period(nt_acct_t * acct_p, uint32_t period);
+void nt_acct_set_timer_enable(nt_acct_t * acct_p, bool en);
 uint32_t nt_acct_get_publishers_size(nt_acct_t * acct_p);
 uint32_t nt_acct_get_subscribers_size(nt_acct_t * acct_p);
 

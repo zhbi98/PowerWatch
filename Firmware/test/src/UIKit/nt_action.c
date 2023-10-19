@@ -182,6 +182,7 @@ void nt_action_disp_enable_flush(nt_action_t * act_p)
 /**
  * Whether the active grouping needs to be drawn to the screen.
  * @param act_p pointer to an NT action.
+ * @return Whether the content has been updated.
  */
 bool nt_action_disp_need_flush(nt_action_t * act_p)
 {
@@ -207,6 +208,24 @@ void nt_action_set_event_valid(nt_action_t * act_p, uint16_t id, bool valid)
     act_p->allgroup[dep][grp].valid[id] = valid;
 
     nt_action_refresh(act_p);
+}
+
+/**
+ * Get the validity of the specified event.
+ * @param act_p pointer to an NT action.
+ * @id event id.
+ * @return validity of the specified event.
+ */
+bool nt_action_get_event_valid(nt_action_t * act_p, uint16_t id)
+{
+    bool valid = false;
+
+    if (id > 4) return false;
+
+    nt_action_refresh(act_p);
+    valid = (bool)act_p->actgroup.valid[id];
+
+    return valid;
 }
 
 /**

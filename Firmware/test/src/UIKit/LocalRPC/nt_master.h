@@ -36,9 +36,14 @@ typedef struct {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
+
 void _nt_master_init(nt_master_t * master_p);
-uint8_t nt_master_add_acct(nt_master_t * master_p, nt_acct_t * acct_p);
-uint8_t nt_master_remove_acct(nt_master_t * master_p, nt_acct_t * acct_p);
+nt_acct_t * nt_master_find_account(
+    nt_master_t * master_p, const int8_t * acct_id);
+uint8_t nt_master_add_acct(nt_master_t * master_p, 
+    nt_acct_t * acct_p);
+uint8_t nt_master_remove_acct(nt_master_t * master_p, 
+    nt_acct_t * acct_p);
 uint32_t nt_master_get_len(nt_master_t * master_p);
 
 #endif /*__NT_MASTER_H__*/

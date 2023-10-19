@@ -61,5 +61,6 @@ void nt_action_add_group(nt_action_t * act_p, uint16_t depth,
 void nt_action_disp_enable_flush(nt_action_t * act_p);
 bool nt_action_disp_need_flush(nt_action_t * act_p);
 void nt_action_set_event_valid(nt_action_t * act_p, uint16_t id, bool valid);
+bool nt_action_get_event_valid(nt_action_t * act_p, uint16_t id);
 
 #endif /*__NT_ACTION_H__*/
