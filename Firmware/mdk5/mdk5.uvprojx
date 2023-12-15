@@ -1354,9 +1354,9 @@
           <GroupName>UIKit</GroupName>
           <Files>
             <File>
-              <FileName>nt_action.c</FileName>
+              <FileName>nt_anim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_action.c</FilePath>
+              <FilePath>..\test\src\UIKit\nt_anim.c</FilePath>
             </File>
             <File>
               <FileName>nt_pm.c</FileName>
@@ -1364,14 +1364,19 @@
               <FilePath>..\test\src\UIKit\nt_pm.c</FilePath>
             </File>
             <File>
+              <FileName>nt_rm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\UIKit\nt_rm.c</FilePath>
+            </File>
+            <File>
               <FileName>nt_qq.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\UIKit\nt_qq.c</FilePath>
             </File>
             <File>
-              <FileName>nt_shot.c</FileName>
+              <FileName>nt_action.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_shot.c</FilePath>
+              <FilePath>..\test\src\UIKit\nt_action.c</FilePath>
             </File>
             <File>
               <FileName>nt_account.c</FileName>
@@ -1387,16 +1392,6 @@
               <FileName>nt_ppbuf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\UIKit\LocalRPC\nt_ppbuf.c</FilePath>
-            </File>
-            <File>
-              <FileName>nt_anim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_anim.c</FilePath>
-            </File>
-            <File>
-              <FileName>nt_rm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_rm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1477,14 +1472,14 @@
               <FilePath>..\test\src\Utils\time.c</FilePath>
             </File>
             <File>
-              <FileName>log.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\Utils\log.c</FilePath>
-            </File>
-            <File>
               <FileName>nt_minitask.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\test\src\Utils\nt_minitask.c</FilePath>
+            </File>
+            <File>
+              <FileName>nt_shot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test\src\Utils\nt_shot.c</FilePath>
             </File>
           </Files>
         </Group>

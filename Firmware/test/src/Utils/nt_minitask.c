@@ -17,7 +17,7 @@
  *      TYPEDEFS
  **********************/
 
-nt_task_manager_t tm = {
+nt_task_manager_t taskm = {
     .nt_task_list = {0},
     .cur_task_id = 0,
     .tick_count = 0,
@@ -37,7 +37,7 @@ void nt_task_add(nt_task_cb_t tcb, const uint32_t _delay,
     const uint32_t _period)
 {
     uint32_t task_id = 0;
-    nt_task_t * list_p = tm.nt_task_list;
+    nt_task_t * list_p = taskm.nt_task_list;
 
     while (
         (list_p[task_id].task_cb != NULL) && 
@@ -56,7 +56,7 @@ void nt_task_add(nt_task_cb_t tcb, const uint32_t _delay,
  */
 void nt_task_remove(nt_task_cb_t tcb)
 {
-    nt_task_t * list_p = tm.nt_task_list;
+    nt_task_t * list_p = taskm.nt_task_list;
 
     for (uint32_t i = 0; i < TASK_CNT; ) {
         if (list_p[i].task_cb != tcb) i++;
@@ -78,8 +78,8 @@ void nt_task_remove(nt_task_cb_t tcb)
 void nt_task_path(nt_task_cb_t tcb, const uint32_t _delay, 
     const uint32_t _period)
 {
-    nt_task_t * list_p = tm.nt_task_list;
-    uint32_t cur_id = tm.cur_task_id;
+    nt_task_t * list_p = taskm.nt_task_list;
+    uint32_t cur_id = taskm.cur_task_id;
 
     if ((cur_id > TASK_CNT) || (!_period)) return;
 
@@ -97,12 +97,12 @@ void nt_task_path(nt_task_cb_t tcb, const uint32_t _delay,
 void nt_task_handler()
 {
    uint32_t stat = 0;
-    nt_task_t * list_p = tm.nt_task_list;
-    uint32_t cur_id = tm.cur_task_id;
+    nt_task_t * list_p = taskm.nt_task_list;
+    uint32_t cur_id = taskm.cur_task_id;
 
     for (uint32_t i = 0; i < TASK_CNT; i++) {
         if (!list_p[i].delay) {
-            tm.cur_task_id = i;
+            taskm.cur_task_id = i;
             if (list_p[i].task_cb != NULL)
                 stat = (*list_p[i].task_cb)();
             list_p[i].delay = list_p[i].period;
@@ -111,11 +111,12 @@ void nt_task_handler()
 }
 
 /**
- * Gets the list number of the task callback function that is currently executing.
+ * Gets the list number of the task callback 
+ * function that is currently executing.
  */
 uint32_t nt_task_get_cur_id()
 {
-    return tm.cur_task_id;
+    return taskm.cur_task_id;
 }
 
 /**
@@ -124,9 +125,9 @@ uint32_t nt_task_get_cur_id()
  */
 void nt_task_tick_inc(uint32_t tick_period)
 {
-    nt_task_t * list_p = tm.nt_task_list;
+    nt_task_t * list_p = taskm.nt_task_list;
 
-    tm.tick_count += tick_period;
+    taskm.tick_count += tick_period;
     for (uint32_t i = 0; i < TASK_CNT; i++) {
         if (list_p[i].delay > 0) {
             list_p[i].delay -= tick_period;

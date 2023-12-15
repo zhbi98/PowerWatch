@@ -206,12 +206,8 @@ static void ontimer_update()
 
 static void attach_event(lv_obj_t * obj)
 {
-    lv_obj_add_event_cb(
-        obj, 
-        on_event, 
-        LV_EVENT_ALL, 
-        NULL
-    );
+    lv_obj_add_event_cb(obj, on_event, 
+        LV_EVENT_ALL, NULL);
 }
 
 #define CLICKED  LV_EVENT_CLICKED

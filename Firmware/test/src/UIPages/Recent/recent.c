@@ -161,12 +161,8 @@ static void ontimer_update()
 
 static void attach_event(lv_obj_t * obj)
 {
-    lv_obj_add_event_cb(
-        obj, 
-        on_event, 
-        LV_EVENT_ALL, 
-        NULL
-    );
+    lv_obj_add_event_cb(obj, on_event, 
+        LV_EVENT_ALL, NULL);
 }
 
 static void on_event(lv_event_t * event)

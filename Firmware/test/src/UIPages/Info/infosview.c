@@ -8,6 +8,7 @@
  *********************/
 
 #include "infosview.h"
+#include "resource.h"
 
 /*********************
  *      DEFINES
@@ -31,6 +32,10 @@ static void nt_infos_style_create();
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
+
+/*LV_FONT_DECLARE(font_bahnschrift_17);*/
+/*LV_FONT_DECLARE(font_bahnschrift_32);*/
+/*LV_FONT_DECLARE(font_bahnschrift_56);*/
 
 void nt_infos_style_create()
 {

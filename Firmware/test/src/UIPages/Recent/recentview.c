@@ -8,6 +8,7 @@
  *********************/
 
 #include "recentview.h"
+#include "resource.h"
 
 /*********************
  *      DEFINES
@@ -33,6 +34,10 @@ static void quantity_create(lv_obj_t * par);
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
+
+/*LV_FONT_DECLARE(font_bahnschrift_17);*/
+/*LV_FONT_DECLARE(font_bahnschrift_32);*/
+/*LV_FONT_DECLARE(font_bahnschrift_56);*/
 
 void nt_recent_style_create()
 {
@@ -87,6 +92,9 @@ void estimate_create(lv_obj_t * par)
     lv_obj_t * cont = NULL;
     lv_obj_t * bar = NULL;
 
+    lv_font_t * en_17_p = reqfont("bahnschrift_17");
+    lv_font_t * en_32_p = reqfont("bahnschrift_32");
+
     cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
     lv_obj_add_style(cont, &recent_view.style, 0);
@@ -114,9 +122,8 @@ void estimate_create(lv_obj_t * par)
 
     _label = lv_label_create(_cont);
     lv_obj_align(_label, LV_ALIGN_CENTER, 0, 0);
-    LV_FONT_DECLARE(font_bahnschrift_32);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
-    lv_obj_set_style_text_font(_label, &font_bahnschrift_32, 0);
+    lv_obj_set_style_text_font(_label, en_32_p, 0);
     lv_label_set_text(_label, "20:00");
 
     _cont = lv_obj_create(cont);
@@ -125,9 +132,8 @@ void estimate_create(lv_obj_t * par)
 
     _label = lv_label_create(_cont);
     lv_obj_align(_label, LV_ALIGN_CENTER, 0, 0);
-    LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
-    lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
+    lv_obj_set_style_text_font(_label, en_17_p, 0);
     lv_label_set_text(_label, "complet");
 
     _cont = lv_obj_create(cont);
@@ -147,6 +153,8 @@ void capacity_create(lv_obj_t * par)
     lv_obj_t * cont = NULL;
     lv_obj_t * spin = NULL;
     lv_obj_t * btn = NULL;
+
+    lv_font_t * en_17_p = reqfont("bahnschrift_17");
 
     cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
@@ -175,9 +183,8 @@ void capacity_create(lv_obj_t * par)
 
     _label = lv_label_create(_cont);
     lv_obj_align(_label, LV_ALIGN_CENTER, 0, 0);
-    LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
-    lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
+    lv_obj_set_style_text_font(_label, en_17_p, 0);
     lv_label_set_text(_label, "capacity");
 
     btn = lv_btn_create(cont);
@@ -199,6 +206,8 @@ void quantity_create(lv_obj_t * par)
     lv_obj_t * cont = NULL;
     lv_obj_t * spin = NULL;
     lv_obj_t * btn = NULL;
+
+    lv_font_t * en_17_p = reqfont("bahnschrift_17");
 
     cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
@@ -227,9 +236,8 @@ void quantity_create(lv_obj_t * par)
 
     _label = lv_label_create(_cont);
     lv_obj_align(_label, LV_ALIGN_CENTER, 0, 0);
-    LV_FONT_DECLARE(font_bahnschrift_17);
     lv_obj_set_style_text_color(_label, lv_color_hex(0x3C3C3C), 0);
-    lv_obj_set_style_text_font(_label, &font_bahnschrift_17, 0);
+    lv_obj_set_style_text_font(_label, en_17_p, 0);
     lv_label_set_text(_label, "capacity");
 
     btn = lv_btn_create(cont);
