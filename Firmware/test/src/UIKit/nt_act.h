@@ -10,7 +10,6 @@
  *      INCLUDES
  *********************/
 
-#include "usb_dev_cdc_class.h"
 #include "statbarview.h"
 #include "log.h"
 #include "lvgl.h"
@@ -53,33 +52,26 @@ typedef struct {
     lv_coord_t h;
 } nt_active_area_t;
 
+/**
+ * Describes the information contained 
+ * in an activity.
+ */
 typedef struct {
-    uint16_t act_id;
-    uint8_t act_name[8];
-    uint8_t act_pri;
+    uint16_t act_id; /**< Specify a number for the activity*/
+    uint8_t act_name[8]; /**< Specify a nameactivity*/
+    uint8_t act_pri; /**< The weight of the activity*/
 } nt_active_desc_t;
 
 /**
- * Descriptor a active
- * controller object.
+ * Descriptor a activity
+ * object.
  */
 typedef struct {
-    uint16_t idx;
+    uint16_t idx; /**< Index of active desc in the registry*/
     bool anim;
     uint8_t name[8];
     bool isact;
 } nt_active_t;
-
-/**
- * An activity that can be run in active.
- */
-typedef struct {
-    uint8_t time;
-    uint8_t usb;
-    uint8_t timer;
-    uint8_t sound;
-    uint8_t battery;
-} nt_event_state_t;
 
 /**********************
  * GLOBAL PROTOTYPES
@@ -183,66 +175,6 @@ void nt_active_filte_node();
  * update the active bar and so on.
  */
 void nt_active_update();
-
-/**
- * Sets the state of the system time event state.
- * @param state time state.
- */
-void nt_event_set_time_state(bool state);
-
-/**
- * gets the state of the system time event state.
- * @return time state.
- */
-bool nt_event_get_time_state();
-
-/**
- * Sets the state of the system usb event state.
- * @param state usb state.
- */
-void nt_event_set_usb_state(bool state);
-
-/**
- * gets the state of the system usb event state.
- * @return usb state.
- */
-bool nt_event_get_usb_state();
-
-/**
- * Sets the state of the system timer event state.
- * @param state timer state.
- */
-void nt_event_set_timer_state(bool state);
-
-/**
- * gets the state of the system timer event state.
- * @return timer state.
- */
-bool nt_event_get_timer_state();
-
-/**
- * Sets the state of the system sound event state.
- * @param state sound state.
- */
-void nt_event_set_sound_state(bool state);
-
-/**
- * gets the state of the system sound event state.
- * @return sound state.
- */
-bool nt_event_get_sound_state();
-
-/**
- * Sets the state of the system battery event state.
- * @param state battery state.
- */
-void nt_event_set_battery_state(bool state);
-
-/**
- * gets the state of the system battery event state.
- * @return battery state.
- */
-bool nt_event_get_battery_state();
 
 /**
  * Registers the defined event object with 

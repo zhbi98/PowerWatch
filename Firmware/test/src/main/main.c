@@ -36,6 +36,8 @@
 #include "recentview.h"
 #include "recent.h"
 
+#include "resource.h"
+
 /**********************
  * GLOBAL FUNCTIONS
  **********************/
@@ -235,6 +237,8 @@ int main()
         lv_color_white()
         /*lv_color_black()*/
     );
+
+    _nt_resource_init();
 
     _nt_view_pointer_init(&dialplateview);
     _nt_view_pointer_init(&recentview);

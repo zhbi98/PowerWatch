@@ -16,8 +16,6 @@
 static const uint16_t 
 active_symbol_width[_NT_ACTIVE_LAST] = {34, 20, 16, 16, 24};
 
-static nt_event_state_t event_state = {0};
-
 const nt_active_desc_t * register_desc[8] = {0};
 uint16_t register_cnt = 0;
 
@@ -621,101 +619,6 @@ static void nt_active_set_size(void * data,
         statbar_view.cont, 
         act_ori_width + x_ofs
     );
-}
-
-/**
- * Sets the state of the system time event state.
- * @param state time state.
- */
-void nt_event_set_time_state(bool state)
-{
-    if (state != event_state.time)
-        event_state.time = state;
-}
-
-/**
- * gets the state of the system time event state.
- * @return time state.
- */
-bool nt_event_get_time_state()
-{
-    return event_state.time;
-}
-
-/**
- * Sets the state of the system usb event state.
- * @param state usb state.
- */
-void nt_event_set_usb_state(bool state)
-{
-    if (state != event_state.usb)
-        event_state.usb = state;
-}
-
-/**
- * gets the state of the system usb event state.
- * @return usb state.
- */
-bool nt_event_get_usb_state()
-{
-    return event_state.usb;
-}
-
-/**
- * Sets the state of the system timer event state.
- * @param state timer state.
- */
-void nt_event_set_timer_state(bool state)
-{
-    if (state != event_state.timer)
-        event_state.timer = state;
-}
-
-/**
- * gets the state of the system timer event state.
- * @return timer state.
- */
-bool nt_event_get_timer_state()
-{
-    return event_state.timer;
-}
-
-/**
- * Sets the state of the system sound event state.
- * @param state sound state.
- */
-void nt_event_set_sound_state(bool state)
-{
-    if (state != event_state.sound)
-        event_state.sound = state;
-}
-
-/**
- * gets the state of the system sound event state.
- * @return sound state.
- */
-bool nt_event_get_sound_state()
-{
-    return event_state.sound;
-}
-
-/**
- * Sets the state of the system battery event state.
- * @param state battery state.
- */
-void nt_event_set_battery_state(bool state)
-{
-    if (state != event_state.battery)
-        event_state.battery = state;
-}
-
-/**
- * gets the state of the system battery event state.
- * @return battery state.
- */
-bool nt_event_get_battery_state()
-{
-    return event_state.battery;
 }
 
 /**

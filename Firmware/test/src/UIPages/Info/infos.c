@@ -13,6 +13,10 @@
  *      DEFINES
  *********************/
 
+#define CONFIG_INFO_TIMER_PERIOD 1000 /*200ms*/
+#define CONFIG_INFO_REFR_PERIOD0 100 /*100ms*/
+#define CONFIG_INFO_REFR_PERIOD1 100 /*100ms*/
+
 /**********************
  *  STATIC PROTOTYPES
  **********************/
@@ -54,17 +58,28 @@ static struct {
  * GLOBAL PROTOTYPES
  **********************/
 
+/**
+ * The page does not exist, and you need to perform a page 
+ * load operation to create a new page.
+ */
 static void view_load(lv_obj_t * root)
 {
     infos_create(root);
     attach_event(infos_view.cont);
 }
 
+/**
+ * The page does not exist, and you need to perform a page 
+ * load operation to create a new page.
+ */
 static void view_did_load()
 {
 
 }
 
+/**
+ * Will appear callback function, will appear.
+ */
 static void view_will_appear()
 {
     lv_indev_wait_release(lv_indev_get_act());
@@ -72,32 +87,59 @@ static void view_will_appear()
     lv_group_remove_all_objs(group);
 
     lv_group_add_obj(group, infos_view.cont);
-}
 
-static void view_did_appear()
-{
-    priv.timer = lv_timer_create(
-        ontimer_update, 
-        1000, 
-        NULL
+    nt_pm_loadanim_set_custom_type(
+        LOAD_ANIM_MOVE_TOP, 400, 
+        lv_anim_path_ease_out
     );
 }
 
+/**
+ * Did appear callback function, did appear.
+ */
+static void view_did_appear()
+{
+    /*The loaded page is already disappeared*/
+    priv.timer = lv_timer_create(
+        ontimer_update, 
+        CONFIG_INFO_TIMER_PERIOD, 
+        NULL);
+}
+
+/**
+ * Will disappear callback function, will disappear.
+ */
 static void view_will_disappear()
 {
     lv_group_t * group = lv_group_get_default();
     lv_group_remove_all_objs(group);
     lv_timer_del(priv.timer);
+
+    nt_pm_loadanim_set_custom_type(
+        LOAD_ANIM_MOVE_TOP, 400, 
+        lv_anim_path_ease_out
+    );
 }
 
+/**
+ * Did disappear callback function, did disappear.
+ */
 static void view_did_disappear()
 {
-
+    /*The loaded page is already disappeared*/
 }
 
+/**
+ * Unload callback function, unload page.
+ */
 static void view_did_unload()
 {
-
+    /**
+     * The Page's cache will be released, 
+     * and if the page contains dynamic 
+     * resources, release them manually
+     * under this function
+     */
 }
 
 static void update()

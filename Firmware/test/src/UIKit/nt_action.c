@@ -116,7 +116,8 @@ void nt_action_set_group(nt_action_t * act_p, uint16_t group)
  * @param code event code.
  * @param param additional param.
  */
-void nt_action_event_send(nt_action_t * act_p, uint16_t id, uint8_t code, void * param)
+void nt_action_event_send(nt_action_t * act_p, uint16_t id, 
+    uint8_t code, void * param)
 {
     if (id > 4) return;
 
@@ -126,7 +127,8 @@ void nt_action_event_send(nt_action_t * act_p, uint16_t id, uint8_t code, void *
 
     if (!act_p->actgroup.valid[id]) return;
 
-    event_cb(code, param);
+    if (event_cb != NULL)
+        event_cb(code, param);
 }
 
 /**
@@ -135,7 +137,8 @@ void nt_action_event_send(nt_action_t * act_p, uint16_t id, uint8_t code, void *
  * @param code.
  * @param param.
  */
-void nt_action_disp_flush(nt_action_t * act_p, uint8_t code, void * param)
+void nt_action_disp_flush(nt_action_t * act_p, 
+    uint8_t code, void * param)
 {
     if (!act_p->need_flush) return;
 
@@ -143,7 +146,8 @@ void nt_action_disp_flush(nt_action_t * act_p, uint8_t code, void * param)
 
     _disp_cb_t disp_cb = act_p->actgroup.disp_cb;
 
-    disp_cb(code, param);
+    if (disp_cb != NULL)
+        disp_cb(code, param);
 
     act_p->need_flush = false;
 }
@@ -195,7 +199,8 @@ bool nt_action_disp_need_flush(nt_action_t * act_p)
  * @id event id.
  * @valid event validity.
  */
-void nt_action_set_event_valid(nt_action_t * act_p, uint16_t id, bool valid)
+void nt_action_set_event_valid(nt_action_t * act_p, 
+    uint16_t id, bool valid)
 {
     if (id > 4) return;
 

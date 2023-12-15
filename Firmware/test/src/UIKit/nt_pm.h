@@ -16,6 +16,7 @@
 #include "lvgl.h"
 #include "nt_qq.h"
 #include "log.h"
+#include "nt_anim.h"
 
 /*********************
  *      DEFINES
@@ -64,7 +65,18 @@ typedef struct {
     nt_state_t state;
     uint8_t name[16];
     uint16_t idx;
-    bool is_enter;
+
+    /*Private data, Only page manager access*/
+    struct {
+        bool is_disable_auto_cache; /**< Automatic cache management*/
+        bool is_cached; /**< Cache enable*/
+        /*Animation state*/
+        struct {
+            bool is_enter;           /** <Whether it is the entering party*/
+            bool is_busy;            /** <Whether the animation is playing*/
+            anim_attr_t attr;        /** <Animation properties*/
+        } anim;
+    } priv;
 } nt_page_t;
 
 /**
@@ -103,15 +115,24 @@ nt_state_t nt_state_unload_execute(nt_page_t * page_p);
 
 /**
  * Structure for holding page animation state.
+ * Manages the state of the page scheduler.
  */
 typedef struct {
     bool is_switch_req; /**< Whether to rotations request*/
     bool is_busy;       /**< Is rotation*/
     bool is_pushing;    /**< Whether it is in push state*/
+
+    anim_attr_t current;
+    anim_attr_t global; 
 } nt_anim_state_t;
 
 void nt_pm_view_rotations_anim_create(nt_page_t * page_p);
 void nt_pm_anim_default_init(lv_anim_t * a);
 void nt_pm_view_rotations_anim_finish(lv_anim_t * a);
+
+void nt_pm_loadanim_set_custom_type(uint8_t anim_type, 
+    uint16_t time, lv_anim_path_cb_t path);
+nt_load_anim_t nt_pm_loadanim_get_current_type();
+bool nt_pm_loadanim_get_current_attr(load_anim_attr_t * attr);
 
 #endif /*NT_PM_H*/

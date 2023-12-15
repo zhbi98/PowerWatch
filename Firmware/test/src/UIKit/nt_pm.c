@@ -135,8 +135,12 @@ nt_res_t nt_start_page(uint8_t * name)
     /*Call the ancestor's view handler*/
     nt_res_t res = nt_pm_name_get_view_id(name, &act_view_idx);
 
-    if(res != NT_RES_OK || anim_state.is_busy)
+    if(res != NT_RES_OK || anim_state.is_switch_req)
         return NT_RES_INV;
+
+    /*The page scheduler is executing a 
+    switch request for a page*/
+    anim_state.is_switch_req = true;
 
     /*Prevent duplicate scheduling of pages*/
     if (act_view_idx == prev)
@@ -178,16 +182,20 @@ nt_res_t nt_start_page(uint8_t * name)
         pages[0].state = NT_STATE_WILLAPPEAR;
     }
 
-    if (pages[1].root != NULL) pages[1].is_enter = false;
-    pages[0].is_enter = true;
+    if (pages[1].root != NULL) pages[1].priv.anim.is_enter = false;
+    pages[0].priv.anim.is_enter = true;
+
+    anim_state.is_pushing = false;
+
+    if (anim_state.is_pushing) {}
 
     /*Update status information for new and old pages*/
     nt_page_state_update(&pages[1]);
     nt_page_state_update(&pages[0]);
 
-    bool ispushing = true;
+    /*bool is_pushing = true;*/
 
-    if (ispushing) {
+    if (anim_state.is_pushing) {
         if (pages[1].root) lv_obj_move_foreground(pages[1].root);
         lv_obj_move_foreground(pages[0].root);
     } else {
@@ -215,7 +223,7 @@ void nt_page_state_update(nt_page_t * page_p)
         break;
     case NT_STATE_WILLAPPEAR:
         page_p->state = nt_state_will_appear_execute(page_p);
-        nt_page_state_update(page_p);
+        /*nt_page_state_update(page_p);*/
         break;
     case NT_STATE_DIDAPPEAR:
         page_p->state = nt_state_did_appear_execute(page_p);
@@ -226,7 +234,7 @@ void nt_page_state_update(nt_page_t * page_p)
         break;
     case NT_STATE_WILLDISAPPEAR:
         page_p->state = nt_state_will_disappear_execute(page_p);
-        nt_page_state_update(page_p);
+        /*nt_page_state_update(page_p);*/
         break;
     case NT_STATE_DIDDISAPPEAR:
         page_p->state = nt_state_did_disappear_execute(page_p);
@@ -246,12 +254,23 @@ void nt_page_state_update(nt_page_t * page_p)
  */
 nt_state_t nt_state_load_execute(nt_page_t * page_p)
 {
+    /*If a page needs to be created, then the page has 
+      not been created or released*/
+    if (page_p->root != NULL) {
+        /*info("Root must be NULL");*/
+    }
+
     lv_obj_t * root_obj = lv_obj_create(lv_scr_act());
     lv_obj_set_size(root_obj, 320, 240);
     lv_obj_clear_flag(root_obj, LV_OBJ_FLAG_SCROLLABLE);
     page_p->root = root_obj;
     views[page_p->idx]->load_view(page_p->root);
     views[page_p->idx]->view_did_load();
+
+    if (page_p->priv.is_disable_auto_cache)
+        page_p->priv.is_cached = false;
+    else page_p->priv.is_cached = true;
+
     return NT_STATE_WILLAPPEAR;
 }
 
@@ -298,14 +317,20 @@ nt_state_t nt_state_will_disappear_execute(nt_page_t * page_p)
  */
 nt_state_t nt_state_did_disappear_execute(nt_page_t * page_p)
 {
+    nt_load_anim_t _amin = nt_pm_loadanim_get_current_type();
+    
+    /*No matter what kind of animation, 
+    do not show when directly hidden*/
+    if (1/*_amin == LOAD_ANIM_FADE_ON*/) {
+
+        lv_obj_add_flag(page_p->root, 
+            LV_OBJ_FLAG_HIDDEN);
+
+    }
+
     views[page_p->idx]->view_did_disappear();
 
-    bool load_anim_fade_on = false;
-
-    if (load_anim_fade_on)
-        lv_obj_add_flag(page_p->root, LV_OBJ_FLAG_HIDDEN);
-
-    bool is_cached = true;
+    bool is_cached = page_p->priv.is_cached;
 
     if (is_cached) return NT_STATE_WILLDISAPPEAR;
     else return NT_STATE_UNLOAD;
@@ -318,11 +343,61 @@ nt_state_t nt_state_did_disappear_execute(nt_page_t * page_p)
  */
 nt_state_t nt_state_unload_execute(nt_page_t * page_p)
 {
+    if (page_p->root == NULL) return NT_STATE_IDLE;
+
     lv_obj_del_async(page_p->root);
     page_p->root = NULL;
+    page_p->priv.is_cached = false;
 
     views[page_p->idx]->view_did_unload();
     return NT_STATE_IDLE;
+}
+
+/**
+ * Set animation default parameters.
+ * @param anim_type the type of animation.
+ * @param time set the duration of the animation.
+ * @param path the execution path set for the animation.
+ */
+void nt_pm_loadanim_set_custom_type(uint8_t anim_type, uint16_t time,
+    lv_anim_path_cb_t path)
+{
+    if (anim_type > _LOAD_ANIM_LAST)
+        anim_type = LOAD_ANIM_NONE;
+
+    anim_state.current.type = anim_type;
+    anim_state.current.time = time;
+    anim_state.current.path = path;
+}
+
+/**
+ * Set animation default parameters.
+ * @param a pointer to an 'lv_anim_t' animation.
+ * @return gets the type of animation that is 
+ * currently executing.
+ */
+nt_load_anim_t nt_pm_loadanim_get_current_type()
+{
+    nt_load_anim_t _amin = LOAD_ANIM_NONE;
+    _amin = (nt_load_anim_t)anim_state.current.type;
+
+    return _amin;
+}
+
+/**
+ * Set animation default parameters.
+ * @param a pointer to an 'lv_anim_t' animation.
+ * @return whether the properties 
+ * of the page are valid.
+ */
+bool nt_pm_loadanim_get_current_attr(load_anim_attr_t * attr)
+{
+    nt_load_anim_t _amin = \
+        nt_pm_loadanim_get_current_type();
+    bool res = nt_anim_loadanim_get_attr(
+        _amin, attr);
+
+    return res;
 }
 
 /**
@@ -331,47 +406,60 @@ nt_state_t nt_state_unload_execute(nt_page_t * page_p)
  */
 void nt_pm_view_rotations_anim_create(nt_page_t * page_p)
 {
+    load_anim_attr_t animAttr = {0};
+
+    bool res = nt_pm_loadanim_get_current_attr(&animAttr);
+    if (!res) return;
+
     lv_anim_t a;
     nt_pm_anim_default_init(&a);
     lv_anim_set_user_data(&a, page_p);
     lv_anim_set_var(&a, page_p->root);
     lv_anim_set_ready_cb(&a, nt_pm_view_rotations_anim_finish);
-    lv_anim_set_exec_cb(&a, lv_obj_set_y);
+    lv_anim_set_exec_cb(&a, animAttr.setter);
 
-    bool ispushing = false;
+    /*bool is_pushing = false;*/
 
-    if (ispushing) {
-        if (page_p->is_enter) {
+    int32_t start = 0;
+
+    if (animAttr.getter != NULL) {
+        start = animAttr.getter(page_p->root);
+    }
+
+    if (anim_state.is_pushing) {
+        if (page_p->priv.anim.is_enter) {
             lv_anim_set_values(
                 &a,
-                240,
-                0
+                animAttr.push.enter.start,
+                animAttr.push.enter.end
             );
         } else {
+            /*Exit anim*/
             lv_anim_set_values(
                 &a,
-                0,
-                -240
+                start,
+                animAttr.push.exit.end
             );
         }
     } else {
-        if (page_p->is_enter) {
+        if (page_p->priv.anim.is_enter) {
             lv_anim_set_values(
                 &a,
-                -240,
-                0
+                animAttr.pop.enter.start,
+                animAttr.pop.enter.end
             );
         } else {
+            /*Exit anim*/
             lv_anim_set_values(
                 &a,
-                0,
-                240
+                start,
+                animAttr.pop.exit.end
             );
         }
     }
 
     lv_anim_start(&a);
-    anim_state.is_busy = true;
+    page_p->priv.anim.is_busy = true;
 }
 
 /**
@@ -384,9 +472,76 @@ void nt_pm_anim_default_init(lv_anim_t * a)
 
     lv_anim_path_cb_t path = lv_anim_path_ease_out;
 
-    uint32_t time = /*600*/200;
+    nt_load_anim_t _amin = \
+        nt_pm_loadanim_get_current_type();
+
+    uint32_t time = (
+        _amin == LOAD_ANIM_NONE
+    ) ? 0 : anim_state.current.time;
+
     lv_anim_set_time(a, time);
-    lv_anim_set_path_cb(a, path);
+    lv_anim_set_path_cb(a, 
+        anim_state.current.path);
+}
+
+/**
+ * Check if the page switching animation is being executed.
+ * @return true if it is executing.
+ */
+bool switch_anim_state_end()
+{
+    if (anim_state.is_switch_req || 
+        anim_state.is_busy) return false;
+    return true;
+}
+
+/**
+ * Page switching request check.
+ * @return true if all pages are executed.
+ */
+bool switch_req_check()
+{
+    bool last_node_busy = false;
+    bool node_busy = false;
+    bool ret = false;
+
+    last_node_busy = pages[1].priv.anim.is_busy;
+    node_busy = pages[0].priv.anim.is_busy;
+
+    if (!node_busy && !last_node_busy) {
+        /*Page switch was all finished*/
+        anim_state.is_switch_req = false;
+        ret = true;
+    } else {
+        if (node_busy) {
+            /*Current page is busy*/
+        } else {
+            /*Prev page is busy*/
+        }
+    }
+
+    return ret;
+}
+
+/**
+ * Update current animation properties, apply page custom animation
+ * @param page_p pointer to an 'nt_page_t' page, the page to animate.
+ */
+void switch_anim_update(nt_page_t * page_p)
+{
+    nt_load_anim_t _anim = page_p->priv.anim.attr.type;
+
+    if (_anim == LOAD_ANIM_GLOBAL)
+        anim_state.current = \
+            anim_state.global;
+    else {
+        if (_anim > _LOAD_ANIM_LAST)
+            page_p->priv.anim.attr = \
+                anim_state.global;
+        else {}
+        anim_state.current = \
+            page_p->priv.anim.attr;
+    }
 }
 
 /**
@@ -396,5 +551,12 @@ void nt_pm_anim_default_init(lv_anim_t * a)
 void nt_pm_view_rotations_anim_finish(lv_anim_t * a)
 {
     nt_page_t * page_p = (nt_page_t *)lv_anim_get_user_data(a);
-    anim_state.is_busy = false;
+
+    /*The state of the page needs to be updated 
+    once the animation of the page ends*/
+    nt_page_state_update(page_p);
+
+    page_p->priv.anim.is_busy = false;
+    bool is_finished = switch_req_check();
+    if (is_finished) {}
 }

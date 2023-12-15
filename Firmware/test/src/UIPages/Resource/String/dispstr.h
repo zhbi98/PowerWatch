@@ -24,22 +24,22 @@
  * NT display string idx.
  */
 enum {
-    NT_V = 0,
-    NT_MV,
-    NT_UA,
-    NT_MA,
-    NT_A,
-    NT_RESTART,
-    NT_HZ,
-    NT_FREQ,
-    NT_CELS,
-    NT_FAHR,
-    NT_DUTY,
-    NT_X1X3,
-    NT_MODE,
-    NT_UP,
-    NT_DOWN,
-    NT_STR,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
+    NT_RESERVE,
 };
 typedef uint8_t nt_dispstr_t;
 

@@ -54,7 +54,8 @@ void nt_action_default_set(nt_action_t * act_p);
 void nt_action_refresh(nt_action_t * act_p);
 void nt_action_set_depth(nt_action_t * act_p, uint16_t depth);
 void nt_action_set_group(nt_action_t * act_p, uint16_t group);
-void nt_action_event_send(nt_action_t * act_p, uint16_t id, uint8_t code, void * param);
+void nt_action_event_send(nt_action_t * act_p, uint16_t id, 
+    uint8_t code, void * param);
 void nt_action_disp_flush(nt_action_t * act_p, uint8_t code, void * param);
 void nt_action_add_group(nt_action_t * act_p, uint16_t depth, 
     uint16_t group, _action_group_t * actgroup);
