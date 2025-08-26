@@ -70,41 +70,39 @@ ARM Macro Assembler    Page 2
 
 
    42 00000000         
-   43 00000000 00002000 
+   43 00000000 00000400 
                        Stack_Size
-                               EQU              0x00002000  ; 0x00000400 modify
-                                                             by zhbi
+                               EQU              0x00000400
    44 00000000         
    45 00000000                 AREA             STACK, NOINIT, READWRITE, ALIGN
  = 3
    46 00000000         Stack_Mem
                                SPACE            Stack_Size
-   47 00002000         __initial_sp
-   48 00002000         
-   49 00002000         
-   50 00002000         ; <h> Heap Configuration
-   51 00002000         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
-   52 00002000         ; </h>
-   53 00002000         
-   54 00002000 00002000 
+   47 00000400         __initial_sp
+   48 00000400         
+   49 00000400         
+   50 00000400         ; <h> Heap Configuration
+   51 00000400         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   52 00000400         ; </h>
+   53 00000400         
+   54 00000400 00000200 
                        Heap_Size
-                               EQU              0x00002000  ; 0x00000200 modify
-                                                             by zhbi
-   55 00002000         
-   56 00002000                 AREA             HEAP, NOINIT, READWRITE, ALIGN 
+                               EQU              0x00000200
+   55 00000400         
+   56 00000400                 AREA             HEAP, NOINIT, READWRITE, ALIGN 
 = 3
    57 00000000         __heap_base
    58 00000000         Heap_Mem
                                SPACE            Heap_Size
-   59 00002000         __heap_limit
-   60 00002000         
-   61 00002000         
-   62 00002000                 PRESERVE8
-   63 00002000                 THUMB
-   64 00002000         
-   65 00002000         ;                   /* reset Vector Mapped to at Address
+   59 00000200         __heap_limit
+   60 00000200         
+   61 00000200         
+   62 00000200                 PRESERVE8
+   63 00000200                 THUMB
+   64 00000200         
+   65 00000200         ;                   /* reset Vector Mapped to at Address
                         0 */
-   66 00002000                 AREA             RESET, DATA, READONLY
+   66 00000200                 AREA             RESET, DATA, READONLY
    67 00000000                 EXPORT           __Vectors
    68 00000000                 EXPORT           __Vectors_End
    69 00000000                 EXPORT           __Vectors_Size
@@ -128,14 +126,14 @@ ARM Macro Assembler    Page 2
    79 00000020 00000000        DCD              0           ; Reserved
    80 00000024 00000000        DCD              0           ; Reserved
    81 00000028 00000000        DCD              0           ; Reserved
+   82 0000002C 00000000        DCD              SVC_Handler ; SVCall Handler
+   83 00000030 00000000        DCD              DebugMon_Handler ; Debug Monito
 
 
 
 ARM Macro Assembler    Page 3 
 
 
-   82 0000002C 00000000        DCD              SVC_Handler ; SVCall Handler
-   83 00000030 00000000        DCD              DebugMon_Handler ; Debug Monito
                                                             r Handler
    84 00000034 00000000        DCD              0           ; Reserved
    85 00000038 00000000        DCD              PendSV_Handler ; PendSV Handler
@@ -193,14 +191,14 @@ ARM Macro Assembler    Page 3
                                                             
   110 00000094 00000000        DCD              CAN0_RX1_IRQHandler 
                                                             ; 37:CAN0 RX1
+  111 00000098 00000000        DCD              CAN0_EWMC_IRQHandler 
+                                                            ; 38:CAN0 EWMC
 
 
 
 ARM Macro Assembler    Page 4 
 
 
-  111 00000098 00000000        DCD              CAN0_EWMC_IRQHandler 
-                                                            ; 38:CAN0 EWMC
   112 0000009C 00000000        DCD              EXTI5_9_IRQHandler ; 39:EXTI Li
                                                             ne 5 to EXTI Line 9
                                                             
@@ -258,14 +256,14 @@ ARM Macro Assembler    Page 4
   141 00000110 00000000        DCD              UART3_IRQHandler ; 68:UART3
   142 00000114 00000000        DCD              UART4_IRQHandler ; 69:UART4
   143 00000118 00000000        DCD              TIMER5_IRQHandler ; 70:TIMER5
+  144 0000011C 00000000        DCD              TIMER6_IRQHandler ; 71:TIMER6
+  145 00000120 00000000        DCD              DMA1_Channel0_IRQHandler 
 
 
 
 ARM Macro Assembler    Page 5 
 
 
-  144 0000011C 00000000        DCD              TIMER6_IRQHandler ; 71:TIMER6
-  145 00000120 00000000        DCD              DMA1_Channel0_IRQHandler 
                                                             ; 72:DMA1 Channel0
   146 00000124 00000000        DCD              DMA1_Channel1_IRQHandler 
                                                             ; 73:DMA1 Channel1
@@ -323,14 +321,14 @@ ARM Macro Assembler    Page 5
   184 0000000E                 EXPORT           BusFault_Handler               
      [WEAK]
   185 0000000E E7FE            B                .
+  186 00000010                 ENDP
+  187 00000010         
 
 
 
 ARM Macro Assembler    Page 6 
 
 
-  186 00000010                 ENDP
-  187 00000010         
   188 00000010         UsageFault_Handler
                                PROC
   189 00000010                 EXPORT           UsageFault_Handler             
@@ -388,14 +386,14 @@ ARM Macro Assembler    Page 6
      [WEAK]
   223 0000001A                 EXPORT           EXTI2_IRQHandler               
      [WEAK]
+  224 0000001A                 EXPORT           EXTI3_IRQHandler               
+     [WEAK]
 
 
 
 ARM Macro Assembler    Page 7 
 
 
-  224 0000001A                 EXPORT           EXTI3_IRQHandler               
-     [WEAK]
   225 0000001A                 EXPORT           EXTI4_IRQHandler               
      [WEAK]
   226 0000001A                 EXPORT           DMA0_Channel0_IRQHandler       
@@ -453,14 +451,14 @@ ARM Macro Assembler    Page 7
   252 0000001A                 EXPORT           USART0_IRQHandler              
      [WEAK]
   253 0000001A                 EXPORT           USART1_IRQHandler              
+     [WEAK]
+  254 0000001A                 EXPORT           USART2_IRQHandler              
 
 
 
 ARM Macro Assembler    Page 8 
 
 
-     [WEAK]
-  254 0000001A                 EXPORT           USART2_IRQHandler              
      [WEAK]
   255 0000001A                 EXPORT           EXTI10_15_IRQHandler           
      [WEAK]
@@ -518,14 +516,14 @@ ARM Macro Assembler    Page 8
   288 0000001A         EXTI4_IRQHandler
   289 0000001A         DMA0_Channel0_IRQHandler
   290 0000001A         DMA0_Channel1_IRQHandler
+  291 0000001A         DMA0_Channel2_IRQHandler
+  292 0000001A         DMA0_Channel3_IRQHandler
 
 
 
 ARM Macro Assembler    Page 9 
 
 
-  291 0000001A         DMA0_Channel2_IRQHandler
-  292 0000001A         DMA0_Channel3_IRQHandler
   293 0000001A         DMA0_Channel4_IRQHandler
   294 0000001A         DMA0_Channel5_IRQHandler
   295 0000001A         DMA0_Channel6_IRQHandler
@@ -583,14 +581,14 @@ ARM Macro Assembler    Page 9
   347 0000001C         
   348 0000001C                 IF               :DEF:__MICROLIB
   355 0000001C         
+  356 0000001C                 IMPORT           __use_two_region_memory
+  357 0000001C                 EXPORT           __user_initial_stackheap
 
 
 
 ARM Macro Assembler    Page 10 
 
 
-  356 0000001C                 IMPORT           __use_two_region_memory
-  357 0000001C                 EXPORT           __user_initial_stackheap
   358 0000001C         
   359 0000001C         __user_initial_stackheap
                                PROC
@@ -609,15 +607,16 @@ ARM Macro Assembler    Page 10
               00000000 
               00000000 
               00000000 
-              00002000 
-              00002000 
+              00000400 
+              00000200 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\objects\startup_gd32f10x_hd.d -o.\objects\startup_gd32f10x_hd.o 
--ID:\Others\Keil_v5\Arm\Packs\GigaDevice\GD32F10x_DFP\2.1.0\Device\Include --pr
-edefine="__UVISION_VERSION SETA 535" --predefine="GD32F10X_HD SETA 1" --predefi
-ne="USE_STDPERIPH_DRIVER SETA 1" --list=.\listings\startup_gd32f10x_hd.lst ..\t
-est\core\startup_gd32f10x_hd.s
+ork --depend=.\objects\startup_gd32f10x_hd_1.d -o.\objects\startup_gd32f10x_hd_
+1.o -I.\RTE\_PWatch_APP -ID:\Others\Keil_v5\Arm\Packs\GigaDevice\GD32F10x_DFP\2
+.1.0\Device\Include --predefine="__UVISION_VERSION SETA 535" --predefine="_RTE_
+ SETA 1" --predefine="GD32F10X_HD SETA 1" --predefine="USE_STDPERIPH_DRIVER SET
+A 1" --predefine="_RTE_ SETA 1" --list=.\listings\startup_gd32f10x_hd.lst RTE\D
+evice\GD32F103RC\startup_gd32f10x_hd.s
 
 
 
@@ -628,7 +627,7 @@ STACK 00000000
 
 Symbol: STACK
    Definitions
-      At line 45 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 45 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
       None
 Comment: STACK unused
@@ -636,18 +635,18 @@ Stack_Mem 00000000
 
 Symbol: Stack_Mem
    Definitions
-      At line 46 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 46 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 361 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 363 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 361 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 363 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
-__initial_sp 00002000
+__initial_sp 00000400
 
 Symbol: __initial_sp
    Definitions
-      At line 47 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 47 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 71 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 71 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 Comment: __initial_sp used once
 3 symbols
 
@@ -660,7 +659,7 @@ HEAP 00000000
 
 Symbol: HEAP
    Definitions
-      At line 56 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 56 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
       None
 Comment: HEAP unused
@@ -668,24 +667,24 @@ Heap_Mem 00000000
 
 Symbol: Heap_Mem
    Definitions
-      At line 58 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 58 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 360 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 362 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 360 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 362 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 __heap_base 00000000
 
 Symbol: __heap_base
    Definitions
-      At line 57 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 57 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
       None
 Comment: __heap_base unused
-__heap_limit 00002000
+__heap_limit 00000200
 
 Symbol: __heap_limit
    Definitions
-      At line 59 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 59 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
       None
 Comment: __heap_limit unused
@@ -700,7 +699,7 @@ RESET 00000000
 
 Symbol: RESET
    Definitions
-      At line 66 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 66 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
       None
 Comment: RESET unused
@@ -708,19 +707,19 @@ __Vectors 00000000
 
 Symbol: __Vectors
    Definitions
-      At line 71 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 71 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 67 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 152 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 67 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 152 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 __Vectors_End 00000130
 
 Symbol: __Vectors_End
    Definitions
-      At line 150 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 150 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 68 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 152 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 68 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 152 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 3 symbols
 
@@ -733,7 +732,7 @@ Relocatable symbols
 
 Symbol: .text
    Definitions
-      At line 154 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 154 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
       None
 Comment: .text unused
@@ -741,52 +740,52 @@ ADC0_1_IRQHandler 0000001A
 
 Symbol: ADC0_1_IRQHandler
    Definitions
-      At line 296 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 296 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 107 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 233 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 107 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 233 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 ADC2_IRQHandler 0000001A
 
 Symbol: ADC2_IRQHandler
    Definitions
-      At line 325 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 325 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 136 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 262 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 136 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 262 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 BusFault_Handler 0000000E
 
 Symbol: BusFault_Handler
    Definitions
-      At line 183 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 183 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 76 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 184 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 76 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 184 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 CAN0_EWMC_IRQHandler 0000001A
 
 Symbol: CAN0_EWMC_IRQHandler
    Definitions
-      At line 300 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 300 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 111 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 237 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 111 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 237 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 CAN0_RX1_IRQHandler 0000001A
 
 Symbol: CAN0_RX1_IRQHandler
    Definitions
-      At line 299 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 299 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 110 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 236 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 110 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 236 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA0_Channel0_IRQHandler 0000001A
 
 Symbol: DMA0_Channel0_IRQHandler
    Definitions
-      At line 289 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 289 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
 
 
@@ -794,62 +793,62 @@ Symbol: DMA0_Channel0_IRQHandler
 ARM Macro Assembler    Page 2 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 100 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 226 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 100 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 226 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA0_Channel1_IRQHandler 0000001A
 
 Symbol: DMA0_Channel1_IRQHandler
    Definitions
-      At line 290 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 290 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 101 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 227 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 101 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 227 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA0_Channel2_IRQHandler 0000001A
 
 Symbol: DMA0_Channel2_IRQHandler
    Definitions
-      At line 291 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 291 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 102 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 228 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 102 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 228 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA0_Channel3_IRQHandler 0000001A
 
 Symbol: DMA0_Channel3_IRQHandler
    Definitions
-      At line 292 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 292 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 103 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 229 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 103 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 229 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA0_Channel4_IRQHandler 0000001A
 
 Symbol: DMA0_Channel4_IRQHandler
    Definitions
-      At line 293 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 293 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 104 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 230 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 104 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 230 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA0_Channel5_IRQHandler 0000001A
 
 Symbol: DMA0_Channel5_IRQHandler
    Definitions
-      At line 294 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 294 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 105 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 231 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 105 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 231 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA0_Channel6_IRQHandler 0000001A
 
 Symbol: DMA0_Channel6_IRQHandler
    Definitions
-      At line 295 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 295 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 106 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 232 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 106 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 232 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA1_Channel0_IRQHandler 0000001A
 
@@ -861,52 +860,52 @@ Relocatable symbols
 
 Symbol: DMA1_Channel0_IRQHandler
    Definitions
-      At line 334 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 334 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 145 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 271 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 145 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 271 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA1_Channel1_IRQHandler 0000001A
 
 Symbol: DMA1_Channel1_IRQHandler
    Definitions
-      At line 335 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 335 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 146 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 272 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 146 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 272 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA1_Channel2_IRQHandler 0000001A
 
 Symbol: DMA1_Channel2_IRQHandler
    Definitions
-      At line 336 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 336 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 147 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 273 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 147 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 273 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DMA1_Channel3_4_IRQHandler 0000001A
 
 Symbol: DMA1_Channel3_4_IRQHandler
    Definitions
-      At line 337 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 337 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 148 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 274 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 148 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 274 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 DebugMon_Handler 00000014
 
 Symbol: DebugMon_Handler
    Definitions
-      At line 198 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 198 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 83 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 199 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 83 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 199 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 Default_Handler 0000001A
 
 Symbol: Default_Handler
    Definitions
-      At line 213 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 213 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
       None
 Comment: Default_Handler unused
@@ -914,10 +913,10 @@ EXMC_IRQHandler 0000001A
 
 Symbol: EXMC_IRQHandler
    Definitions
-      At line 326 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 326 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 137 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 263 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 137 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 263 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 
 
@@ -929,55 +928,55 @@ EXTI0_IRQHandler 0000001A
 
 Symbol: EXTI0_IRQHandler
    Definitions
-      At line 284 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 284 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 95 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 221 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 95 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 221 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 EXTI10_15_IRQHandler 0000001A
 
 Symbol: EXTI10_15_IRQHandler
    Definitions
-      At line 318 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 318 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 129 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 255 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 129 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 255 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 EXTI1_IRQHandler 0000001A
 
 Symbol: EXTI1_IRQHandler
    Definitions
-      At line 285 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 285 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 96 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 222 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 96 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 222 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 EXTI2_IRQHandler 0000001A
 
 Symbol: EXTI2_IRQHandler
    Definitions
-      At line 286 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 286 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 97 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 223 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 97 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 223 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 EXTI3_IRQHandler 0000001A
 
 Symbol: EXTI3_IRQHandler
    Definitions
-      At line 287 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 287 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 98 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 224 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 98 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 224 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 EXTI4_IRQHandler 0000001A
 
 Symbol: EXTI4_IRQHandler
    Definitions
-      At line 288 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 288 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 99 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 225 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 99 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 225 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 EXTI5_9_IRQHandler 0000001A
 
@@ -989,64 +988,64 @@ Symbol: EXTI5_9_IRQHandler
 ARM Macro Assembler    Page 5 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 301 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 301 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 112 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 238 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 112 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 238 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 FMC_IRQHandler 0000001A
 
 Symbol: FMC_IRQHandler
    Definitions
-      At line 282 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 282 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 93 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 219 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 93 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 219 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 HardFault_Handler 0000000A
 
 Symbol: HardFault_Handler
    Definitions
-      At line 173 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 173 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 74 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 174 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 74 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 174 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 I2C0_ER_IRQHandler 0000001A
 
 Symbol: I2C0_ER_IRQHandler
    Definitions
-      At line 310 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 310 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 121 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 247 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 121 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 247 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 I2C0_EV_IRQHandler 0000001A
 
 Symbol: I2C0_EV_IRQHandler
    Definitions
-      At line 309 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 309 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 120 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 246 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 120 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 246 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 I2C1_ER_IRQHandler 0000001A
 
 Symbol: I2C1_ER_IRQHandler
    Definitions
-      At line 312 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 312 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 123 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 249 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 123 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 249 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 I2C1_EV_IRQHandler 0000001A
 
 Symbol: I2C1_EV_IRQHandler
    Definitions
-      At line 311 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 311 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 122 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 248 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 122 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 248 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 
 
@@ -1058,61 +1057,61 @@ LVD_IRQHandler 0000001A
 
 Symbol: LVD_IRQHandler
    Definitions
-      At line 279 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 279 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 90 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 216 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 90 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 216 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 MemManage_Handler 0000000C
 
 Symbol: MemManage_Handler
    Definitions
-      At line 178 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 178 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 75 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 179 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 75 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 179 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 NMI_Handler 00000008
 
 Symbol: NMI_Handler
    Definitions
-      At line 168 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 168 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 73 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 169 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 73 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 169 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 PendSV_Handler 00000016
 
 Symbol: PendSV_Handler
    Definitions
-      At line 203 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 203 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 85 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 204 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 85 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 204 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 RCU_IRQHandler 0000001A
 
 Symbol: RCU_IRQHandler
    Definitions
-      At line 283 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 283 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 94 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 220 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 94 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 220 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 RTC_Alarm_IRQHandler 0000001A
 
 Symbol: RTC_Alarm_IRQHandler
    Definitions
-      At line 319 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 319 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 130 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 256 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 130 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 256 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 RTC_IRQHandler 0000001A
 
 Symbol: RTC_IRQHandler
    Definitions
-      At line 281 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 281 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 
 
@@ -1120,62 +1119,62 @@ ARM Macro Assembler    Page 7 Alphabetic symbol ordering
 Relocatable symbols
 
    Uses
-      At line 92 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 218 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 92 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 218 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 Reset_Handler 00000000
 
 Symbol: Reset_Handler
    Definitions
-      At line 157 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 157 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 72 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 158 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 72 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 158 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 SDIO_IRQHandler 0000001A
 
 Symbol: SDIO_IRQHandler
    Definitions
-      At line 327 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 327 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 138 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 264 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 138 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 264 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 SPI0_IRQHandler 0000001A
 
 Symbol: SPI0_IRQHandler
    Definitions
-      At line 313 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 313 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 124 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 250 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 124 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 250 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 SPI1_IRQHandler 0000001A
 
 Symbol: SPI1_IRQHandler
    Definitions
-      At line 314 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 314 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 125 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 251 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 125 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 251 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 SPI2_IRQHandler 0000001A
 
 Symbol: SPI2_IRQHandler
    Definitions
-      At line 329 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 329 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 140 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 266 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 140 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 266 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 SVC_Handler 00000012
 
 Symbol: SVC_Handler
    Definitions
-      At line 193 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 193 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 82 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 194 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 82 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 194 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 SysTick_Handler 00000018
 
@@ -1187,61 +1186,61 @@ Relocatable symbols
 
 Symbol: SysTick_Handler
    Definitions
-      At line 208 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 208 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 86 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 209 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 86 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 209 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TAMPER_IRQHandler 0000001A
 
 Symbol: TAMPER_IRQHandler
    Definitions
-      At line 280 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 280 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 91 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 217 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 91 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 217 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER0_BRK_IRQHandler 0000001A
 
 Symbol: TIMER0_BRK_IRQHandler
    Definitions
-      At line 302 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 302 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 113 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 239 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 113 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 239 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER0_Channel_IRQHandler 0000001A
 
 Symbol: TIMER0_Channel_IRQHandler
    Definitions
-      At line 305 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 305 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 116 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 242 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 116 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 242 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER0_TRG_CMT_IRQHandler 0000001A
 
 Symbol: TIMER0_TRG_CMT_IRQHandler
    Definitions
-      At line 304 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 304 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 115 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 241 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 115 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 241 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER0_UP_IRQHandler 0000001A
 
 Symbol: TIMER0_UP_IRQHandler
    Definitions
-      At line 303 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 303 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 114 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 240 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 114 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 240 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER1_IRQHandler 0000001A
 
 Symbol: TIMER1_IRQHandler
    Definitions
-      At line 306 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 306 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
 
 
@@ -1249,62 +1248,62 @@ Symbol: TIMER1_IRQHandler
 ARM Macro Assembler    Page 9 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 117 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 243 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 117 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 243 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER2_IRQHandler 0000001A
 
 Symbol: TIMER2_IRQHandler
    Definitions
-      At line 307 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 307 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 118 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 244 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 118 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 244 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER3_IRQHandler 0000001A
 
 Symbol: TIMER3_IRQHandler
    Definitions
-      At line 308 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 308 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 119 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 245 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 119 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 245 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER4_IRQHandler 0000001A
 
 Symbol: TIMER4_IRQHandler
    Definitions
-      At line 328 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 328 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 139 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 265 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 139 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 265 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER5_IRQHandler 0000001A
 
 Symbol: TIMER5_IRQHandler
    Definitions
-      At line 332 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 332 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 143 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 269 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 143 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 269 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER6_IRQHandler 0000001A
 
 Symbol: TIMER6_IRQHandler
    Definitions
-      At line 333 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 333 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 144 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 270 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 144 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 270 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER7_BRK_IRQHandler 0000001A
 
 Symbol: TIMER7_BRK_IRQHandler
    Definitions
-      At line 321 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 321 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 132 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 258 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 132 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 258 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER7_Channel_IRQHandler 0000001A
 
@@ -1316,124 +1315,124 @@ Relocatable symbols
 
 Symbol: TIMER7_Channel_IRQHandler
    Definitions
-      At line 324 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 324 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 135 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 261 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 135 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 261 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER7_TRG_CMT_IRQHandler 0000001A
 
 Symbol: TIMER7_TRG_CMT_IRQHandler
    Definitions
-      At line 323 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 323 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 134 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 260 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 134 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 260 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 TIMER7_UP_IRQHandler 0000001A
 
 Symbol: TIMER7_UP_IRQHandler
    Definitions
-      At line 322 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 322 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 133 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 259 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 133 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 259 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 UART3_IRQHandler 0000001A
 
 Symbol: UART3_IRQHandler
    Definitions
-      At line 330 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 330 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 141 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 267 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 141 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 267 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 UART4_IRQHandler 0000001A
 
 Symbol: UART4_IRQHandler
    Definitions
-      At line 331 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 331 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 142 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 268 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 142 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 268 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 USART0_IRQHandler 0000001A
 
 Symbol: USART0_IRQHandler
    Definitions
-      At line 315 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 315 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 126 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 252 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 126 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 252 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 USART1_IRQHandler 0000001A
 
 Symbol: USART1_IRQHandler
    Definitions
-      At line 316 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 316 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 127 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 127 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 
 
 ARM Macro Assembler    Page 11 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 253 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 253 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 USART2_IRQHandler 0000001A
 
 Symbol: USART2_IRQHandler
    Definitions
-      At line 317 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 317 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 128 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 254 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 128 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 254 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 USBD_HP_CAN0_TX_IRQHandler 0000001A
 
 Symbol: USBD_HP_CAN0_TX_IRQHandler
    Definitions
-      At line 297 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 297 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 108 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 234 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 108 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 234 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 USBD_LP_CAN0_RX0_IRQHandler 0000001A
 
 Symbol: USBD_LP_CAN0_RX0_IRQHandler
    Definitions
-      At line 298 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 298 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 109 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 235 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 109 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 235 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 USBD_WKUP_IRQHandler 0000001A
 
 Symbol: USBD_WKUP_IRQHandler
    Definitions
-      At line 320 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 320 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 131 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 257 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 131 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 257 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 UsageFault_Handler 00000010
 
 Symbol: UsageFault_Handler
    Definitions
-      At line 188 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 188 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 77 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 189 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 77 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 189 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 WWDGT_IRQHandler 0000001A
 
 Symbol: WWDGT_IRQHandler
    Definitions
-      At line 278 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 278 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 89 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 215 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 89 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 215 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 __user_initial_stackheap 0000001C
 
@@ -1445,9 +1444,9 @@ ARM Macro Assembler    Page 12 Alphabetic symbol ordering
 Relocatable symbols
 
    Definitions
-      At line 359 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 359 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 357 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 357 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 Comment: __user_initial_stackheap used once
 73 symbols
 
@@ -1456,31 +1455,31 @@ Comment: __user_initial_stackheap used once
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 Absolute symbols
 
-Heap_Size 00002000
+Heap_Size 00000200
 
 Symbol: Heap_Size
    Definitions
-      At line 54 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 54 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 58 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 362 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 58 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 362 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
-Stack_Size 00002000
+Stack_Size 00000400
 
 Symbol: Stack_Size
    Definitions
-      At line 43 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 43 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 46 in file ..\test\core\startup_gd32f10x_hd.s
-      At line 361 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 46 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
+      At line 361 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 
 __Vectors_Size 00000130
 
 Symbol: __Vectors_Size
    Definitions
-      At line 152 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 152 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 69 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 69 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 Comment: __Vectors_Size used once
 3 symbols
 
@@ -1493,25 +1492,25 @@ SystemInit 00000000
 
 Symbol: SystemInit
    Definitions
-      At line 160 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 160 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 161 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 161 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 Comment: SystemInit used once
 __main 00000000
 
 Symbol: __main
    Definitions
-      At line 159 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 159 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
-      At line 163 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 163 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
 Comment: __main used once
 __use_two_region_memory 00000000
 
 Symbol: __use_two_region_memory
    Definitions
-      At line 356 in file ..\test\core\startup_gd32f10x_hd.s
+      At line 356 in file RTE\Device\GD32F103RC\startup_gd32f10x_hd.s
    Uses
       None
 Comment: __use_two_region_memory unused
 3 symbols
-426 symbols in table
+427 symbols in table

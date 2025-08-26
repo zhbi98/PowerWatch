@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>mdk</TargetName>
+      <TargetName>PWatch_APP</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\test\core;..\test\system;..\test\libraries\inc;..\test\gd32f10x_usbd;..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Include;..\test\src\main;..\test\src\ina226;..\test\src\gd25q64e;..\test\src\st7789v3;..\test\src\lvgl8.2.0;..\test\src\lvgl8.2.0\lvgl;..\test\src\lvgl8.2.0\lvgl\src;..\test\src\lvgl8.2.0\lvgl\porting;..\test\src\UIKit;..\test\src\UIKit\LocalRPC;..\test\src\UIPages;..\test\src\UIPages\Resource\;..\test\src\UIPages\Resource\Symbol;..\test\src\UIPages\HAL;..\test\src\UIPages\Dialplate;..\test\src\UIPages\Info;..\test\src\UIPages\Recent;..\test\src\UIPages;..\test\src\qflow;..\test\src\blight;..\test\src\Utils</IncludePath>
+              <IncludePath>..\lvgl8.2.0;..\lvgl8.2.0\lvgl;..\lvgl8.2.0\lvgl\src;..\lvgl8.2.0\lvgl\porting;..\UIKit;..\UIKit\LocalRPC;..\UIPages;..\UIPages\Resource\;..\UIPages\Resource\Symbol;..\UIPages\HAL;..\UIPages\Dialplate;..\UIPages\Info;..\UIPages\Recent;..\UIPages;..\device\gd25q64e;..\device\ina226;..\device\st7789v3;..\device\blight;..\drivers\CMSIS;..\drivers\CMSIS\GD\GD32F10x\Include;..\drivers\GD32F10x_standard_peripheral\Include;..\drivers\GD32F10x_usbd_driver;..\drivers\GD32F10x_usbd_driver\Include;..\main;..\hal\inc;..\Utils;..\blight;..\qflow</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -384,284 +384,244 @@
           <GroupName>main</GroupName>
           <Files>
             <File>
-              <FileName>key.c</FileName>
+              <FileName>usbd_cdc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\main\key.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\main\led.c</FilePath>
+              <FilePath>..\main\usbd_cdc.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\main\main.c</FilePath>
+              <FilePath>..\main\main.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>device</GroupName>
+          <Files>
             <File>
-              <FileName>temp.c</FileName>
+              <FileName>blight.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\main\temp.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\main\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_cdc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\main\usbd_cdc.c</FilePath>
+              <FilePath>..\device\blight\blight.c</FilePath>
             </File>
             <File>
               <FileName>gd25q64.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\gd25q64e\gd25q64.c</FilePath>
+              <FilePath>..\device\gd25q64e\gd25q64.c</FilePath>
             </File>
             <File>
               <FileName>gd25q64_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\gd25q64e\gd25q64_spi.c</FilePath>
+              <FilePath>..\device\gd25q64e\gd25q64_spi.c</FilePath>
             </File>
             <File>
               <FileName>ina226.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\ina226\ina226.c</FilePath>
+              <FilePath>..\device\ina226\ina226.c</FilePath>
             </File>
             <File>
               <FileName>ina226_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\ina226\ina226_i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>st7789.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\st7789v3\st7789.c</FilePath>
-            </File>
-            <File>
-              <FileName>qflow.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\qflow\qflow.c</FilePath>
-            </File>
-            <File>
-              <FileName>blight.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\blight\blight.c</FilePath>
+              <FilePath>..\device\ina226\ina226_i2c.c</FilePath>
             </File>
             <File>
               <FileName>kalman.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\ina226\kalman.c</FilePath>
+              <FilePath>..\device\ina226\kalman.c</FilePath>
+            </File>
+            <File>
+              <FileName>st7789.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\device\st7789v3\st7789.c</FilePath>
+            </File>
+            <File>
+              <FileName>qflow.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\qflow\qflow.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>core</GroupName>
+          <GroupName>Drivers</GroupName>
           <Files>
             <File>
               <FileName>startup_gd32f10x_hd.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\test\core\startup_gd32f10x_hd.s</FilePath>
+              <FilePath>..\drivers\CMSIS\GD\GD32F10x\Source\ARM\startup_gd32f10x_hd.s</FilePath>
             </File>
-            <File>
-              <FileName>core_cm3.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\test\core\core_cm3.h</FilePath>
-            </File>
-            <File>
-              <FileName>core_cmFunc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\test\core\core_cmFunc.h</FilePath>
-            </File>
-            <File>
-              <FileName>core_cmInstr.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\test\core\core_cmInstr.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>system</GroupName>
-          <Files>
             <File>
               <FileName>system_gd32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\system\system_gd32f10x.c</FilePath>
+              <FilePath>..\drivers\CMSIS\GD\GD32F10x\Source\system_gd32f10x.c</FilePath>
             </File>
-            <File>
-              <FileName>gd32f10x.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\test\system\gd32f10x.h</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f10x_libopt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\test\system\gd32f10x_libopt.h</FilePath>
-            </File>
-            <File>
-              <FileName>system_gd32f10x.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\test\system\system_gd32f10x.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>libraries</GroupName>
-          <Files>
             <File>
               <FileName>gd32f10x_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_adc.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_adc.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_bkp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_bkp.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_bkp.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_can.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_can.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_can.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_crc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_crc.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_crc.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_dac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_dac.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_dac.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_dbg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_dbg.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_dbg.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_dma.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_dma.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_enet.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_enet.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_enet.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_exmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_exmc.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_exmc.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_exti.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_exti.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_exti.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_fmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_fmc.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_fmc.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_fwdgt.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_fwdgt.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_fwdgt.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_gpio.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_i2c.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_i2c.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_misc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_misc.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_misc.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_pmu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_pmu.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_pmu.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_rcu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_rcu.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_rcu.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_rtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_rtc.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_rtc.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_sdio.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_sdio.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_spi.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_spi.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_timer.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_timer.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_usart.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_usart.c</FilePath>
             </File>
             <File>
               <FileName>gd32f10x_wwdgt.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\libraries\src\gd32f10x_wwdgt.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_standard_peripheral\Source\gd32f10x_wwdgt.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>usb_driver</GroupName>
-          <Files>
+            <File>
+              <FileName>cdc_acm_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\GD32F10x_usbd_driver\cdc_acm_core.c</FilePath>
+            </File>
             <File>
               <FileName>usbd_core.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Source\usbd_core.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_usbd_driver\Source\usbd_core.c</FilePath>
             </File>
             <File>
               <FileName>usbd_int.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Source\usbd_int.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_usbd_driver\Source\usbd_int.c</FilePath>
             </File>
             <File>
               <FileName>usbd_pwr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Source\usbd_pwr.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_usbd_driver\Source\usbd_pwr.c</FilePath>
             </File>
             <File>
               <FileName>usbd_std.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\gd32f10x_usbd\GD32F10x_usbd_driver\Source\usbd_std.c</FilePath>
+              <FilePath>..\drivers\GD32F10x_usbd_driver\Source\usbd_std.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>usb_custom</GroupName>
+          <GroupName>hal</GroupName>
           <Files>
-            <File>
-              <FileName>cdc_acm_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\gd32f10x_usbd\cdc_acm_core.c</FilePath>
-            </File>
             <File>
               <FileName>gd32f10x_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\gd32f10x_usbd\gd32f10x_it.c</FilePath>
+              <FilePath>..\hal\src\gd32f10x_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hal\src\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>temp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hal\src\temp.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hal\src\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hal\src\led.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -669,14 +629,14 @@
           <GroupName>lvgl_porting</GroupName>
           <Files>
             <File>
-              <FileName>lv_port_disp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\porting\lv_port_disp.c</FilePath>
-            </File>
-            <File>
               <FileName>lv_port_indev.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\porting\lv_port_indev.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\porting\lv_port_indev.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_port_disp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lvgl8.2.0\lvgl\porting\lv_port_disp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -686,667 +646,652 @@
             <File>
               <FileName>lv_disp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_disp.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_disp.c</FilePath>
             </File>
             <File>
               <FileName>lv_event.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_event.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_event.c</FilePath>
             </File>
             <File>
               <FileName>lv_group.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_group.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_group.c</FilePath>
             </File>
             <File>
               <FileName>lv_indev.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_indev.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_indev.c</FilePath>
             </File>
             <File>
               <FileName>lv_indev_scroll.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_indev_scroll.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_indev_scroll.c</FilePath>
             </File>
             <File>
               <FileName>lv_obj.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_obj.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_obj.c</FilePath>
             </File>
             <File>
               <FileName>lv_obj_class.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_obj_class.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_obj_class.c</FilePath>
             </File>
             <File>
               <FileName>lv_obj_draw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_obj_draw.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_obj_draw.c</FilePath>
             </File>
             <File>
               <FileName>lv_obj_pos.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_obj_pos.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_obj_pos.c</FilePath>
             </File>
             <File>
               <FileName>lv_obj_scroll.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_obj_scroll.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_obj_scroll.c</FilePath>
             </File>
             <File>
               <FileName>lv_obj_style.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_obj_style.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_obj_style.c</FilePath>
             </File>
             <File>
               <FileName>lv_obj_style_gen.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_obj_style_gen.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_obj_style_gen.c</FilePath>
             </File>
             <File>
               <FileName>lv_obj_tree.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_obj_tree.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_obj_tree.c</FilePath>
             </File>
             <File>
               <FileName>lv_refr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_refr.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_refr.c</FilePath>
             </File>
             <File>
               <FileName>lv_theme.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\core\lv_theme.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\core\lv_theme.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_arc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_arc.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_arc.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_blend.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_blend.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_blend.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_dither.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_dither.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_dither.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_gradient.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_gradient.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_gradient.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_img.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_img.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_img.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_letter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_letter.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_letter.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_line.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_line.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_line.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_polygon.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_polygon.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_polygon.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_sw_rect.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_rect.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\sw\lv_draw_sw_rect.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_draw.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_draw.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_arc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_draw_arc.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_draw_arc.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_img.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_draw_img.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_draw_img.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_label.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_draw_label.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_draw_label.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_line.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_draw_line.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_draw_line.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_mask.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_draw_mask.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_draw_mask.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_rect.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_draw_rect.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_draw_rect.c</FilePath>
             </File>
             <File>
               <FileName>lv_draw_triangle.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_draw_triangle.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_draw_triangle.c</FilePath>
             </File>
             <File>
               <FileName>lv_img_buf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_img_buf.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_img_buf.c</FilePath>
             </File>
             <File>
               <FileName>lv_img_cache.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_img_cache.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_img_cache.c</FilePath>
             </File>
             <File>
               <FileName>lv_img_decoder.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\draw\lv_img_decoder.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\draw\lv_img_decoder.c</FilePath>
             </File>
             <File>
               <FileName>lv_flex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\layouts\flex\lv_flex.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\layouts\flex\lv_flex.c</FilePath>
             </File>
             <File>
               <FileName>lv_grid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\layouts\grid\lv_grid.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_gridnav.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\others\gridnav\lv_gridnav.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_monkey.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\others\monkey\lv_monkey.c</FilePath>
-            </File>
-            <File>
-              <FileName>lv_snapshot.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\others\snapshot\lv_snapshot.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\layouts\grid\lv_grid.c</FilePath>
             </File>
             <File>
               <FileName>lv_theme_default.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\themes\default\lv_theme_default.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\themes\default\lv_theme_default.c</FilePath>
             </File>
             <File>
               <FileName>lv_animimg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\animimg\lv_animimg.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\animimg\lv_animimg.c</FilePath>
             </File>
             <File>
               <FileName>lv_calendar.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\calendar\lv_calendar.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\calendar\lv_calendar.c</FilePath>
             </File>
             <File>
               <FileName>lv_calendar_header_arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\calendar\lv_calendar_header_arrow.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\calendar\lv_calendar_header_arrow.c</FilePath>
             </File>
             <File>
               <FileName>lv_calendar_header_dropdown.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\calendar\lv_calendar_header_dropdown.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\calendar\lv_calendar_header_dropdown.c</FilePath>
             </File>
             <File>
               <FileName>lv_chart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\chart\lv_chart.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\chart\lv_chart.c</FilePath>
             </File>
             <File>
               <FileName>lv_colorwheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\colorwheel\lv_colorwheel.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\colorwheel\lv_colorwheel.c</FilePath>
             </File>
             <File>
               <FileName>lv_imgbtn.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\imgbtn\lv_imgbtn.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\imgbtn\lv_imgbtn.c</FilePath>
             </File>
             <File>
               <FileName>lv_keyboard.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\keyboard\lv_keyboard.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\keyboard\lv_keyboard.c</FilePath>
             </File>
             <File>
               <FileName>lv_led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\led\lv_led.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\led\lv_led.c</FilePath>
             </File>
             <File>
               <FileName>lv_list.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\list\lv_list.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\list\lv_list.c</FilePath>
             </File>
             <File>
               <FileName>lv_menu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\menu\lv_menu.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\menu\lv_menu.c</FilePath>
             </File>
             <File>
               <FileName>lv_meter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\meter\lv_meter.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\meter\lv_meter.c</FilePath>
             </File>
             <File>
               <FileName>lv_msgbox.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\msgbox\lv_msgbox.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\msgbox\lv_msgbox.c</FilePath>
             </File>
             <File>
               <FileName>lv_span.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\span\lv_span.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\span\lv_span.c</FilePath>
             </File>
             <File>
               <FileName>lv_spinbox.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\spinbox\lv_spinbox.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\spinbox\lv_spinbox.c</FilePath>
             </File>
             <File>
               <FileName>lv_spinner.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\spinner\lv_spinner.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\spinner\lv_spinner.c</FilePath>
             </File>
             <File>
               <FileName>lv_tabview.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\tabview\lv_tabview.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\tabview\lv_tabview.c</FilePath>
             </File>
             <File>
               <FileName>lv_tileview.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\tileview\lv_tileview.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\tileview\lv_tileview.c</FilePath>
             </File>
             <File>
               <FileName>lv_win.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\widgets\win\lv_win.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\widgets\win\lv_win.c</FilePath>
             </File>
             <File>
               <FileName>lv_extra.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\extra\lv_extra.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\extra\lv_extra.c</FilePath>
             </File>
             <File>
               <FileName>lv_font.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_dejavu_16_persian_hebrew.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_dejavu_16_persian_hebrew.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_dejavu_16_persian_hebrew.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_fmt_txt.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_fmt_txt.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_fmt_txt.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_loader.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_loader.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_loader.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_8.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_8.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_8.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_10.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_10.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_10.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_12.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_12.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_12.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_12_subpx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_12_subpx.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_12_subpx.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_14.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_14.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_14.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_16.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_16.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_16.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_18.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_18.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_18.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_20.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_20.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_20.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_22.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_22.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_22.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_24.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_24.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_24.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_26.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_26.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_26.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_28.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_28.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_28.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_28_compressed.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_28_compressed.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_28_compressed.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_30.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_30.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_30.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_32.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_32.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_34.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_34.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_34.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_36.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_36.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_36.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_38.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_38.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_38.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_40.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_40.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_40.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_42.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_42.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_42.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_44.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_44.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_44.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_46.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_46.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_46.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_montserrat_48.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_48.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_montserrat_48.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_simsun_16_cjk.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_simsun_16_cjk.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_simsun_16_cjk.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_unscii_8.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_unscii_8.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_unscii_8.c</FilePath>
             </File>
             <File>
               <FileName>lv_font_unscii_16.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\font\lv_font_unscii_16.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\font\lv_font_unscii_16.c</FilePath>
             </File>
             <File>
               <FileName>lv_hal_disp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\hal\lv_hal_disp.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\hal\lv_hal_disp.c</FilePath>
             </File>
             <File>
               <FileName>lv_hal_indev.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\hal\lv_hal_indev.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\hal\lv_hal_indev.c</FilePath>
             </File>
             <File>
               <FileName>lv_hal_tick.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\hal\lv_hal_tick.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\hal\lv_hal_tick.c</FilePath>
             </File>
             <File>
               <FileName>lv_anim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_anim.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_anim.c</FilePath>
             </File>
             <File>
               <FileName>lv_anim_timeline.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_anim_timeline.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_anim_timeline.c</FilePath>
             </File>
             <File>
               <FileName>lv_area.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_area.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_area.c</FilePath>
             </File>
             <File>
               <FileName>lv_async.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_async.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_async.c</FilePath>
             </File>
             <File>
               <FileName>lv_bidi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_bidi.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_bidi.c</FilePath>
             </File>
             <File>
               <FileName>lv_color.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_color.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_color.c</FilePath>
             </File>
             <File>
               <FileName>lv_fs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_fs.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_fs.c</FilePath>
             </File>
             <File>
               <FileName>lv_gc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_gc.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_gc.c</FilePath>
             </File>
             <File>
               <FileName>lv_ll.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_ll.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_ll.c</FilePath>
             </File>
             <File>
               <FileName>lv_log.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_log.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_log.c</FilePath>
             </File>
             <File>
               <FileName>lv_lru.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_lru.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_lru.c</FilePath>
             </File>
             <File>
               <FileName>lv_math.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_math.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_math.c</FilePath>
             </File>
             <File>
               <FileName>lv_mem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_mem.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_mem.c</FilePath>
             </File>
             <File>
               <FileName>lv_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_printf.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_printf.c</FilePath>
             </File>
             <File>
               <FileName>lv_style.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_style.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_style.c</FilePath>
             </File>
             <File>
               <FileName>lv_style_gen.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_style_gen.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_style_gen.c</FilePath>
             </File>
             <File>
               <FileName>lv_templ.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_templ.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_templ.c</FilePath>
             </File>
             <File>
               <FileName>lv_timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_timer.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_timer.c</FilePath>
             </File>
             <File>
               <FileName>lv_tlsf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_tlsf.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_tlsf.c</FilePath>
             </File>
             <File>
               <FileName>lv_txt.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_txt.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_txt.c</FilePath>
             </File>
             <File>
               <FileName>lv_txt_ap.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_txt_ap.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_txt_ap.c</FilePath>
             </File>
             <File>
               <FileName>lv_utils.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\misc\lv_utils.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\misc\lv_utils.c</FilePath>
             </File>
             <File>
               <FileName>lv_arc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_arc.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_arc.c</FilePath>
             </File>
             <File>
               <FileName>lv_bar.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_bar.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_bar.c</FilePath>
             </File>
             <File>
               <FileName>lv_btn.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_btn.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_btn.c</FilePath>
             </File>
             <File>
               <FileName>lv_btnmatrix.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_btnmatrix.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_btnmatrix.c</FilePath>
             </File>
             <File>
               <FileName>lv_canvas.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_canvas.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_canvas.c</FilePath>
             </File>
             <File>
               <FileName>lv_checkbox.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_checkbox.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_checkbox.c</FilePath>
             </File>
             <File>
               <FileName>lv_dropdown.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_dropdown.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_dropdown.c</FilePath>
             </File>
             <File>
               <FileName>lv_img.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_img.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_img.c</FilePath>
             </File>
             <File>
               <FileName>lv_label.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_label.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_label.c</FilePath>
             </File>
             <File>
               <FileName>lv_line.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_line.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_line.c</FilePath>
             </File>
             <File>
               <FileName>lv_objx_templ.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_objx_templ.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_objx_templ.c</FilePath>
             </File>
             <File>
               <FileName>lv_roller.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_roller.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_roller.c</FilePath>
             </File>
             <File>
               <FileName>lv_slider.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_slider.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_slider.c</FilePath>
             </File>
             <File>
               <FileName>lv_switch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_switch.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_switch.c</FilePath>
             </File>
             <File>
               <FileName>lv_table.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_table.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_table.c</FilePath>
             </File>
             <File>
               <FileName>lv_textarea.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\lvgl8.2.0\lvgl\src\widgets\lv_textarea.c</FilePath>
+              <FilePath>..\lvgl8.2.0\lvgl\src\widgets\lv_textarea.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1354,44 +1299,44 @@
           <GroupName>UIKit</GroupName>
           <Files>
             <File>
+              <FileName>nt_action.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\UIKit\nt_action.c</FilePath>
+            </File>
+            <File>
               <FileName>nt_anim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_anim.c</FilePath>
+              <FilePath>..\UIKit\nt_anim.c</FilePath>
             </File>
             <File>
               <FileName>nt_pm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_pm.c</FilePath>
-            </File>
-            <File>
-              <FileName>nt_rm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_rm.c</FilePath>
+              <FilePath>..\UIKit\nt_pm.c</FilePath>
             </File>
             <File>
               <FileName>nt_qq.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_qq.c</FilePath>
+              <FilePath>..\UIKit\nt_qq.c</FilePath>
             </File>
             <File>
-              <FileName>nt_action.c</FileName>
+              <FileName>nt_rm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\nt_action.c</FilePath>
+              <FilePath>..\UIKit\nt_rm.c</FilePath>
             </File>
             <File>
               <FileName>nt_account.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\LocalRPC\nt_account.c</FilePath>
+              <FilePath>..\UIKit\LocalRPC\nt_account.c</FilePath>
             </File>
             <File>
               <FileName>nt_master.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\LocalRPC\nt_master.c</FilePath>
+              <FilePath>..\UIKit\LocalRPC\nt_master.c</FilePath>
             </File>
             <File>
               <FileName>nt_ppbuf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIKit\LocalRPC\nt_ppbuf.c</FilePath>
+              <FilePath>..\UIKit\LocalRPC\nt_ppbuf.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1401,32 +1346,32 @@
             <File>
               <FileName>dialplate.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Dialplate\dialplate.c</FilePath>
+              <FilePath>..\UIPages\Dialplate\dialplate.c</FilePath>
             </File>
             <File>
               <FileName>dialplateview.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Dialplate\dialplateview.c</FilePath>
+              <FilePath>..\UIPages\Dialplate\dialplateview.c</FilePath>
             </File>
             <File>
               <FileName>infos.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Info\infos.c</FilePath>
+              <FilePath>..\UIPages\Info\infos.c</FilePath>
             </File>
             <File>
               <FileName>infosview.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Info\infosview.c</FilePath>
+              <FilePath>..\UIPages\Info\infosview.c</FilePath>
             </File>
             <File>
               <FileName>recent.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Recent\recent.c</FilePath>
+              <FilePath>..\UIPages\Recent\recent.c</FilePath>
             </File>
             <File>
               <FileName>recentview.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Recent\recentview.c</FilePath>
+              <FilePath>..\UIPages\Recent\recentview.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1436,52 +1381,52 @@
             <File>
               <FileName>font_bahnschrift_17.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Resource\Font\font_bahnschrift_17.c</FilePath>
+              <FilePath>..\UIPages\Resource\Font\font_bahnschrift_17.c</FilePath>
             </File>
             <File>
               <FileName>font_bahnschrift_32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Resource\Font\font_bahnschrift_32.c</FilePath>
+              <FilePath>..\UIPages\Resource\Font\font_bahnschrift_32.c</FilePath>
             </File>
             <File>
               <FileName>font_bahnschrift_56.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Resource\Font\font_bahnschrift_56.c</FilePath>
+              <FilePath>..\UIPages\Resource\Font\font_bahnschrift_56.c</FilePath>
             </File>
             <File>
               <FileName>resource.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\UIPages\Resource\resource.c</FilePath>
+              <FilePath>..\UIPages\Resource\resource.c</FilePath>
             </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>HAL</GroupName>
         </Group>
         <Group>
           <GroupName>Utils</GroupName>
           <Files>
             <File>
-              <FileName>strifica.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\Utils\strifica.c</FilePath>
-            </File>
-            <File>
-              <FileName>time.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\test\src\Utils\time.c</FilePath>
-            </File>
-            <File>
               <FileName>nt_minitask.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\Utils\nt_minitask.c</FilePath>
+              <FilePath>..\Utils\nt_minitask.c</FilePath>
             </File>
             <File>
               <FileName>nt_shot.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\test\src\Utils\nt_shot.c</FilePath>
+              <FilePath>..\Utils\nt_shot.c</FilePath>
+            </File>
+            <File>
+              <FileName>strifica.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Utils\strifica.c</FilePath>
+            </File>
+            <File>
+              <FileName>time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Utils\time.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>::Device</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -1489,8 +1434,28 @@
 
   <RTE>
     <apis/>
-    <components/>
-    <files/>
+    <components>
+      <component Cclass="Device" Cgroup="GD32F10x_libopt" Cvendor="GigaDevice" Cversion="2.2.4" condition="GD32F10x CMSIS">
+        <package name="GD32F10x_DFP" schemaVersion="1.2" url="https://gd32mcu.com/data/documents/pack/" vendor="GigaDevice" version="2.1.0"/>
+        <targetInfos>
+          <targetInfo name="PWatch_APP"/>
+        </targetInfos>
+      </component>
+    </components>
+    <files>
+      <file attr="config" category="source" condition="Compiler ARMCC" name="Device\Source\ARM\startup_gd32f10x_hd.s" version="2.2.4">
+        <instance index="0" removed="1">RTE\Device\GD32F103RC\startup_gd32f10x_hd.s</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="GigaDevice" Cversion="2.2.4" condition="GD32F10xHD"/>
+        <package name="GD32F10x_DFP" schemaVersion="1.2" url="https://gd32mcu.com/data/documents/pack/" vendor="GigaDevice" version="2.1.0"/>
+        <targetInfos/>
+      </file>
+      <file attr="config" category="source" name="Device\Source\system_gd32f10x.c" version="2.2.4">
+        <instance index="0" removed="1">RTE\Device\GD32F103RC\system_gd32f10x.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="GigaDevice" Cversion="2.2.4" condition="GD32F10xHD"/>
+        <package name="GD32F10x_DFP" schemaVersion="1.2" url="https://gd32mcu.com/data/documents/pack/" vendor="GigaDevice" version="2.1.0"/>
+        <targetInfos/>
+      </file>
+    </files>
   </RTE>
 
   <LayerInfo>
